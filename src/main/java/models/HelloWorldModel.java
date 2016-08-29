@@ -7,5 +7,5 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class HelloWorldModel {
 
     @XmlElement
-    private String name;
+    private String response;
 }

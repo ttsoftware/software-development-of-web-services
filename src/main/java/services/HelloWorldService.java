@@ -2,17 +2,13 @@ package services;
 
 import models.HelloWorldModel;
 
-import javax.jws.WebMethod;
 import javax.jws.WebService;
-import javax.jws.soap.SOAPBinding;
-import javax.xml.bind.JAXBException;
 
-@WebService(name = "HelloWorldService", endpointInterface = "services.HelloWorldService")
-@SOAPBinding(style = SOAPBinding.Style.DOCUMENT, use = SOAPBinding.Use.LITERAL)
-public class HelloWorldService {
+@WebService(name = "HelloWorldService", endpointInterface = "services.HelloWorld")
+public class HelloWorldService implements HelloWorld {
 
-    @WebMethod
-    public HelloWorldModel getHelloWorld() throws JAXBException {
-        return new HelloWorldModel();
+    public HelloWorldModel getHelloWorld(String name) {
+        HelloWorldModel model = new HelloWorldModel();
+        return model;
     }
 }
