@@ -4,11 +4,10 @@ import models.HelloWorldModel;
 
 import javax.jws.WebService;
 
-@WebService(name = "HelloWorldService", endpointInterface = "services.HelloWorld")
+@WebService
 public class HelloWorldService implements HelloWorld {
 
     public HelloWorldModel getHelloWorld(String name) {
-        HelloWorldModel model = new HelloWorldModel();
-        return model;
+        return new HelloWorldModel(name, "akdngaijngaldnzg");
     }
 }

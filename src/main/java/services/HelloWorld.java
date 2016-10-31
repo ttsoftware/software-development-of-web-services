@@ -7,10 +7,10 @@ import javax.jws.WebParam;
 import javax.jws.WebService;
 import javax.jws.soap.SOAPBinding;
 
-@WebService
-@SOAPBinding(style = SOAPBinding.Style.DOCUMENT, use = SOAPBinding.Use.LITERAL)
+@WebService(name = "HelloWorldService", endpointInterface = "services.HelloWorld")
+@SOAPBinding(style = SOAPBinding.Style.RPC, use = SOAPBinding.Use.LITERAL)
 public interface HelloWorld {
 
-    @WebMethod()
+    @WebMethod(operationName = "getHelloWorld")
     HelloWorldModel getHelloWorld(@WebParam(name = "name") String name);
 }
