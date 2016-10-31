@@ -14,7 +14,6 @@ public class HelloWorldService implements HelloWorld {
     public HelloWorldModel getHelloWorld(String name) {
         HelloWorldModel model = new HelloWorldModel();
         model.setResponse(name);
-        model.setTest("ajdnfæasdnfasf");
         return model;
     }
 }
