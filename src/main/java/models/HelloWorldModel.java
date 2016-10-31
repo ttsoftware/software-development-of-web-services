@@ -10,8 +10,8 @@ import java.io.Serializable;
         "response",
         "test"
 })
-@XmlRootElement(name = "HelloWorldModel")
 @XmlAccessorType(XmlAccessType.FIELD)
+@XmlRootElement(name = "HelloWorldModel")
 public class HelloWorldModel implements Serializable {
 
     @Getter

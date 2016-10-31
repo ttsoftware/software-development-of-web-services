@@ -13,9 +13,9 @@ public class HelloWorldServiceTest {
     public void getHelloWorldTest() throws MalformedURLException {
 
         // URL url = new URL("http://localhost:9999/ws/hello?wsdl");
-        URL url = new URL("http://mars:8080/web_services_war_exploded/HelloWorldServiceService?wsdl");
+        URL url = new URL("http://mars:8080/web_services_war_exploded/HelloWorldService?wsdl");
 
-        QName qname = new QName("http://services/", "HelloWorldServiceService");
+        QName qname = new QName("http://services/", "HelloWorldService");
 
         Service service = Service.create(url, qname);
 
