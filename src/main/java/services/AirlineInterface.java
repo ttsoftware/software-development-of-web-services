@@ -13,7 +13,7 @@ import java.util.Date;
  * Created by troels on 10/31/16.
  */
 @WebService
-@SOAPBinding(style = SOAPBinding.Style.DOCUMENT, use = SOAPBinding.Use.LITERAL)
+@SOAPBinding(style = SOAPBinding.Style.RPC, use = SOAPBinding.Use.LITERAL)
 public interface AirlineInterface {
 
     @WebMethod()
