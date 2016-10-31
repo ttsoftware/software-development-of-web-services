@@ -1,37 +1,24 @@
 package models;
 
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
+import lombok.Getter;
+import lombok.Setter;
 
+import javax.xml.bind.annotation.*;
+import java.io.Serializable;
+
+@XmlType(name = "HelloWorldModel", propOrder = {
+        "response",
+        "test"
+})
 @XmlRootElement(name = "HelloWorldModel")
-public class HelloWorldModel {
+@XmlAccessorType(XmlAccessType.FIELD)
+public class HelloWorldModel implements Serializable {
 
+    @Getter
+    @Setter
     private String response;
+
+    @Getter
+    @Setter
     private String test;
-
-    public HelloWorldModel() {
-    }
-
-    public HelloWorldModel(String response, String test) {
-        this.response = response;
-        this.test = test;
-    }
-
-    @XmlElement
-    public String getResponse() {
-        return response;
-    }
-
-    public void setResponse(String response) {
-        this.response = response;
-    }
-
-    @XmlElement
-    public String getTest() {
-        return test;
-    }
-
-    public void setTest(String test) {
-        this.test = test;
-    }
 }
