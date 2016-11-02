@@ -1,6 +1,7 @@
 package services;
 
-import models.CardInformation;
+import bank.CreditCardFaultMessage;
+import bank.CreditCardInfoType;
 import models.FlightInformation;
 
 import javax.jws.WebMethod;
@@ -23,11 +24,11 @@ public interface AirlineInterface {
 
     @WebMethod()
     boolean bookFlight(@WebParam(name = "bookingNumber") String bookingNumber,
-                       @WebParam(name = "cardInformation")CardInformation cardInformation);
+                       @WebParam(name = "cardInformation") CreditCardInfoType cardInformation) throws CreditCardFaultMessage, AirlineService.BookingNumberException;
 
     @WebMethod()
     boolean cancelFlight(@WebParam(name = "bookingNumber") String bookingNumber,
                          @WebParam(name = "price") float price,
-                         @WebParam(name = "cardInformation")CardInformation cardInformation);
+                         @WebParam(name = "cardInformation")CreditCardInfoType cardInformation) throws AirlineService.BookingNumberException, CreditCardFaultMessage;
 
 }

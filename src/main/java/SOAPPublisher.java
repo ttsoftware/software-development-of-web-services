@@ -1,5 +1,3 @@
-import services.HelloWorldService;
-
 import javax.xml.ws.Endpoint;
 
 public class SOAPPublisher {
