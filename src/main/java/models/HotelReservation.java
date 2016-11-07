@@ -1,19 +1,37 @@
 package models;
 
 import bank.CreditCardInfoType;
+import com.j256.ormlite.field.DatabaseField;
+import com.j256.ormlite.table.DatabaseTable;
+import models.dao.HotelReservationDaoImpl;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
+import java.io.Serializable;
 
 @XmlType(name = "HotelReservation")
 @XmlRootElement(name = "HotelReservation")
 @XmlAccessorType(XmlAccessType.FIELD)
-public class HotelReservation {
+@DatabaseTable(tableName = "HotelReservations", daoClass = HotelReservationDaoImpl.class)
+public class HotelReservation implements Serializable {
 
+    @DatabaseField(generatedId = true)
+    private int id;
+
+    @DatabaseField(canBeNull = false)
     private String bookingNumber;
+
+    @DatabaseField(canBeNull = false)
     private CreditCardInfoType cardInformation;
+
+    @DatabaseField(
+            canBeNull = false,
+            foreign = true,
+            foreignAutoCreate = true,
+            columnName = "fk_hotel")
+    private Hotel hotel;
 
     public String getBookingNumber() {
         return bookingNumber;

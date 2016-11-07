@@ -3,6 +3,7 @@ package services;
 import models.Hotel;
 import models.HotelBookingRequest;
 import models.HotelReservation;
+import models.dao.HotelReservationDaoImpl;
 
 import javax.jws.WebService;
 import java.sql.SQLException;
@@ -37,7 +38,7 @@ public class HotelService implements HotelInterface {
         hotelReservation.setBookingNumber(hotelBookingRequest.getBookingNumber());
         hotelReservation.setCardInformation(hotelBookingRequest.getCardInformation());
 
-        //
+        new HotelReservationDaoImpl().create(hotelReservation);
 
         return true;
     }

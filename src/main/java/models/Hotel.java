@@ -1,19 +1,37 @@
 package models;
 
+import com.j256.ormlite.field.DatabaseField;
+import com.j256.ormlite.table.DatabaseTable;
+import models.dao.HotelDaoImpl;
+
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
+import java.io.Serializable;
 
 @XmlType(name = "Hotel")
 @XmlRootElement(name = "Hotel")
 @XmlAccessorType(XmlAccessType.FIELD)
-public class Hotel {
+@DatabaseTable(tableName = "Hotels", daoClass = HotelDaoImpl.class)
+public class Hotel implements Serializable {
 
-    private String name,
-            city,
-            bookingNumber;
+    @DatabaseField(generatedId = true)
+    private int id;
+
+    @DatabaseField(canBeNull = false, unique = true)
+    private String name;
+
+    @DatabaseField(canBeNull = false)
+    private String city;
+
+    @DatabaseField(canBeNull = false)
+    private String bookingNumber;
+
+    @DatabaseField(canBeNull = true)
     private boolean creditCardGuarantee;
+
+    @DatabaseField(canBeNull = false)
     private float price;
 
     public String getName() {
