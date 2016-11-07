@@ -1,24 +1,29 @@
 package models;
 
+import javax.xml.bind.annotation.*;
 import java.util.Date;
 
 /**
  * Created by troels on 10/31/16.
  */
+@XmlType(name = "Flight")
+@XmlAccessorType(XmlAccessType.FIELD)
 public class Flight {
-    private String startAirport, destinationAripor, carrier;
 
+    @XmlElement(name="startAirport", required=true)
+    private String startAirport;
+
+    @XmlElement(name="destinationAripor", required=true)
+    private String destinationAripor;
+
+    @XmlElement(name="carrier", required=true)
+    private String carrier;
+
+    @XmlElement(name="start", required=true)
     private Date start;
 
+    @XmlElement(name="end", required=true)
     private Date end;
-
-    public Flight(String startAirport, String destinationAripor, String carrier, Date start, Date end) {
-        this.startAirport = startAirport;
-        this.destinationAripor = destinationAripor;
-        this.carrier = carrier;
-        this.start = start;
-        this.end = end;
-    }
 
     public String getStartAirport() {
         return startAirport;

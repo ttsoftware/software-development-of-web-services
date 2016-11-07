@@ -2,12 +2,16 @@
   <artifact type="exploded-war" name="web services:war exploded">
     <output-path>$PROJECT_DIR$/out/artifacts/web_services_war_exploded</output-path>
     <root id="root">
-      <element id="javaee-facet-resources" facet="web services/web/Web" />
       <element id="directory" name="WEB-INF">
         <element id="directory" name="classes">
           <element id="module-output" name="web services" />
         </element>
+        <element id="directory" name="lib">
+          <element id="library" level="project" name="Maven: org.projectlombok:lombok:1.16.10" />
+        </element>
       </element>
+      <element id="javaee-facet-resources" facet="web services/web/Web" />
+      <element id="javaee-facet-resources" facet="web services/web/Web2" />
     </root>
   </artifact>
 </component>

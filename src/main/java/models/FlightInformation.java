@@ -1,22 +1,37 @@
 package models;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlType;
+
 /**
  * Created by troels on 10/31/16.
  */
+
+
+@XmlType(name = "FlightInformation")
+@XmlRootElement(name = "FlightInformation")
+@XmlAccessorType(XmlAccessType.FIELD)
 public class FlightInformation {
 
-    private String bookingNumber, airlineName;
 
-    private int price;
+    public String bookingNumber;
+
+    public String airlineName;
+
+    public int price;
+
+    public Flight getFlight() {
+        return flight;
+    }
+
+    public void setFlight(Flight flight) {
+        this.flight = flight;
+    }
 
     private Flight flight;
 
-    public FlightInformation(String bookingNumber, String airlineName, int price, Flight flight) {
-        this.bookingNumber = bookingNumber;
-        this.airlineName = airlineName;
-        this.price = price;
-        this.flight = flight;
-    }
 
     public String getBookingNumber() {
         return bookingNumber;
@@ -42,11 +57,5 @@ public class FlightInformation {
         this.price = price;
     }
 
-    public Flight getFlight() {
-        return flight;
-    }
 
-    public void setFlight(Flight flight) {
-        this.flight = flight;
-    }
 }
