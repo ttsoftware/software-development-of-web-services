@@ -10,17 +10,15 @@ import javax.xml.bind.annotation.XmlType;
  */
 
 
-@XmlType(name = "FlightInformation")
-@XmlRootElement(name = "FlightInformation")
+@XmlType(name = "FlightReservation")
+@XmlRootElement(name = "FlightReservation")
 @XmlAccessorType(XmlAccessType.FIELD)
-public class FlightInformation {
+public class FlightReservation {
 
-
-    public String bookingNumber;
-
-    public String airlineName;
-
-    public int price;
+    private String bookingNumber;
+    private String airlineName;
+    private int price;
+    private Flight flight;
 
     public Flight getFlight() {
         return flight;
@@ -29,9 +27,6 @@ public class FlightInformation {
     public void setFlight(Flight flight) {
         this.flight = flight;
     }
-
-    private Flight flight;
-
 
     public String getBookingNumber() {
         return bookingNumber;
@@ -56,6 +51,4 @@ public class FlightInformation {
     public void setPrice(int price) {
         this.price = price;
     }
-
-
 }

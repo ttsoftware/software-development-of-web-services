@@ -2,16 +2,19 @@ package models;
 
 import bank.CreditCardInfoType;
 
-import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
-@XmlType(name="HotelBookingRequest")
-public class HotelBookingRequest {
+@XmlType(name = "HotelReservation")
+@XmlRootElement(name = "HotelReservation")
+@XmlAccessorType(XmlAccessType.FIELD)
+public class HotelReservation {
 
     private String bookingNumber;
     private CreditCardInfoType cardInformation;
 
-    @XmlElement(name="bookingNumber", required=true)
     public String getBookingNumber() {
         return bookingNumber;
     }
@@ -20,7 +23,6 @@ public class HotelBookingRequest {
         this.bookingNumber = bookingNumber;
     }
 
-    @XmlElement(name="creditCardInformation", required=false)
     public CreditCardInfoType getCardInformation() {
         return cardInformation;
     }

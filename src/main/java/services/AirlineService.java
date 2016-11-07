@@ -1,7 +1,7 @@
 package services;
 
 import bank.*;
-import models.FlightInformation;
+import models.FlightReservation;
 
 import javax.jws.WebService;
 import java.net.MalformedURLException;
@@ -21,12 +21,12 @@ import java.util.stream.Collectors;
 )
 public class AirlineService implements AirlineInterface {
 
-    private HashMap<String, FlightInformation> customerBookings;
-    private List<FlightInformation> availableFlights;
+    private HashMap<String, FlightReservation> customerBookings;
+    private List<FlightReservation> availableFlights;
 
 
-    public FlightInformation getFlights(String from, String destination, Date date) {
-        FlightInformation[] flightsFromQuery = (FlightInformation[]) availableFlights.stream()
+    public FlightReservation getFlights(String from, String destination, Date date) {
+        FlightReservation[] flightsFromQuery = (FlightReservation[]) availableFlights.stream()
                // .filter(fi -> fi.getFlight().getDestinationAripor().equals(destination) &&
                        // fi.getFlight().getStartAirport().equals(from) &&
                       //  fi.getFlight().getStart().equals(date))
@@ -35,11 +35,11 @@ public class AirlineService implements AirlineInterface {
     }
 
     public boolean bookFlight(String bookingNumber, CreditCardInfoType cardInformation) throws CreditCardFaultMessage, BookingNumberException {
-        FlightInformation flightInformation = availableFlights.stream().filter(fi -> fi.getBookingNumber().equals(bookingNumber))
+        FlightReservation flightReservation = availableFlights.stream().filter(fi -> fi.getBookingNumber().equals(bookingNumber))
                 .findFirst()
                 .get();
 
-        if(flightInformation == null) throw new BookingNumberException("Booking number does not exists");
+        if(flightReservation == null) throw new BookingNumberException("Booking number does not exists");
 
         URL bankServiceUrl = null;
         try {
@@ -54,18 +54,18 @@ public class AirlineService implements AirlineInterface {
         flightAccount.setName("TravelGood");
         flightAccount.setNumber("50208813");;
 
-        port.chargeCreditCard(1337, cardInformation, flightInformation.getPrice(), flightAccount);
-        customerBookings.put(bookingNumber, flightInformation);
+        port.chargeCreditCard(1337, cardInformation, flightReservation.getPrice(), flightAccount);
+        customerBookings.put(bookingNumber, flightReservation);
 
         return true;
     }
 
     public boolean cancelFlight(String bookingNumber, float price, CreditCardInfoType cardInformation) throws BookingNumberException, CreditCardFaultMessage {
-        FlightInformation flightInformation = customerBookings.remove(bookingNumber);
+        FlightReservation flightReservation = customerBookings.remove(bookingNumber);
 
-        if(flightInformation == null) throw new BookingNumberException("Booking number does not exists");
+        if(flightReservation == null) throw new BookingNumberException("Booking number does not exists");
 
-        float flightPrice = flightInformation.getPrice();
+        float flightPrice = flightReservation.getPrice();
 
 
         AccountType flightAccount = new AccountType();

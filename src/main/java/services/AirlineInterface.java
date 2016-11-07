@@ -2,7 +2,7 @@ package services;
 
 import bank.CreditCardFaultMessage;
 import bank.CreditCardInfoType;
-import models.FlightInformation;
+import models.FlightReservation;
 
 import javax.jws.WebMethod;
 import javax.jws.WebParam;
@@ -21,10 +21,10 @@ public interface AirlineInterface {
 
 
     @WebMethod(operationName = "getFlights")
-    @WebResult(name="flights")
-    FlightInformation getFlights(@WebParam(name = "from") String from,
-                                   @WebParam(name = "destination") String destination,
-                                   @WebParam(name = "date")Date date);
+    @WebResult(name="flightRevervations")
+    FlightReservation getFlights(@WebParam(name = "from") String from,
+                                 @WebParam(name = "destination") String destination,
+                                 @WebParam(name = "date")Date date);
 
     @WebMethod(operationName = "bookFlight")
     boolean bookFlight(@WebParam(name = "bookingNumber") String bookingNumber,
