@@ -1,15 +1,17 @@
 package services;
 
 import bank.*;
+import com.j256.ormlite.stmt.QueryBuilder;
+import models.Flight;
 import models.FlightReservation;
 
 import javax.jws.WebService;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * Created by troels on 10/31/16.
@@ -25,19 +27,31 @@ public class AirlineService implements AirlineInterface {
     private List<FlightReservation> availableFlights;
 
 
-    public FlightReservation getFlights(String from, String destination, Date date) {
-        FlightReservation[] flightsFromQuery = (FlightReservation[]) availableFlights.stream()
-               // .filter(fi -> fi.getFlight().getDestinationAripor().equals(destination) &&
-                       // fi.getFlight().getStartAirport().equals(from) &&
-                      //  fi.getFlight().getStart().equals(date))
-                .collect(Collectors.toList()).toArray();
-        return flightsFromQuery[0];
+    public FlightReservation[] getFlights(String from, String destination, Date date) {
+
+
+        try {
+            QueryBuilder<FlightReservation, ?> flightResQB = DatabaseService.getDao(FlightReservation.class).queryBuilder();
+            QueryBuilder<Flight, ?> flightQB = DatabaseService.getDao(Flight.class).queryBuilder();
+            flightQB.where().eq("startAirport", from).and().eq("destinationAripor", destination).and().eq("startDate", date);
+
+            List<FlightReservation> results = flightResQB.join(flightQB).query();
+            FlightReservation[] resultArray = (FlightReservation[]) results.toArray();
+            return resultArray;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return new FlightReservation[0];
     }
 
     public boolean bookFlight(String bookingNumber, CreditCardInfoType cardInformation) throws CreditCardFaultMessage, BookingNumberException {
-        FlightReservation flightReservation = availableFlights.stream().filter(fi -> fi.getBookingNumber().equals(bookingNumber))
-                .findFirst()
-                .get();
+        FlightReservation flightReservation = null;
+        try {
+            flightReservation = DatabaseService.getDao(FlightReservation.class).queryForEq("bookingNumber", bookingNumber).get(0);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
 
         if(flightReservation == null) throw new BookingNumberException("Booking number does not exists");
 
@@ -61,7 +75,12 @@ public class AirlineService implements AirlineInterface {
     }
 
     public boolean cancelFlight(String bookingNumber, float price, CreditCardInfoType cardInformation) throws BookingNumberException, CreditCardFaultMessage {
-        FlightReservation flightReservation = customerBookings.remove(bookingNumber);
+        FlightReservation flightReservation = null;
+        try {
+            flightReservation = DatabaseService.getDao(FlightReservation.class).queryForEq("bookingNumber", bookingNumber).get(0);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
 
         if(flightReservation == null) throw new BookingNumberException("Booking number does not exists");
 

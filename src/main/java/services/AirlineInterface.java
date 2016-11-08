@@ -22,7 +22,7 @@ public interface AirlineInterface {
 
     @WebMethod(operationName = "getFlights")
     @WebResult(name="flightRevervations")
-    FlightReservation getFlights(@WebParam(name = "from") String from,
+    FlightReservation[] getFlights(@WebParam(name = "from") String from,
                                  @WebParam(name = "destination") String destination,
                                  @WebParam(name = "date")Date date);
 
