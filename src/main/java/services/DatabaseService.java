@@ -17,7 +17,7 @@ public class DatabaseService {
         if (connectionSource == null) {
             try {
                 if (getDatabaseUrl() == null) {
-                    setDatabaseUrl("jdbc:sqlite:travelagency.db");
+                    setDatabaseUrl("jdbc:sqlite:/var/www/travelagency.db");
                 }
                 connectionSource = new JdbcPooledConnectionSource(getDatabaseUrl());
             } catch (SQLException e) {

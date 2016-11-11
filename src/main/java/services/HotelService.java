@@ -22,9 +22,9 @@ public class HotelService implements HotelInterface {
                              Date arrivalDate,
                              Date departureDate) throws SQLException {
 
-        List<Hotel> hotels = DatabaseService.getDao(Hotel.class).queryForEq("city", city);
+        List<Hotel> hotels = DatabaseService.getDao(Hotel.class).queryForEq("city", city.toLowerCase());
 
-        return (Hotel[]) hotels.toArray();
+        return hotels.toArray(new Hotel[hotels.size()]);
     }
 
     @Override

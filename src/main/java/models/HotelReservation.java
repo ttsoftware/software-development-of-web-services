@@ -9,13 +9,12 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
-import java.io.Serializable;
 
 @XmlType(name = "HotelReservation")
 @XmlRootElement(name = "HotelReservation")
 @XmlAccessorType(XmlAccessType.FIELD)
-@DatabaseTable(tableName = "HotelReservations", daoClass = HotelReservationDaoImpl.class)
-public class HotelReservation implements Serializable {
+@DatabaseTable(tableName = "HotelReservation", daoClass = HotelReservationDaoImpl.class)
+public class HotelReservation {
 
     @DatabaseField(generatedId = true)
     private int id;

@@ -1,5 +1,5 @@
 <component name="ArtifactManager">
-  <artifact type="exploded-war" name="web services:war exploded">
+  <artifact type="exploded-war" build-on-make="true" name="web services:war exploded">
     <output-path>$PROJECT_DIR$/out/artifacts/web_services_war_exploded</output-path>
     <root id="root">
       <element id="directory" name="WEB-INF">
@@ -8,6 +8,9 @@
         </element>
         <element id="directory" name="lib">
           <element id="library" level="project" name="Maven: org.projectlombok:lombok:1.16.10" />
+          <element id="library" level="project" name="Maven: com.j256.ormlite:ormlite-core:4.48" />
+          <element id="library" level="project" name="Maven: com.j256.ormlite:ormlite-jdbc:4.48" />
+          <element id="library" level="project" name="Maven: org.xerial:sqlite-jdbc:3.8.11.2" />
         </element>
       </element>
       <element id="javaee-facet-resources" facet="web services/web/Web" />
