@@ -22,15 +22,18 @@ public class HotelReservation {
     @DatabaseField(canBeNull = false)
     private String bookingNumber;
 
-    @DatabaseField(canBeNull = false)
+    @DatabaseField(
+            foreign = true,
+            columnName = "fk_creditCardInfoType")
     private CreditCardInfoType cardInformation;
 
     @DatabaseField(
-            canBeNull = false,
             foreign = true,
-            foreignAutoCreate = true,
             columnName = "fk_hotel")
     private Hotel hotel;
+
+    public HotelReservation() {
+    }
 
     public String getBookingNumber() {
         return bookingNumber;
@@ -46,5 +49,21 @@ public class HotelReservation {
 
     public void setCardInformation(CreditCardInfoType cardInformation) {
         this.cardInformation = cardInformation;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public Hotel getHotel() {
+        return hotel;
+    }
+
+    public void setHotel(Hotel hotel) {
+        this.hotel = hotel;
     }
 }

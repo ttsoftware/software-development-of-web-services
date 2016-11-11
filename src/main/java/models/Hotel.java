@@ -33,6 +33,9 @@ public class Hotel {
     @DatabaseField(canBeNull = false)
     private float price;
 
+    public Hotel() {
+    }
+
     public String getName() {
         return name;
     }
@@ -71,5 +74,13 @@ public class Hotel {
 
     public void setPrice(float price) {
         this.price = price;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 }

@@ -62,6 +62,9 @@ public class CreditCardInfoType {
     @DatabaseField(canBeNull = false)
     private String number;
 
+    public CreditCardInfoType() {
+    }
+
     /**
      * Gets the value of the expirationDate property.
      * 
@@ -134,6 +137,13 @@ public class CreditCardInfoType {
         this.number = value;
     }
 
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     /**
      * <p>Java class for anonymous complex type.

@@ -1,6 +1,7 @@
 package services;
 
 import models.Hotel;
+import models.HotelBookingRequest;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -9,8 +10,10 @@ import javax.xml.ws.Service;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.sql.SQLException;
-import java.util.Arrays;
 import java.util.Date;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 public class HotelServiceTest {
 
@@ -33,8 +36,17 @@ public class HotelServiceTest {
     public void getHotelsTest() throws SQLException {
         Hotel[] hotels = hotelService.getHotels("copenhagen", new Date(), new Date());
 
-        Arrays.stream(hotels).forEach(hotel -> {
-            System.out.println(hotel.getName());
-        });
+        assertEquals(hotels[0].getName(), "Danglen");
+    }
+
+    @Test
+    public void bookHotelTest() throws SQLException {
+
+        HotelBookingRequest bookingRequest = new HotelBookingRequest();
+        bookingRequest.setBookingNumber("penis");
+
+        boolean isBooked = hotelService.bookHotel(bookingRequest);
+
+        assertTrue(isBooked);
     }
 }

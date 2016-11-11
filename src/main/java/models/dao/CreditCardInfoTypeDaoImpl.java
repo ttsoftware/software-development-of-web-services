@@ -9,19 +9,15 @@ import java.sql.SQLException;
 
 public class CreditCardInfoTypeDaoImpl extends BaseDaoImpl<CreditCardInfoType, Integer> implements CreditCardInfoTypeDao {
 
-    public CreditCardInfoTypeDaoImpl(Class<CreditCardInfoType> uClass) throws SQLException {
-        super(uClass);
+    protected CreditCardInfoTypeDaoImpl(Class<CreditCardInfoType> dataClass) throws SQLException {
+        super(dataClass);
     }
 
-    public CreditCardInfoTypeDaoImpl(ConnectionSource connectionSource) throws SQLException {
-        super(connectionSource, CreditCardInfoType.class);
+    protected CreditCardInfoTypeDaoImpl(ConnectionSource connectionSource, Class<CreditCardInfoType> dataClass) throws SQLException {
+        super(connectionSource, dataClass);
     }
 
-    public CreditCardInfoTypeDaoImpl(ConnectionSource connectionSource, Class<CreditCardInfoType> uClass) throws SQLException {
-        super(connectionSource, uClass);
-    }
-
-    public CreditCardInfoTypeDaoImpl(ConnectionSource connectionSource, DatabaseTableConfig<CreditCardInfoType> tableConfig) throws SQLException {
+    protected CreditCardInfoTypeDaoImpl(ConnectionSource connectionSource, DatabaseTableConfig<CreditCardInfoType> tableConfig) throws SQLException {
         super(connectionSource, tableConfig);
     }
 

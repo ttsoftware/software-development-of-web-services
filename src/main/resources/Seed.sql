@@ -32,10 +32,10 @@ CREATE TABLE Hotel (
 );
 
 CREATE TABLE CreditCardInfoType (
-  id     INTEGER PRIMARY KEY,
+  id     INTEGER PRIMARY KEY AUTOINCREMENT,
   name   VARCHAR(20) NOT NULL,
   number VARCHAR(50) NOT NULL,
-  price  BIGINT DEFAULT NULL
+  price  BIGINT              DEFAULT NULL
 );
 
 CREATE TABLE HotelReservation (

@@ -9,10 +9,6 @@ import java.sql.SQLException;
 
 public class HotelReservationDaoImpl extends BaseDaoImpl<HotelReservation, Integer> implements HotelReservationDao {
 
-    public HotelReservationDaoImpl() throws SQLException {
-        super(HotelReservation.class);
-    }
-
     public HotelReservationDaoImpl(Class<HotelReservation> uClass) throws SQLException {
         super(uClass);
     }
