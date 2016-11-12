@@ -1,15 +1,13 @@
 package services;
 
 import bank.*;
-import com.j256.ormlite.stmt.QueryBuilder;
-import models.Flight;
 import models.FlightReservation;
+import models.Hotel;
 
 import javax.jws.WebService;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.sql.SQLException;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -26,18 +24,19 @@ public class AirlineService implements AirlineInterface {
     private HashMap<String, FlightReservation> customerBookings;
     private List<FlightReservation> availableFlights;
 
-
-    public FlightReservation[] getFlights(String from, String destination, Date date) {
-
-
+    @Override
+    public FlightReservation[] getFlights(String from, String destination, String date) {
         try {
+            List<Hotel> hotels = DatabaseService.getDao(Hotel.class).queryForEq("city", "hej");
+            /*
             QueryBuilder<FlightReservation, ?> flightResQB = DatabaseService.getDao(FlightReservation.class).queryBuilder();
             QueryBuilder<Flight, ?> flightQB = DatabaseService.getDao(Flight.class).queryBuilder();
             flightQB.where().eq("startAirport", from).and().eq("destinationAripor", destination).and().eq("startDate", date);
 
             List<FlightReservation> results = flightResQB.join(flightQB).query();
             FlightReservation[] resultArray = (FlightReservation[]) results.toArray();
-            return resultArray;
+            */
+            return new FlightReservation[0];
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -45,6 +44,7 @@ public class AirlineService implements AirlineInterface {
         return new FlightReservation[0];
     }
 
+    @Override
     public boolean bookFlight(String bookingNumber, CreditCardInfoType cardInformation) throws CreditCardFaultMessage, BookingNumberException {
         FlightReservation flightReservation = null;
         try {
@@ -74,6 +74,7 @@ public class AirlineService implements AirlineInterface {
         return true;
     }
 
+    @Override
     public boolean cancelFlight(String bookingNumber, float price, CreditCardInfoType cardInformation) throws BookingNumberException, CreditCardFaultMessage {
         FlightReservation flightReservation = null;
         try {

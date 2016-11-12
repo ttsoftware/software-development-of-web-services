@@ -9,7 +9,6 @@ import javax.jws.WebParam;
 import javax.jws.WebResult;
 import javax.jws.WebService;
 import javax.jws.soap.SOAPBinding;
-import java.util.Date;
 
 /**
  * Created by troels on 10/31/16.
@@ -20,17 +19,17 @@ import java.util.Date;
 public interface AirlineInterface {
 
 
-    @WebMethod(operationName = "getFlights")
+    @WebMethod
     @WebResult(name="flightRevervations")
     FlightReservation[] getFlights(@WebParam(name = "from") String from,
                                  @WebParam(name = "destination") String destination,
-                                 @WebParam(name = "date")Date date);
+                                 @WebParam(name = "date")String date);
 
-    @WebMethod(operationName = "bookFlight")
+    @WebMethod
     boolean bookFlight(@WebParam(name = "bookingNumber") String bookingNumber,
                        @WebParam(name = "cardInformation") CreditCardInfoType cardInformation) throws CreditCardFaultMessage, AirlineService.BookingNumberException;
 
-    @WebMethod(operationName = "cancelFlight")
+    @WebMethod
     boolean cancelFlight(@WebParam(name = "bookingNumber") String bookingNumber,
                          @WebParam(name = "price") float price,
                          @WebParam(name = "cardInformation")CreditCardInfoType cardInformation) throws AirlineService.BookingNumberException, CreditCardFaultMessage;
