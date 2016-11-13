@@ -1,4 +1,4 @@
-DROP TABLE IF EXISTS FlightInformation;
+DROP TABLE IF EXISTS FlightReservation;
 DROP TABLE IF EXISTS Flight;
 
 CREATE TABLE Flight (id SERIAL PRIMARY KEY,
@@ -23,8 +23,8 @@ INSERT INTO Flight (id, startAirport, destinationAripor, carrier, start, end)
 INSERT INTO Flight (id, startAirport, destinationAripor, carrier, start, end)
   VALUES (2, "Berlin", "Copenhagen", "Air Berlin", datetime("2016-11-12"), datetime("2016-11-12"));
 
-INSERT INTO FlightInformation(bookingNumber, airlineName, price, FK_flight)
+INSERT INTO FlightReservation(bookingNumber, airlineName, price, FK_flight)
     VALUES ("1234", "LameDuck", 100, 1);
 
-INSERT INTO FlightInformation(bookingNumber, airlineName, price, FK_flight)
+INSERT INTO FlightReservation(bookingNumber, airlineName, price, FK_flight)
   VALUES ("1235", "LameDuck", 100, 2);

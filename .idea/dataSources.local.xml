@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="dataSourceStorageLocal">
+    <data-source name="/var/www/db/travelagency.db" uuid="ac2cb5a7-05ae-4ee3-a55d-2d95f7e29c87">
+      <auth-required>false</auth-required>
+    </data-source>
+  </component>
+</project>

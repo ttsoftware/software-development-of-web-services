@@ -7,10 +7,10 @@ DROP TABLE IF EXISTS CreditCardInfoType;
 CREATE TABLE Flight (
   id                INTEGER PRIMARY KEY AUTOINCREMENT,
   startAirport      VARCHAR(20) UNIQUE NOT NULL,
-  destinationAripor VARCHAR(20)        NOT NULL,
+  destinationAirport VARCHAR(20)        NOT NULL,
   carrier           VARCHAR(20)        NOT NULL,
-  start             DATE               NOT NULL,
-  end               DATE               NOT NULL
+  start             DATETIME               NOT NULL,
+  end               DATETIME              NOT NULL
 );
 
 CREATE TABLE FlightReservation (
@@ -48,3 +48,23 @@ CREATE TABLE HotelReservation (
 );
 
 INSERT INTO Hotel (name, city, bookingNumber, price) VALUES ("Danglen", "copenhagen", "penis", 50.00);
+INSERT INTO Flight (id, startAirport, destinationAirport, carrier, start, end)
+VALUES (1, "Copenhagen", "Berlin", "Air Berlin", datetime("2016-11-07"), datetime("2016-11-07"));
+
+INSERT INTO Flight (id, startAirport, destinationAirport, carrier, start, end)
+VALUES (2, "Berlin", "Copenhagen", "Air Berlin", datetime("2016-11-12"), datetime("2016-11-12"));
+
+INSERT INTO FlightReservation(bookingNumber, airlineName, price, FK_flight)
+VALUES ("1234", "LameDuck", 100, 1);
+
+INSERT INTO FlightReservation(bookingNumber, airlineName, price, FK_flight)
+VALUES ("1235", "LameDuck", 100, 2);
+
+INSERT INTO FlightReservation(bookingNumber, airlineName, price, FK_flight)
+VALUES ("2234", "LameDuck", 100, 1);
+
+INSERT INTO FlightReservation(bookingNumber, airlineName, price, FK_flight)
+VALUES ("3234", "LameDuck", 100, 1);
+
+INSERT INTO FlightReservation(bookingNumber, airlineName, price, FK_flight)
+VALUES ("4234", "LameDuck", 100, 1);
