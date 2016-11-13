@@ -3,7 +3,7 @@ package services;
 import models.Hotel;
 import models.HotelBookingRequest;
 import models.HotelReservation;
-import models.dao.HotelReservationDaoImpl;
+import models.dao.HotelReservationDao;
 
 import javax.jws.WebService;
 import java.sql.SQLException;
@@ -22,9 +22,9 @@ public class HotelService implements HotelInterface {
                              Date arrivalDate,
                              Date departureDate) throws SQLException {
 
-        List<Hotel> hotels = DatabaseService.getDao(Hotel.class).queryForEq("city", city);
+        List<Hotel> hotels = DatabaseService.getDao(Hotel.class).queryForEq("city", city.toLowerCase());
 
-        return (Hotel[]) hotels.toArray();
+        return hotels.toArray(new Hotel[hotels.size()]);
     }
 
     @Override
@@ -36,9 +36,10 @@ public class HotelService implements HotelInterface {
 
         HotelReservation hotelReservation = new HotelReservation();
         hotelReservation.setBookingNumber(hotelBookingRequest.getBookingNumber());
-        hotelReservation.setCardInformation(hotelBookingRequest.getCardInformation());
+        // hotelReservation.setCardInformation(hotelBookingRequest.getCardInformation());
 
-        new HotelReservationDaoImpl().create(hotelReservation);
+        HotelReservationDao hotelReservationDao = DatabaseService.getDao(HotelReservation.class);
+        hotelReservationDao.create(hotelReservation);
 
         return true;
     }

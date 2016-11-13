@@ -24,6 +24,10 @@ public class FlightDaoImpl extends BaseDaoImpl<Flight, Integer> implements Fligh
         super(connectionSource, tableConfig);
     }
 
+    public FlightDaoImpl(ConnectionSource connectionSource) throws SQLException {
+        super(connectionSource, Flight.class);
+    }
+
     /**
      * @param flight
      * @return

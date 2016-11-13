@@ -1,6 +1,10 @@
 
 package bank;
 
+import com.j256.ormlite.field.DatabaseField;
+import com.j256.ormlite.table.DatabaseTable;
+import models.dao.CreditCardInfoTypeDaoImpl;
+
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
@@ -40,19 +44,26 @@ import javax.xml.bind.annotation.XmlType;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "creditCardInfoType", namespace = "http://types.fastmoney.imm.dtu.dk", propOrder = {
-    "expirationDate",
-    "name",
-    "number"
-})
+@XmlType(name = "creditCardInfoType", namespace = "http://types.fastmoney.imm.dtu.dk")
+@DatabaseTable(tableName = "CreditCardInfoType", daoClass = CreditCardInfoTypeDaoImpl.class)
 public class CreditCardInfoType {
 
+    @DatabaseField(generatedId = true)
+    private int id;
+
     @XmlElement(required = true)
-    protected CreditCardInfoType.ExpirationDate expirationDate;
+    @DatabaseField(canBeNull = false)
+    private CreditCardInfoType.ExpirationDate expirationDate;
+
     @XmlElement(required = true)
     protected String name;
+
     @XmlElement(required = true)
-    protected String number;
+    @DatabaseField(canBeNull = false)
+    private String number;
+
+    public CreditCardInfoType() {
+    }
 
     /**
      * Gets the value of the expirationDate property.
@@ -126,6 +137,13 @@ public class CreditCardInfoType {
         this.number = value;
     }
 
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     /**
      * <p>Java class for anonymous complex type.
@@ -188,7 +206,5 @@ public class CreditCardInfoType {
         public void setYear(int value) {
             this.year = value;
         }
-
     }
-
 }

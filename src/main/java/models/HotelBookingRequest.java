@@ -5,13 +5,13 @@ import bank.CreditCardInfoType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
 
-@XmlType(name="HotelBookingRequest")
+@XmlType(name = "HotelBookingRequest")
 public class HotelBookingRequest {
 
     private String bookingNumber;
     private CreditCardInfoType cardInformation;
 
-    @XmlElement(name="bookingNumber", required=true)
+    @XmlElement(name = "bookingNumber", required = true)
     public String getBookingNumber() {
         return bookingNumber;
     }
@@ -20,7 +20,7 @@ public class HotelBookingRequest {
         this.bookingNumber = bookingNumber;
     }
 
-    @XmlElement(name="creditCardInformation", required=false)
+    @XmlElement(name = "creditCardInformation", required = false)
     public CreditCardInfoType getCardInformation() {
         return cardInformation;
     }

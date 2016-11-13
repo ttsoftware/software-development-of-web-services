@@ -2,7 +2,7 @@ package models;
 
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
-import models.dao.FlightInformationDaoImpl;
+import models.dao.FlightReservationDaoImpl;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -17,7 +17,7 @@ import javax.xml.bind.annotation.XmlType;
 @XmlType(name = "FlightReservation")
 @XmlRootElement(name = "FlightReservation")
 @XmlAccessorType(XmlAccessType.FIELD)
-@DatabaseTable(tableName = "FlightReservations", daoClass = FlightInformationDaoImpl.class)
+@DatabaseTable(tableName = "FlightReservation", daoClass = FlightReservationDaoImpl.class)
 public class FlightReservation {
 
     @DatabaseField(generatedId = true)

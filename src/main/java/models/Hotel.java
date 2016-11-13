@@ -8,13 +8,12 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
-import java.io.Serializable;
 
 @XmlType(name = "Hotel")
 @XmlRootElement(name = "Hotel")
 @XmlAccessorType(XmlAccessType.FIELD)
-@DatabaseTable(tableName = "Hotels", daoClass = HotelDaoImpl.class)
-public class Hotel implements Serializable {
+@DatabaseTable(tableName = "Hotel", daoClass = HotelDaoImpl.class)
+public class Hotel {
 
     @DatabaseField(generatedId = true)
     private int id;
@@ -33,6 +32,9 @@ public class Hotel implements Serializable {
 
     @DatabaseField(canBeNull = false)
     private float price;
+
+    public Hotel() {
+    }
 
     public String getName() {
         return name;
@@ -72,5 +74,13 @@ public class Hotel implements Serializable {
 
     public void setPrice(float price) {
         this.price = price;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 }

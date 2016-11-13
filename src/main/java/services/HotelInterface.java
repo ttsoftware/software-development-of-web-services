@@ -16,15 +16,15 @@ import java.util.Date;
 @SOAPBinding(style = SOAPBinding.Style.RPC, use = SOAPBinding.Use.LITERAL)
 public interface HotelInterface {
 
-    @WebMethod
+    @WebMethod(operationName = "getHotels")
     @WebResult(name="hotels")
     Hotel[] getHotels(@WebParam(name = "city") String city,
                                 @WebParam(name = "arrivalDate") Date arrivalDate,
                                 @WebParam(name = "departureDate") Date departureDate) throws SQLException;
 
-    @WebMethod
+    @WebMethod(operationName = "bookHotel")
     boolean bookHotel(@WebParam(name = "hotelBookingRequest") HotelBookingRequest hotelBookingRequest) throws SQLException;
 
-    @WebMethod
+    @WebMethod(operationName = "cancelHotel")
     void cancelHotel(@WebParam(name = "bookingNumber") String bookingNumber);
 }
