@@ -20,7 +20,7 @@ public class AirlineServiceTest {
     @Before
     public void setup() {
         try {
-            URL url = new URL("http://localhost:8080/web_services_war_exploded/AirlineService?wsdl");
+            URL url = new URL("http://localhost:8080/webservices/AirlineService?wsdl");
             QName qname = new QName("http://services/", "AirlineService");
             Service service = Service.create(url, qname);
             airlineService = service.getPort(AirlineInterface.class);

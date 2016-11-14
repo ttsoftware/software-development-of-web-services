@@ -22,7 +22,7 @@ public class HotelServiceTest {
     @Before
     public void setup() {
         try {
-            URL url = new URL("http://localhost:8080/web_services_war_exploded/HotelService?wsdl");
+            URL url = new URL("http://localhost:8080/webservices/HotelService?wsdl");
             QName qname = new QName("http://services/", "HotelService");
             Service service = Service.create(url, qname);
             hotelService = service.getPort(HotelInterface.class);
