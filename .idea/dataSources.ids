@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component name="dataSourceStorage">
+  <data-source name="/var/www/db/travelagency.db" uuid="ac2cb5a7-05ae-4ee3-a55d-2d95f7e29c87">
+    <database-info product="SQLite" version="3.8.11" jdbc-version="2.1" driver-name="SQLiteJDBC" driver-version="native"/>
+    <case-sensitivity plain-identifiers="mixed" quoted-identifiers="mixed"/>
+    <schema name="" catalog=""/>
+    <table name="CreditCardInfoType" schema="" catalog="" type="TABLE">
+      <column name="id" sqlType="INTEGER" precision="0" scale="-1" nullable="true" jdbcType="4"/>
+      <column name="name" sqlType="VARCHAR(20)" precision="0" scale="-1" nullable="false" jdbcType="12"/>
+      <column name="number" sqlType="VARCHAR(50)" precision="0" scale="-1" nullable="false" jdbcType="12"/>
+      <column name="price" sqlType="BIGINT" precision="0" scale="-1" nullable="true" jdbcType="4" def="TlVMTA=="/>
+      <primary-key columns="id"/>
+    </table>
+    <table name="Flight" schema="" catalog="" type="TABLE">
+      <column name="id" sqlType="INTEGER" precision="0" scale="-1" nullable="true" jdbcType="4"/>
+      <column name="startAirport" sqlType="VARCHAR(20)" precision="0" scale="-1" nullable="false" jdbcType="12"/>
+      <column name="destinationAirport" sqlType="VARCHAR(20)" precision="0" scale="-1" nullable="false" jdbcType="12"/>
+      <column name="carrier" sqlType="VARCHAR(20)" precision="0" scale="-1" nullable="false" jdbcType="12"/>
+      <column name="start" sqlType="DATETIME" precision="0" scale="-1" nullable="false" jdbcType="12"/>
+      <column name="end" sqlType="DATETIME" precision="0" scale="-1" nullable="false" jdbcType="12"/>
+      <primary-key columns="id"/>
+    </table>
+    <table name="FlightReservation" schema="" catalog="" type="TABLE">
+      <column name="id" sqlType="INTEGER" precision="0" scale="-1" nullable="true" jdbcType="4"/>
+      <column name="bookingNumber" sqlType="VARCHAR(20)" precision="0" scale="-1" nullable="false" jdbcType="12"/>
+      <column name="airlineName" sqlType="VARCHAR(20)" precision="0" scale="-1" nullable="false" jdbcType="12"/>
+      <column name="price" sqlType="DOUBLE" precision="0" scale="-1" nullable="true" jdbcType="6"/>
+      <column name="fk_flight" sqlType="INT" precision="0" scale="-1" nullable="true" jdbcType="4" def="TlVMTA=="/>
+      <primary-key columns="id"/>
+      <foreign-key name="#FAKE_FlightReservation_1" columns="fk_flight" ref-table="Flight" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+    </table>
+    <table name="Hotel" schema="" catalog="" type="TABLE">
+      <column name="id" sqlType="INTEGER" precision="0" scale="-1" nullable="true" jdbcType="4"/>
+      <column name="name" sqlType="VARCHAR(100)" precision="0" scale="-1" nullable="false" jdbcType="12"/>
+      <column name="city" sqlType="VARCHAR(100)" precision="0" scale="-1" nullable="true" jdbcType="12" def="J05VTEwn"/>
+      <column name="bookingNumber" sqlType="VARCHAR(20)" precision="0" scale="-1" nullable="false" jdbcType="12"/>
+      <column name="creditCardGuarantee" sqlType="TINYINT" precision="0" scale="-1" nullable="true" jdbcType="4" def="TlVMTA=="/>
+      <column name="price" sqlType="BIGINT" precision="0" scale="-1" nullable="true" jdbcType="4" def="TlVMTA=="/>
+      <primary-key columns="id"/>
+    </table>
+    <table name="HotelReservation" schema="" catalog="" type="TABLE">
+      <column name="id" sqlType="INTEGER" precision="0" scale="-1" nullable="true" jdbcType="4"/>
+      <column name="bookingNumber" sqlType="VARCHAR(20)" precision="0" scale="-1" nullable="false" jdbcType="12"/>
+      <column name="fk_creditCardInfoType" sqlType="INT" precision="0" scale="-1" nullable="true" jdbcType="4" def="TlVMTA=="/>
+      <column name="fk_hotel" sqlType="INT" precision="0" scale="-1" nullable="true" jdbcType="4" def="TlVMTA=="/>
+      <primary-key columns="id"/>
+      <foreign-key name="#FAKE_HotelReservation_1" columns="fk_hotel" ref-table="Hotel" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+      <foreign-key name="#FAKE_HotelReservation_2" columns="fk_creditCardInfoType" ref-table="CreditCardInfoType" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+    </table>
+    <table name="sqlite_sequence" schema="" catalog="" type="TABLE">
+      <column name="name" sqlType="" precision="0" scale="-1" nullable="true" jdbcType="12"/>
+      <column name="seq" sqlType="" precision="0" scale="-1" nullable="true" jdbcType="12"/>
+    </table>
+  </data-source>
+</component>

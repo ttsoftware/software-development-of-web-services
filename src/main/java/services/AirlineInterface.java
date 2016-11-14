@@ -15,19 +15,19 @@ import java.util.Date;
 @SOAPBinding(style = SOAPBinding.Style.RPC, use = SOAPBinding.Use.LITERAL)
 public interface AirlineInterface {
 
-
-    @WebMethod(operationName = "getFlights")
-    @WebResult(name = "flightRevervations")
-    FlightReservation getFlights(@WebParam(name = "from") String from,
+    @WebMethod
+    @WebResult(name="flightRevervations")
+    FlightReservation[] getFlights(@WebParam(name = "from") String from,
                                  @WebParam(name = "destination") String destination,
-                                 @WebParam(name = "date") Date date);
+                                 @WebParam(name = "date")Date date);
 
-    @WebMethod(operationName = "bookFlight")
+
+    @WebMethod
     boolean bookFlight(@WebParam(name = "bookingNumber") String bookingNumber,
                        @WebParam(name = "cardInformation") CreditCardInfoType cardInformation) throws CreditCardFaultMessage, AirlineService.BookingNumberException;
 
-    @WebMethod(operationName = "cancelFlight")
+    @WebMethod
     boolean cancelFlight(@WebParam(name = "bookingNumber") String bookingNumber,
                          @WebParam(name = "price") float price,
-                         @WebParam(name = "cardInformation") CreditCardInfoType cardInformation) throws AirlineService.BookingNumberException, CreditCardFaultMessage;
+                         @WebParam(name = "cardInformation") CreditCardInfoType cardInformation) throws CreditCardFaultMessage, AirlineService.BookingNumberException;
 }
