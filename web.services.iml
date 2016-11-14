@@ -27,9 +27,6 @@
     <orderEntry type="library" scope="PROVIDED" name="Maven: org.glassfish.metro:webservices-rt:2.3" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Maven: org.glassfish.metro:webservices-api:2.3" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Maven: javax.annotation:javax.annotation-api:1.2-b03" level="project" />
-    <orderEntry type="library" scope="PROVIDED" name="Maven: org.glassfish.metro:webservices-rt:2.3" level="project" />
-    <orderEntry type="library" scope="PROVIDED" name="Maven: org.glassfish.metro:webservices-api:2.3" level="project" />
-    <orderEntry type="library" scope="PROVIDED" name="Maven: javax.annotation:javax.annotation-api:1.2-b03" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Maven: javax:javaee-web-api:7.0" level="project" />
     <orderEntry type="library" name="Maven: org.xerial:sqlite-jdbc:3.7.2" level="project" />
     <orderEntry type="library" name="Maven: com.j256.ormlite:ormlite-core:4.48" level="project" />
