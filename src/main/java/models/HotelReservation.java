@@ -1,5 +1,6 @@
 package models;
 
+import bank.CreditCardInfoType;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 import models.dao.HotelReservationDaoImpl;
@@ -23,8 +24,8 @@ public class HotelReservation {
 
     /*@DatabaseField(
             foreign = true,
-            columnName = "fk_creditCardInfoType")
-    private CreditCardInfoType cardInformation;*/
+            columnName = "fk_creditCardInfoType")*/
+    private CreditCardInfoType cardInformation;
 
     @DatabaseField(
             foreign = true,
@@ -42,7 +43,6 @@ public class HotelReservation {
         this.bookingNumber = bookingNumber;
     }
 
-    /*
     public CreditCardInfoType getCardInformation() {
         return cardInformation;
     }
@@ -50,7 +50,6 @@ public class HotelReservation {
     public void setCardInformation(CreditCardInfoType cardInformation) {
         this.cardInformation = cardInformation;
     }
-    */
 
     public int getId() {
         return id;

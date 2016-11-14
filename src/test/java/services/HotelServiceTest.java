@@ -2,6 +2,7 @@ package services;
 
 import models.Hotel;
 import models.HotelBookingRequest;
+import models.HotelReservation;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -48,5 +49,22 @@ public class HotelServiceTest {
         boolean isBooked = hotelService.bookHotel(bookingRequest);
 
         assertTrue(isBooked);
+    }
+
+    @Test(expected = IndexOutOfBoundsException.class)
+    public void cancelHotel() throws SQLException {
+
+        HotelBookingRequest bookingRequest = new HotelBookingRequest();
+        bookingRequest.setBookingNumber("penis");
+
+        boolean isBooked = hotelService.bookHotel(bookingRequest);
+
+        assertTrue(isBooked);
+
+        hotelService.cancelHotel("penis");
+
+        HotelReservation hotelReservation = DatabaseService.getDao(HotelReservation.class)
+                .queryForEq("bookingNumber", "penis")
+                .get(0);
     }
 }
