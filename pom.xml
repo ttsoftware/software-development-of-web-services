@@ -7,7 +7,6 @@
     <groupId>WebServices</groupId>
     <artifactId>web.services</artifactId>
     <version>1.0</version>
-    <name>NameTestWebServices</name>
 
     <properties>
         <endorsed.dir>${project.build.directory}/endorsed</endorsed.dir>
