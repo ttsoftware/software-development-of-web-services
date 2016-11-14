@@ -33,6 +33,12 @@ public class Hotel {
     @DatabaseField(canBeNull = false)
     private float price;
 
+    @DatabaseField(canBeNull = false)
+    private long opens;
+
+    @DatabaseField(canBeNull = false)
+    private long closes;
+
     public Hotel() {
     }
 
@@ -82,5 +88,21 @@ public class Hotel {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public long getOpens() {
+        return opens;
+    }
+
+    public void setOpens(long opens) {
+        this.opens = opens;
+    }
+
+    public long getCloses() {
+        return closes;
+    }
+
+    public void setCloses(long closes) {
+        this.closes = closes;
     }
 }

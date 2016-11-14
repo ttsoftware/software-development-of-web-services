@@ -28,7 +28,9 @@ CREATE TABLE Hotel (
   city                VARCHAR(100)        DEFAULT NULL,
   bookingNumber       VARCHAR(20) UNIQUE  NOT NULL,
   creditCardGuarantee TINYINT             DEFAULT NULL,
-  price               BIGINT              DEFAULT NULL
+  price               BIGINT              DEFAULT NULL,
+  opens               BIGINT              DEFAULT NULL,
+  closes              BIGINT              DEFAULT NULL
 );
 
 CREATE TABLE CreditCardInfoType (
@@ -47,7 +49,8 @@ CREATE TABLE HotelReservation (
   FOREIGN KEY (fk_hotel) REFERENCES Hotel (id)
 );
 
-INSERT INTO Hotel (name, city, bookingNumber, price) VALUES ("Danglen", "copenhagen", "penis", 50.00);
+INSERT INTO Hotel (name, city, bookingNumber, price, opens, closes)
+VALUES ("Danglen", "copenhagen", "penis", 50.00, 1482706800000, 1483138800000);
 
 INSERT INTO Flight (id, startAirport, destinationAirport, carrier, start, end)
 VALUES (1, "Copenhagen", "Berlin", "Air Berlin", datetime("2016-11-07"), datetime("2016-11-07"));

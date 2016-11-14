@@ -35,7 +35,18 @@ public class HotelServiceTest {
 
     @Test
     public void getHotelsTest() throws SQLException {
-        Hotel[] hotels = hotelService.getHotels("copenhagen", new Date(), new Date());
+
+        Date arrivalDate = new Date(2015-1900, 11, 27);
+        Date depatureDate = new Date(2018-1900, 11, 31);
+
+        Hotel[] hotels = hotelService.getHotels("copenhagen", arrivalDate, depatureDate);
+
+        assertEquals(hotels.length, 0);
+
+        arrivalDate = new Date(2016-1900, 11, 28);
+        depatureDate = new Date(2016-1900, 11, 30);
+
+        hotels = hotelService.getHotels("copenhagen", arrivalDate, depatureDate);
 
         assertEquals(hotels[0].getName(), "Danglen");
     }
