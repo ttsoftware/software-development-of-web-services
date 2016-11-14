@@ -1,7 +1,6 @@
 package models.dao;
 
 import com.j256.ormlite.dao.Dao;
-import models.Flight;
 import models.Itinerary;
 
 import java.sql.SQLException;
@@ -14,4 +13,4 @@ public interface ItineraryDao extends Dao<Itinerary, Integer> {
     @Override
     int create(Itinerary itinerary) throws SQLException;
 }
-}
+
