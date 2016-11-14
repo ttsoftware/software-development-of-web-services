@@ -41,13 +41,14 @@ CREATE TABLE CreditCardInfoType (
 CREATE TABLE HotelReservation (
   id                    INTEGER PRIMARY KEY AUTOINCREMENT,
   bookingNumber         VARCHAR(20) UNIQUE  NOT NULL,
-  fk_creditCardInfoType INT                 DEFAULT NULL,
+  /*fk_creditCardInfoType INT                 DEFAULT NULL,*/
   fk_hotel              INT                 DEFAULT NULL,
-  FOREIGN KEY (fk_creditCardInfoType) REFERENCES CreditCardInfoType (id),
+  /*FOREIGN KEY (fk_creditCardInfoType) REFERENCES CreditCardInfoType (id),*/
   FOREIGN KEY (fk_hotel) REFERENCES Hotel (id)
 );
 
 INSERT INTO Hotel (name, city, bookingNumber, price) VALUES ("Danglen", "copenhagen", "penis", 50.00);
+
 INSERT INTO Flight (id, startAirport, destinationAirport, carrier, start, end)
 VALUES (1, "Copenhagen", "Berlin", "Air Berlin", datetime("2016-11-07"), datetime("2016-11-07"));
 
