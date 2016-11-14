@@ -6,6 +6,7 @@ import models.FlightReservation;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import services.exceptions.BookingNumberException;
 
 import javax.xml.namespace.QName;
 import javax.xml.ws.Service;
@@ -56,14 +57,14 @@ public class AirlineServiceTest {
             Assert.assertEquals(succes, true);
         } catch (CreditCardFaultMessage creditCardFaultMessage) {
             creditCardFaultMessage.printStackTrace();
-        } catch (AirlineService.BookingNumberException e) {
+        } catch (BookingNumberException e) {
             e.printStackTrace();
         }
     }
 
 
     @Test(expected=CreditCardFaultMessage.class)
-    public void bookFlightNotEnoughtMoneyTest() throws AirlineService.BookingNumberException, CreditCardFaultMessage {
+    public void bookFlightNotEnoughtMoneyTest() throws BookingNumberException, CreditCardFaultMessage {
         CreditCardInfoType creditCard = new CreditCardInfoType();
         CreditCardInfoType.ExpirationDate expDate = new CreditCardInfoType.ExpirationDate();
 
@@ -78,8 +79,8 @@ public class AirlineServiceTest {
     }
 
 
-    @Test(expected=AirlineService.BookingNumberException.class)
-    public void bookFlightBookingNumberException() throws AirlineService.BookingNumberException, CreditCardFaultMessage {
+    @Test(expected=BookingNumberException.class)
+    public void bookFlightBookingNumberException() throws BookingNumberException, CreditCardFaultMessage {
         CreditCardInfoType creditCard = new CreditCardInfoType();
         CreditCardInfoType.ExpirationDate expDate = new CreditCardInfoType.ExpirationDate();
 
@@ -94,7 +95,7 @@ public class AirlineServiceTest {
     }
 
     @Test
-    public void cancelFlightTest() throws AirlineService.BookingNumberException, CreditCardFaultMessage {
+    public void cancelFlightTest() throws CreditCardFaultMessage, BookingNumberException {
         CreditCardInfoType creditCard = new CreditCardInfoType();
         CreditCardInfoType.ExpirationDate expDate = new CreditCardInfoType.ExpirationDate();
 
@@ -109,8 +110,8 @@ public class AirlineServiceTest {
 
     }
 
-    @Test
-    public void cancelFlightTestBookingNumber() throws AirlineService.BookingNumberException, CreditCardFaultMessage {
+    @Test(expected = BookingNumberException.class)
+    public void cancelFlightTestBookingNumber() throws CreditCardFaultMessage, BookingNumberException {
         CreditCardInfoType creditCard = new CreditCardInfoType();
         CreditCardInfoType.ExpirationDate expDate = new CreditCardInfoType.ExpirationDate();
 
@@ -122,6 +123,5 @@ public class AirlineServiceTest {
         creditCard.setName("Anne Strandberg");
         boolean succes = airlineService.cancelFlight("5237", 500, creditCard);
         Assert.assertEquals(succes, true);
-
     }
 }
