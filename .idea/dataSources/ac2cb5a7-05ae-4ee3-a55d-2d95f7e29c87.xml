@@ -13,11 +13,11 @@
     </column>
     <column id="7" parent="2" name="name">
       <mandatory>1</mandatory>
-      <data-type>VARCHAR(20)(0,-1)|12</data-type>
+      <data-type>VARCHAR(20) (0,-1)|12</data-type>
     </column>
     <column id="8" parent="2" name="number">
       <mandatory>1</mandatory>
-      <data-type>VARCHAR(50)(0,-1)|12</data-type>
+      <data-type>VARCHAR(50) (0,-1)|12</data-type>
     </column>
     <column id="9" parent="2" name="price">
       <data-type>BIGINT(0,-1)|4</data-type>
@@ -32,15 +32,15 @@
     </column>
     <column id="12" parent="3" name="name">
       <mandatory>1</mandatory>
-      <data-type>VARCHAR(100)(0,-1)|12</data-type>
+      <data-type>VARCHAR(100) (0,-1)|12</data-type>
     </column>
     <column id="13" parent="3" name="city">
-      <data-type>VARCHAR(100)(0,-1)|12</data-type>
+      <data-type>VARCHAR(100) (0,-1)|12</data-type>
       <default-expression>&apos;NULL&apos;</default-expression>
     </column>
     <column id="14" parent="3" name="bookingNumber">
       <mandatory>1</mandatory>
-      <data-type>VARCHAR(20)(0,-1)|12</data-type>
+      <data-type>VARCHAR(20) (0,-1)|12</data-type>
     </column>
     <column id="15" parent="3" name="creditCardGuarantee">
       <data-type>TINYINT(0,-1)|4</data-type>
@@ -71,7 +71,7 @@
     </column>
     <column id="21" parent="4" name="bookingNumber">
       <mandatory>1</mandatory>
-      <data-type>VARCHAR(20)(0,-1)|12</data-type>
+      <data-type>VARCHAR(20) (0,-1)|12</data-type>
     </column>
     <column id="22" parent="4" name="fk_creditCardInfoType">
       <data-type>INT(0,-1)|4</data-type>
