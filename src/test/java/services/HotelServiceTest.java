@@ -2,6 +2,7 @@ package services;
 
 import models.Hotel;
 import models.HotelBookingRequest;
+import models.HotelReservation;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -22,7 +23,7 @@ public class HotelServiceTest {
     @Before
     public void setup() {
         try {
-            URL url = new URL("http://localhost:8080/web_services_war_exploded/HotelService?wsdl");
+            URL url = new URL("http://localhost:8080/webservices/HotelService?wsdl");
             QName qname = new QName("http://services/", "HotelService");
             Service service = Service.create(url, qname);
             hotelService = service.getPort(HotelInterface.class);
@@ -48,5 +49,22 @@ public class HotelServiceTest {
         boolean isBooked = hotelService.bookHotel(bookingRequest);
 
         assertTrue(isBooked);
+    }
+
+    @Test(expected = IndexOutOfBoundsException.class)
+    public void cancelHotel() throws SQLException {
+
+        HotelBookingRequest bookingRequest = new HotelBookingRequest();
+        bookingRequest.setBookingNumber("penis");
+
+        boolean isBooked = hotelService.bookHotel(bookingRequest);
+
+        assertTrue(isBooked);
+
+        hotelService.cancelHotel("penis");
+
+        HotelReservation hotelReservation = DatabaseService.getDao(HotelReservation.class)
+                .queryForEq("bookingNumber", "penis")
+                .get(0);
     }
 }

@@ -3,6 +3,7 @@
 .idea/uiDesigner.xml
 .idea/libraries
 .idea/dictionaries
+.idea/dataSources/*
 target
 out
 .class
