@@ -1,8 +1,10 @@
 package services;
 
 import bank.CreditCardInfoType;
+import models.BookingType;
 import models.FlightReservation;
 import models.Hotel;
+import models.Itinerary;
 
 import javax.jws.WebMethod;
 import javax.jws.WebParam;
@@ -32,26 +34,27 @@ public interface TravelAgencyInterface {
                       @WebParam(name = "departureDate") Date departureDate) throws SQLException;
 
     @WebMethod(operationName = "createItinerarie")
-    Object createItinerarie();
+    int createItinerarie() throws Exception;
 
     @WebMethod(operationName = "getItinerarie")
-    Object getItinerarie(@WebParam(name = "id") String id);
+    @WebResult(name="itinerary")
+    Itinerary getItinerarie(@WebParam(name = "id") int id) throws Exception;
 
     @WebMethod(operationName = "cancelItinerarie")
-    boolean cancelItinerarie(@WebParam(name = "id") String id);
+    boolean cancelItinerarie(@WebParam(name = "id") int id);
 
     @WebMethod(operationName = "bookItinerarie")
-    boolean bookItinerarie(@WebParam(name = "id") String id);
+    boolean bookItinerarie(@WebParam(name = "id") int id);
 
     @WebMethod(operationName = "createBooking")
     boolean createBooking(@WebParam(name = "itinerarieId") String itinerarieId,
                           @WebParam(name = "bookingNumber") String bookingNumber,
                           @WebParam(name = "cardInformation") CreditCardInfoType cardInformation,
-                          @WebParam(name = "bookingType") Enum bookingType);
+                          @WebParam(name = "bookingType") BookingType bookingType);
 
     @WebMethod(operationName = "cancelBooking")
     boolean cancelBooking(@WebParam(name = "itinerarieId") String itinerarieId,
                           @WebParam(name = "bookingNumber") String bookingNumber,
                           @WebParam(name = "cardInformation") CreditCardInfoType cardInformation,
-                          @WebParam(name = "bookingType") Enum bookingType);
+                          @WebParam(name = "bookingType") BookingType bookingType);
 }
