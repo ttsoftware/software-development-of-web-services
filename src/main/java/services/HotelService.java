@@ -47,6 +47,10 @@ public class HotelService implements HotelInterface {
             e.printStackTrace();
         }
 
+        if (hotel == null) {
+            return false;
+        }
+
         HotelReservation hotelReservation = new HotelReservation();
         hotelReservation.setHotel(hotel);
         hotelReservation.setBookingNumber(hotelBookingRequest.getBookingNumber());

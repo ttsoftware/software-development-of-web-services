@@ -12,9 +12,6 @@ import java.net.URL;
 import java.sql.SQLException;
 import java.util.Date;
 
-/**
- * Created by troels on 11/15/16.
- */
 @WebService(
         name = "TravelAgencyService",
         serviceName = "TravelAgencyService",
@@ -80,6 +77,4 @@ public class TravelAgencyService implements TravelAgencyInterface {
     public boolean cancelBooking(String itinerarieId, String bookingNumber, CreditCardInfoType cardInformation, BookingType bookingType) {
         return false;
     }
-
-
 }
