@@ -1,5 +1,5 @@
 
-package bank;
+package hotel;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -17,6 +17,7 @@ import javax.xml.bind.annotation.XmlType;
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
+ *         &lt;element name="id" type="{http://www.w3.org/2001/XMLSchema}int"/>
  *         &lt;element name="expirationDate">
  *           &lt;complexType>
  *             &lt;complexContent>
@@ -41,18 +42,36 @@ import javax.xml.bind.annotation.XmlType;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "creditCardInfoType", namespace = "http://types.fastmoney.imm.dtu.dk", propOrder = {
+    "id",
     "expirationDate",
     "name",
     "number"
 })
 public class CreditCardInfoType {
 
+    protected int id;
     @XmlElement(required = true)
     protected CreditCardInfoType.ExpirationDate expirationDate;
     @XmlElement(required = true)
     protected String name;
     @XmlElement(required = true)
     protected String number;
+
+    /**
+     * Gets the value of the id property.
+     * 
+     */
+    public int getId() {
+        return id;
+    }
+
+    /**
+     * Sets the value of the id property.
+     * 
+     */
+    public void setId(int value) {
+        this.id = value;
+    }
 
     /**
      * Gets the value of the expirationDate property.

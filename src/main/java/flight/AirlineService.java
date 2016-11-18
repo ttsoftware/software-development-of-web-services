@@ -17,7 +17,7 @@ import javax.xml.ws.WebServiceFeature;
  * Generated source version: 2.2
  * 
  */
-@WebServiceClient(name = "AirlineService", targetNamespace = "http://services/", wsdlLocation = "http://mars:8080/webservices/AirlineService?wsdl")
+@WebServiceClient(name = "AirlineService", targetNamespace = "http://services/", wsdlLocation = "http://localhost:8080/webservices/AirlineService?wsdl")
 public class AirlineService
     extends Service
 {
@@ -30,7 +30,7 @@ public class AirlineService
         URL url = null;
         WebServiceException e = null;
         try {
-            url = new URL("http://mars:8080/webservices/AirlineService?wsdl");
+            url = new URL("http://localhost:8080/webservices/AirlineService?wsdl");
         } catch (MalformedURLException ex) {
             e = new WebServiceException(ex);
         }

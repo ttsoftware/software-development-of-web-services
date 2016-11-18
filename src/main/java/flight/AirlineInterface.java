@@ -27,25 +27,6 @@ public interface AirlineInterface {
 
     /**
      * 
-     * @param date
-     * @param destination
-     * @param from
-     * @return
-     *     returns flight.FlightReservationArray
-     */
-    @WebMethod
-    @WebResult(name = "flightRevervations", partName = "flightRevervations")
-    @Action(input = "http://services/AirlineInterface/getFlightsRequest", output = "http://services/AirlineInterface/getFlightsResponse")
-    public FlightReservationArray getFlights(
-        @WebParam(name = "from", partName = "from")
-        String from,
-        @WebParam(name = "destination", partName = "destination")
-        String destination,
-        @WebParam(name = "date", partName = "date")
-        PenisDate date);
-
-    /**
-     * 
      * @param cardInformation
      * @param bookingNumber
      * @return
@@ -92,5 +73,24 @@ public interface AirlineInterface {
         CreditCardInfoType cardInformation)
         throws BookingNumberException_Exception, CreditCardFaultMessage
     ;
+
+    /**
+     * 
+     * @param date
+     * @param destination
+     * @param from
+     * @return
+     *     returns flight.FlightReservationArray
+     */
+    @WebMethod
+    @WebResult(name = "flightRevervations", partName = "flightRevervations")
+    @Action(input = "http://services/AirlineInterface/getFlightsRequest", output = "http://services/AirlineInterface/getFlightsResponse")
+    public FlightReservationArray getFlights(
+        @WebParam(name = "from", partName = "from")
+        String from,
+        @WebParam(name = "destination", partName = "destination")
+        String destination,
+        @WebParam(name = "date", partName = "date")
+        PenisDate date);
 
 }

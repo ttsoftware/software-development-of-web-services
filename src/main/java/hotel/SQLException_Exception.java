@@ -1,5 +1,5 @@
 
-package bank;
+package hotel;
 
 import javax.xml.ws.WebFault;
 
@@ -10,23 +10,23 @@ import javax.xml.ws.WebFault;
  * Generated source version: 2.2
  * 
  */
-@WebFault(name = "CreditCardFault", targetNamespace = "http://fastmoney.imm.dtu.dk")
-public class CreditCardFaultMessage
-    extends Exception
+@WebFault(name = "SQLException", targetNamespace = "http://services/")
+public class SQLException_Exception
+    extends java.lang.Exception
 {
 
     /**
      * Java type that goes as soapenv:Fault detail element.
      * 
      */
-    private CreditCardFaultType faultInfo;
+    private SQLException faultInfo;
 
     /**
      * 
      * @param faultInfo
      * @param message
      */
-    public CreditCardFaultMessage(String message, CreditCardFaultType faultInfo) {
+    public SQLException_Exception(String message, SQLException faultInfo) {
         super(message);
         this.faultInfo = faultInfo;
     }
@@ -37,7 +37,7 @@ public class CreditCardFaultMessage
      * @param cause
      * @param message
      */
-    public CreditCardFaultMessage(String message, CreditCardFaultType faultInfo, Throwable cause) {
+    public SQLException_Exception(String message, SQLException faultInfo, java.lang.Throwable cause) {
         super(message, cause);
         this.faultInfo = faultInfo;
     }
@@ -45,9 +45,9 @@ public class CreditCardFaultMessage
     /**
      * 
      * @return
-     *     returns fault bean: bank.CreditCardFaultType
+     *     returns fault bean: hotel.SQLException
      */
-    public CreditCardFaultType getFaultInfo() {
+    public SQLException getFaultInfo() {
         return faultInfo;
     }
 

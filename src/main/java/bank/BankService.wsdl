@@ -2,6 +2,18 @@
 <import namespace="http://fastmoney.imm.dtu.dk" location="http://fastmoney.imm.dtu.dk:8080/BankService?wsdl=1"/>
 <binding xmlns:ns1="http://fastmoney.imm.dtu.dk" name="BankPortBinding" type="ns1:BankPortType">
 <soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="document"/>
+<operation name="chargeCreditCard">
+<soap:operation soapAction=""/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+<fault name="CreditCardFaultMessage">
+<soap:fault name="CreditCardFaultMessage" use="literal"/>
+</fault>
+</operation>
 <operation name="validateCreditCard">
 <soap:operation soapAction=""/>
 <input>
@@ -15,18 +27,6 @@
 </fault>
 </operation>
 <operation name="refundCreditCard">
-<soap:operation soapAction=""/>
-<input>
-<soap:body use="literal"/>
-</input>
-<output>
-<soap:body use="literal"/>
-</output>
-<fault name="CreditCardFaultMessage">
-<soap:fault name="CreditCardFaultMessage" use="literal"/>
-</fault>
-</operation>
-<operation name="chargeCreditCard">
 <soap:operation soapAction=""/>
 <input>
 <soap:body use="literal"/>

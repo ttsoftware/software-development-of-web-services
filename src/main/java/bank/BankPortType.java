@@ -29,6 +29,35 @@ public interface BankPortType {
      * 
      * @param amount
      * @param creditCardInfo
+     * @param account
+     * @param group
+     * @return
+     *     returns boolean
+     * @throws CreditCardFaultMessage
+     */
+    @WebMethod
+    @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "chargeCreditCard", targetNamespace = "http://fastmoney.imm.dtu.dk", className = "bank.ChargeCreditCard")
+    @ResponseWrapper(localName = "chargeCreditCardResponse", targetNamespace = "http://fastmoney.imm.dtu.dk", className = "bank.ChargeCreditCardResponse")
+    @Action(input = "http://fastmoney.imm.dtu.dk/BankPortType/chargeCreditCardRequest", output = "http://fastmoney.imm.dtu.dk/BankPortType/chargeCreditCardResponse", fault = {
+        @FaultAction(className = CreditCardFaultMessage.class, value = "http://fastmoney.imm.dtu.dk/BankPortType/chargeCreditCard/Fault/CreditCardFaultMessage")
+    })
+    public boolean chargeCreditCard(
+        @WebParam(name = "group", targetNamespace = "")
+        int group,
+        @WebParam(name = "creditCardInfo", targetNamespace = "")
+        CreditCardInfoType creditCardInfo,
+        @WebParam(name = "amount", targetNamespace = "")
+        int amount,
+        @WebParam(name = "account", targetNamespace = "")
+        AccountType account)
+        throws CreditCardFaultMessage
+    ;
+
+    /**
+     * 
+     * @param amount
+     * @param creditCardInfo
      * @param group
      * @return
      *     returns boolean
@@ -69,35 +98,6 @@ public interface BankPortType {
         @FaultAction(className = CreditCardFaultMessage.class, value = "http://fastmoney.imm.dtu.dk/BankPortType/refundCreditCard/Fault/CreditCardFaultMessage")
     })
     public boolean refundCreditCard(
-        @WebParam(name = "group", targetNamespace = "")
-        int group,
-        @WebParam(name = "creditCardInfo", targetNamespace = "")
-        CreditCardInfoType creditCardInfo,
-        @WebParam(name = "amount", targetNamespace = "")
-        int amount,
-        @WebParam(name = "account", targetNamespace = "")
-        AccountType account)
-        throws CreditCardFaultMessage
-    ;
-
-    /**
-     * 
-     * @param amount
-     * @param creditCardInfo
-     * @param account
-     * @param group
-     * @return
-     *     returns boolean
-     * @throws CreditCardFaultMessage
-     */
-    @WebMethod
-    @WebResult(targetNamespace = "")
-    @RequestWrapper(localName = "chargeCreditCard", targetNamespace = "http://fastmoney.imm.dtu.dk", className = "bank.ChargeCreditCard")
-    @ResponseWrapper(localName = "chargeCreditCardResponse", targetNamespace = "http://fastmoney.imm.dtu.dk", className = "bank.ChargeCreditCardResponse")
-    @Action(input = "http://fastmoney.imm.dtu.dk/BankPortType/chargeCreditCardRequest", output = "http://fastmoney.imm.dtu.dk/BankPortType/chargeCreditCardResponse", fault = {
-        @FaultAction(className = CreditCardFaultMessage.class, value = "http://fastmoney.imm.dtu.dk/BankPortType/chargeCreditCard/Fault/CreditCardFaultMessage")
-    })
-    public boolean chargeCreditCard(
         @WebParam(name = "group", targetNamespace = "")
         int group,
         @WebParam(name = "creditCardInfo", targetNamespace = "")
