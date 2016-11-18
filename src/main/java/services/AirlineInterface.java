@@ -3,6 +3,7 @@ package services;
 import bank.CreditCardFaultMessage;
 import bank.CreditCardInfoType;
 import models.FlightReservation;
+import models.PenisDate;
 import services.exceptions.BookingNumberException;
 
 import javax.jws.WebMethod;
@@ -10,17 +11,16 @@ import javax.jws.WebParam;
 import javax.jws.WebResult;
 import javax.jws.WebService;
 import javax.jws.soap.SOAPBinding;
-import java.util.Date;
 
 @WebService
 @SOAPBinding(style = SOAPBinding.Style.RPC, use = SOAPBinding.Use.LITERAL)
 public interface AirlineInterface {
 
     @WebMethod
-    @WebResult(name="flightRevervations")
+    @WebResult(name = "flightRevervations")
     FlightReservation[] getFlights(@WebParam(name = "from") String from,
-                                 @WebParam(name = "destination") String destination,
-                                 @WebParam(name = "date")Date date);
+                                   @WebParam(name = "destination") String destination,
+                                   @WebParam(name = "date") PenisDate date);
 
 
     @WebMethod

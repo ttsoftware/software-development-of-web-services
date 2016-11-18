@@ -7,7 +7,6 @@ import javax.jws.WebResult;
 import javax.jws.WebService;
 import javax.jws.soap.SOAPBinding;
 import javax.xml.bind.annotation.XmlSeeAlso;
-import javax.xml.datatype.XMLGregorianCalendar;
 import javax.xml.ws.Action;
 import javax.xml.ws.FaultAction;
 
@@ -43,7 +42,7 @@ public interface AirlineInterface {
         @WebParam(name = "destination", partName = "destination")
         String destination,
         @WebParam(name = "date", partName = "date")
-        XMLGregorianCalendar date);
+        PenisDate date);
 
     /**
      * 

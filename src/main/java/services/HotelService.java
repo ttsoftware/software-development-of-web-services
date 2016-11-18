@@ -4,6 +4,7 @@ import com.j256.ormlite.stmt.QueryBuilder;
 import models.Hotel;
 import models.HotelBookingRequest;
 import models.HotelReservation;
+import models.PenisDate;
 import models.dao.HotelReservationDao;
 
 import javax.jws.WebService;
@@ -20,15 +21,18 @@ public class HotelService implements HotelInterface {
 
     @Override
     public Hotel[] getHotels(String city,
-                             Date arrivalDate,
-                             Date departureDate) throws SQLException {
+                             PenisDate arrivalDate,
+                             PenisDate departureDate) throws SQLException {
+
+        Date arrivalDatePenisDate = arrivalDate.toDate();
+        Date departureDatePenisDate = departureDate.toDate();
 
         QueryBuilder<Hotel, ?> queryBuilder = DatabaseService.getDao(Hotel.class).queryBuilder();
         queryBuilder.
                 where()
                 .eq("city", city)
-                .and().le("opens", arrivalDate.getTime())
-                .and().ge("closes", departureDate.getTime());
+                .and().le("opens", arrivalDatePenisDate.getTime())
+                .and().ge("closes", departureDatePenisDate.getTime());
 
         List<Hotel> hotels = DatabaseService.getDao(Hotel.class).query(queryBuilder.prepare());
 

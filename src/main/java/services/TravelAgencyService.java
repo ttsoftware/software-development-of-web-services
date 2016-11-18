@@ -27,9 +27,12 @@ public class TravelAgencyService implements TravelAgencyInterface {
         } catch (MalformedURLException e) {
             e.printStackTrace();
         }
+        /*
         flight.AirlineService bs = new flight.AirlineService(FlightServiceUrl);
         flight.AirlineInterface port = bs.getAirlineServicePort();
         return port.getFlights(from, destination, date);
+        */
+        return null;
     }
 
     @Override
@@ -40,9 +43,13 @@ public class TravelAgencyService implements TravelAgencyInterface {
         } catch (MalformedURLException e) {
             e.printStackTrace();
         }
+        /*
         hotel.HotelService bs = new hotel.HotelService(hotelServiceUrl);
         hotel.HotelInterface port = bs.getHotelServicePort();
         return port.getHotels(city, arrivalDate, departureDate);
+        */
+
+        return new Hotel[]{};
     }
 
     @Override
@@ -74,7 +81,7 @@ public class TravelAgencyService implements TravelAgencyInterface {
     }
 
     @Override
-    public boolean cancelBooking(String itinerarieId, String bookingNumber, CreditCardInfoType cardInformation, BookingType bookingType) {
+    public boolean cancelBooking(String itinerarieId, String bookingNumber) {
         return false;
     }
 }

@@ -3,6 +3,7 @@ package services;
 import models.Hotel;
 import models.HotelBookingRequest;
 import models.HotelReservation;
+import models.PenisDate;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -11,7 +12,6 @@ import javax.xml.ws.Service;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.sql.SQLException;
-import java.util.Date;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
@@ -36,15 +36,15 @@ public class HotelServiceTest {
     @Test
     public void getHotelsTest() throws SQLException {
 
-        Date arrivalDate = new Date(2015-1900, 11, 27);
-        Date depatureDate = new Date(2018-1900, 11, 31);
+        PenisDate arrivalDate = new PenisDate(2015-1900, 11, 27);
+        PenisDate depatureDate = new PenisDate(2018-1900, 11, 31);
 
         Hotel[] hotels = hotelService.getHotels("copenhagen", arrivalDate, depatureDate);
 
         assertEquals(hotels.length, 0);
 
-        arrivalDate = new Date(2016-1900, 11, 28);
-        depatureDate = new Date(2016-1900, 11, 30);
+        arrivalDate = new PenisDate(2016-1900, 11, 28);
+        depatureDate = new PenisDate(2016-1900, 11, 30);
 
         hotels = hotelService.getHotels("copenhagen", arrivalDate, depatureDate);
 

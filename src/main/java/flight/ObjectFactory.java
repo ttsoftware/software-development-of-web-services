@@ -25,6 +25,7 @@ import javax.xml.namespace.QName;
 public class ObjectFactory {
 
     private final static QName _BookingNumberException_QNAME = new QName("http://services/", "BookingNumberException");
+    private final static QName _PenisDate_QNAME = new QName("http://services/", "PenisDate");
     private final static QName _FlightReservation_QNAME = new QName("http://services/", "FlightReservation");
     private final static QName _CreditCardFault_QNAME = new QName("http://fastmoney.imm.dtu.dk", "CreditCardFault");
 
@@ -49,6 +50,14 @@ public class ObjectFactory {
      */
     public FlightReservation createFlightReservation() {
         return new FlightReservation();
+    }
+
+    /**
+     * Create an instance of {@link PenisDate }
+     * 
+     */
+    public PenisDate createPenisDate() {
+        return new PenisDate();
     }
 
     /**
@@ -98,6 +107,15 @@ public class ObjectFactory {
     @XmlElementDecl(namespace = "http://services/", name = "BookingNumberException")
     public JAXBElement<BookingNumberException> createBookingNumberException(BookingNumberException value) {
         return new JAXBElement<BookingNumberException>(_BookingNumberException_QNAME, BookingNumberException.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link PenisDate }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://services/", name = "PenisDate")
+    public JAXBElement<PenisDate> createPenisDate(PenisDate value) {
+        return new JAXBElement<PenisDate>(_PenisDate_QNAME, PenisDate.class, null, value);
     }
 
     /**

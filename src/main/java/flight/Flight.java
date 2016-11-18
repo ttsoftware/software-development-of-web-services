@@ -4,9 +4,7 @@ package flight;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlSchemaType;
 import javax.xml.bind.annotation.XmlType;
-import javax.xml.datatype.XMLGregorianCalendar;
 
 
 /**
@@ -23,8 +21,8 @@ import javax.xml.datatype.XMLGregorianCalendar;
  *         &lt;element name="startAirport" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *         &lt;element name="destinationAirport" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *         &lt;element name="carrier" type="{http://www.w3.org/2001/XMLSchema}string"/>
- *         &lt;element name="start" type="{http://www.w3.org/2001/XMLSchema}dateTime"/>
- *         &lt;element name="end" type="{http://www.w3.org/2001/XMLSchema}dateTime"/>
+ *         &lt;element name="start" type="{http://www.w3.org/2001/XMLSchema}long"/>
+ *         &lt;element name="end" type="{http://www.w3.org/2001/XMLSchema}long"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
  *   &lt;/complexContent>
@@ -51,12 +49,8 @@ public class Flight {
     protected String destinationAirport;
     @XmlElement(required = true)
     protected String carrier;
-    @XmlElement(required = true)
-    @XmlSchemaType(name = "dateTime")
-    protected XMLGregorianCalendar start;
-    @XmlElement(required = true)
-    @XmlSchemaType(name = "dateTime")
-    protected XMLGregorianCalendar end;
+    protected long start;
+    protected long end;
 
     /**
      * Gets the value of the id property.
@@ -149,48 +143,32 @@ public class Flight {
     /**
      * Gets the value of the start property.
      * 
-     * @return
-     *     possible object is
-     *     {@link XMLGregorianCalendar }
-     *     
      */
-    public XMLGregorianCalendar getStart() {
+    public long getStart() {
         return start;
     }
 
     /**
      * Sets the value of the start property.
      * 
-     * @param value
-     *     allowed object is
-     *     {@link XMLGregorianCalendar }
-     *     
      */
-    public void setStart(XMLGregorianCalendar value) {
+    public void setStart(long value) {
         this.start = value;
     }
 
     /**
      * Gets the value of the end property.
      * 
-     * @return
-     *     possible object is
-     *     {@link XMLGregorianCalendar }
-     *     
      */
-    public XMLGregorianCalendar getEnd() {
+    public long getEnd() {
         return end;
     }
 
     /**
      * Sets the value of the end property.
      * 
-     * @param value
-     *     allowed object is
-     *     {@link XMLGregorianCalendar }
-     *     
      */
-    public void setEnd(XMLGregorianCalendar value) {
+    public void setEnd(long value) {
         this.end = value;
     }
 
