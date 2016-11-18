@@ -7,9 +7,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by troels on 11/18/16.
- */
 public class ItineraryService implements ItineraryInterface {
     @Override
     public Itinerary getItinerary(int id) {

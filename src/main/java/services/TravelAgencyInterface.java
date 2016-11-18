@@ -14,9 +14,6 @@ import javax.jws.soap.SOAPBinding;
 import java.sql.SQLException;
 import java.util.Date;
 
-/**
- * Created by troels on 11/14/16.
- */
 @WebService
 @SOAPBinding(style = SOAPBinding.Style.RPC, use = SOAPBinding.Use.LITERAL)
 public interface TravelAgencyInterface {
@@ -54,7 +51,5 @@ public interface TravelAgencyInterface {
 
     @WebMethod(operationName = "cancelBooking")
     boolean cancelBooking(@WebParam(name = "itinerarieId") String itinerarieId,
-                          @WebParam(name = "bookingNumber") String bookingNumber,
-                          @WebParam(name = "cardInformation") CreditCardInfoType cardInformation,
-                          @WebParam(name = "bookingType") BookingType bookingType);
+                          @WebParam(name = "bookingNumber") String bookingNumber);
 }

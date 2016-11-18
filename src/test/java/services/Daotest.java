@@ -6,9 +6,7 @@ import models.Itinerary;
 import java.sql.SQLException;
 import java.util.List;
 
-/**
- * Created by troels on 11/17/16.
- */
+
 public class Daotest {
 
     public static void main(String[] args) throws SQLException {
@@ -19,6 +17,5 @@ public class Daotest {
         Object[] bookings = itinerary.get(0).getBookings().toArray();
         Booking test = (Booking) bookings[0];
         System.out.println(test.getBookingStatus());
-
     }
 }

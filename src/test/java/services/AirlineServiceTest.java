@@ -3,6 +3,7 @@ package services;
 import bank.CreditCardFaultMessage;
 import bank.CreditCardInfoType;
 import models.FlightReservation;
+import models.PenisDate;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -12,7 +13,6 @@ import javax.xml.namespace.QName;
 import javax.xml.ws.Service;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.Date;
 
 public class AirlineServiceTest {
 
@@ -33,12 +33,11 @@ public class AirlineServiceTest {
 
     @Test
     public void getFlightsTest() {
-        FlightReservation[] result = airlineService.getFlights("Copenhagen", "Berlin", new Date(2016, 11, 7));
+        FlightReservation[] result = airlineService.getFlights("Copenhagen", "Berlin", new PenisDate(2016, 11, 7));
 
         System.out.println(result.length);
         System.out.println(result[0].getAirlineName());
     }
-
 
     @Test
     public void bookFlightEnoguhMoneyTest(){

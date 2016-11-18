@@ -10,9 +10,6 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlType;
 import java.util.Date;
 
-/**
- * Created by troels on 11/14/16.
- */
 @XmlType(name = "Booking")
 @XmlAccessorType(XmlAccessType.FIELD)
 @DatabaseTable(tableName = "Booking", daoClass = BookingDaoImpl.class)

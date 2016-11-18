@@ -1,6 +1,5 @@
 package models;
 
-import com.j256.ormlite.field.DataType;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 import models.dao.FlightDaoImpl;
@@ -9,58 +8,51 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
 /**
- * Created by troels on 10/31/16.
+ * Created by troels thomsen on stalin.
  */
 @XmlType(name = "Flight")
 @XmlAccessorType(XmlAccessType.FIELD)
 @DatabaseTable(tableName = "Flight", daoClass = FlightDaoImpl.class)
 public class Flight {
+
     @DatabaseField(generatedId = true)
     private int id;
 
-    @XmlElement(name="startAirport", required=true)
+    @XmlElement(name = "startAirport", required = true)
     @DatabaseField(canBeNull = false)
     private String startAirport;
 
-    @XmlElement(name="destinationAirport", required=true)
+    @XmlElement(name = "destinationAirport", required = true)
     @DatabaseField(canBeNull = false)
     private String destinationAirport;
 
-    @XmlElement(name="carrier", required=true)
+    @XmlElement(name = "carrier", required = true)
     @DatabaseField(canBeNull = false)
     private String carrier;
 
-    @XmlElement(name="start", required=true)
-    @DatabaseField(canBeNull = false, dataType = DataType.DATE_STRING, format = "yyyy/MM/dd HH:mm:ss")
-    private Date start;
+    @XmlElement(name = "start", required = true)
+    @DatabaseField(canBeNull = false)
+    private long start;
 
-    @XmlElement(name="end", required=true)
-    @DatabaseField(canBeNull = false, dataType = DataType.DATE_STRING, format = "yyyy/MM/dd HH:mm:ss")
-    private Date end;
+    @XmlElement(name = "end", required = true)
+    @DatabaseField(canBeNull = false)
+    private long end;
 
-
-    public String dateToString(Date date) {
-        // remember that SimpleDateFormat is not reentrant
-        return new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(new Date());
-    }
-
-    public Date getStart() {
+    public long getStart() {
         return start;
     }
 
-    public void setStart(Date start) {
+    public void setStart(long start) {
         this.start = start;
     }
 
-    public Date getEnd() {
+    public long getEnd() {
         return end;
     }
 
-    public void setEnd(Date end) {
+    public void setEnd(long end) {
         this.end = end;
     }
 
@@ -95,6 +87,4 @@ public class Flight {
     public void setCarrier(String carrier) {
         this.carrier = carrier;
     }
-
-
 }
