@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
+  <component name="DataSourceManagerImpl" format="xml" hash="2504217157">
     <data-source source="LOCAL" name="/var/www/db/travelagency.db" uuid="ac2cb5a7-05ae-4ee3-a55d-2d95f7e29c87">
       <driver-ref>sqlite.xerial</driver-ref>
       <synchronize>true</synchronize>

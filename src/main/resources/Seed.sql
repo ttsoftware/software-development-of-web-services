@@ -3,6 +3,8 @@ DROP TABLE IF EXISTS Flight;
 DROP TABLE IF EXISTS Hotel;
 DROP TABLE IF EXISTS HotelReservation;
 DROP TABLE IF EXISTS CreditCardInfoType;
+DROP TABLE IF EXISTS Booking;
+DROP TABLE IF EXISTS Itinerary;
 
 CREATE TABLE Flight (
   id                 INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -49,8 +51,29 @@ CREATE TABLE HotelReservation (
   FOREIGN KEY (fk_hotel) REFERENCES Hotel (id)
 );
 
-INSERT INTO Hotel (name, city, bookingNumber, price, opens, closes)
-VALUES ("Danglen", "copenhagen", "penis", 50.00, 1482706800000, 1483138800000);
+CREATE TABLE Booking (
+  id                  INTEGER PRIMARY KEY AUTOINCREMENT,
+  price               BIGINT NOT NULL,
+  date                BIGINT NOT NULL,
+  bookingNumber       VARCHAR(20) UNIQUE  NOT NULL,
+  bookingStatus       INT NOT NULL,
+  bookingType         INT NOT NULL,
+  fk_itinerary INT DEFAULT NULL,
+  FOREIGN KEY (fk_itinerary) REFERENCES Itinerary (id)
+);
+
+CREATE TABLE Itinerary (
+  id  INTEGER PRIMARY KEY AUTOINCREMENT
+);
+
+INSERT INTO Itinerary(id) VALUES (1);
+INSERT INTO Itinerary(id) VALUES (2);
+
+INSERT INTO Booking(id, price, date, bookingNumber, bookingStatus, bookingType, fk_itinerary)
+VALUES (1, 100, datetime("2016-11-07"),"1234", 1, 1, 1);
+
+INSERT INTO Hotel (name, city, bookingNumber, price) VALUES ("Danglen", "copenhagen", "penis", 50.00);
+
 
 INSERT INTO Flight (id, startAirport, destinationAirport, carrier, start, end)
 VALUES (1, "Copenhagen", "Berlin", "Air Berlin", datetime("2016-11-07"), datetime("2016-11-07"));
