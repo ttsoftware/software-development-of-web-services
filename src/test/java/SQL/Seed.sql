@@ -14,9 +14,6 @@ CREATE TABLE FlightInformation (id SERIAL PRIMARY KEY,
                     price DOUBLE,
                     FOREIGN KEY(FK_flight) REFERENCES Flight(id));
 
-
-
-
 INSERT INTO Flight (id, startAirport, destinationAripor, carrier, start, end)
     VALUES (1, "Copenhagen", "Berlin", "Air Berlin", datetime("2016-11-07"), datetime("2016-11-07"));
 

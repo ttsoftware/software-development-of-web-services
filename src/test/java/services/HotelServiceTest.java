@@ -2,6 +2,7 @@ package services;
 
 import models.Hotel;
 import models.HotelBookingRequest;
+import models.HotelReservation;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -22,7 +23,7 @@ public class HotelServiceTest {
     @Before
     public void setup() {
         try {
-            URL url = new URL("http://localhost:8080/web_services_war_exploded/HotelService?wsdl");
+            URL url = new URL("http://localhost:8080/webservices/HotelService?wsdl");
             QName qname = new QName("http://services/", "HotelService");
             Service service = Service.create(url, qname);
             hotelService = service.getPort(HotelInterface.class);
@@ -34,7 +35,18 @@ public class HotelServiceTest {
 
     @Test
     public void getHotelsTest() throws SQLException {
-        Hotel[] hotels = hotelService.getHotels("copenhagen", new Date(), new Date());
+
+        Date arrivalDate = new Date(2015-1900, 11, 27);
+        Date depatureDate = new Date(2018-1900, 11, 31);
+
+        Hotel[] hotels = hotelService.getHotels("copenhagen", arrivalDate, depatureDate);
+
+        assertEquals(hotels.length, 0);
+
+        arrivalDate = new Date(2016-1900, 11, 28);
+        depatureDate = new Date(2016-1900, 11, 30);
+
+        hotels = hotelService.getHotels("copenhagen", arrivalDate, depatureDate);
 
         assertEquals(hotels[0].getName(), "Danglen");
     }
@@ -48,5 +60,22 @@ public class HotelServiceTest {
         boolean isBooked = hotelService.bookHotel(bookingRequest);
 
         assertTrue(isBooked);
+    }
+
+    @Test(expected = IndexOutOfBoundsException.class)
+    public void cancelHotel() throws SQLException {
+
+        HotelBookingRequest bookingRequest = new HotelBookingRequest();
+        bookingRequest.setBookingNumber("penis");
+
+        boolean isBooked = hotelService.bookHotel(bookingRequest);
+
+        assertTrue(isBooked);
+
+        hotelService.cancelHotel("penis");
+
+        HotelReservation hotelReservation = DatabaseService.getDao(HotelReservation.class)
+                .queryForEq("bookingNumber", "penis")
+                .get(0);
     }
 }

@@ -5,17 +5,16 @@ import com.j256.ormlite.stmt.PreparedQuery;
 import com.j256.ormlite.stmt.QueryBuilder;
 import models.Flight;
 import models.FlightReservation;
+import services.exceptions.BookingNumberException;
 
 import javax.jws.WebService;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.*;
 import java.sql.SQLException;
+import java.util.Iterator;
+import java.util.List;
 
 
-/**
- * Created by troels on 10/31/16.
- */
 @WebService(
         name = "AirlineService",
         serviceName = "AirlineService",
@@ -122,11 +121,5 @@ public class AirlineService implements AirlineInterface {
         port.refundCreditCard(99, cardInformation, returnMoney, flightAccount);
 
         return true;
-    }
-
-    public class BookingNumberException extends Exception {
-        public BookingNumberException(String message) {
-            super(message);
-        }
     }
 }
