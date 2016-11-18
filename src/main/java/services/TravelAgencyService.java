@@ -7,9 +7,10 @@ import models.Hotel;
 import models.Itinerary;
 
 import javax.jws.WebService;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.sql.SQLException;
 import java.util.Date;
-import java.util.List;
 
 /**
  * Created by troels on 11/15/16.
@@ -23,37 +24,41 @@ public class TravelAgencyService implements TravelAgencyInterface {
 
     @Override
     public FlightReservation[] getFlights(String from, String destination, Date date) {
-
-        return new FlightReservation[0];
+        URL FlightServiceUrl = null;
+        try {
+            FlightServiceUrl = new URL("http://localhost:8080/FlightService?wsdl");
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
+        flight.AirlineService bs = new flight.AirlineService(FlightServiceUrl);
+        flight.AirlineInterface port = bs.getAirlineServicePort();
+        return port.getFlights(from, destination, date);
     }
 
     @Override
     public Hotel[] getHotels(String city, Date arrivalDate, Date departureDate) throws SQLException {
-        return new Hotel[0];
+        URL hotelServiceUrl = null;
+        try {
+            hotelServiceUrl = new URL("http://localhost:8080/HotelService?wsdl");
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
+        hotel.HotelService bs = new hotel.HotelService(hotelServiceUrl);
+        hotel.HotelInterface port = bs.getHotelServicePort();
+        return port.getHotels(city, arrivalDate, departureDate);
     }
 
     @Override
     public int createItinerarie() throws Exception {
-        try {
-            return DatabaseService.getDao(Itinerary.class).create(new Itinerary());
-        } catch (SQLException e) {
-            //Throw server error
-            e.printStackTrace();
-        }
-        throw new Exception("Could not create itinerarie");
+        ItineraryService itineraryService  = new ItineraryService();
+        int id = itineraryService.createItinerary();
+        if(id == -1) throw new Exception();
+        return id;
     }
 
     @Override
     public Itinerary getItinerarie(int id) throws Exception {
-        try {
-            List<Itinerary> Itineraries = DatabaseService.getDao(Itinerary.class).queryForEq("id", id);
-            if(Itineraries.size() == 0) throw new Exception();
-            return Itineraries.get(0);
-        } catch (SQLException e) {
-            //Throw server error
-            e.printStackTrace();
-        }
-        throw new Exception();
+        return null;
     }
 
     @Override
