@@ -1,5 +1,7 @@
 package services;
 
+import bank.BankPortType;
+import bank.BankService;
 import bank.CreditCardInfoType;
 import models.BookingType;
 import models.FlightReservation;
@@ -7,6 +9,8 @@ import models.Hotel;
 import models.Itinerary;
 
 import javax.jws.WebService;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.sql.SQLException;
 import java.util.Date;
 import java.util.List;
@@ -23,6 +27,15 @@ public class TravelAgencyService implements TravelAgencyInterface {
 
     @Override
     public FlightReservation[] getFlights(String from, String destination, Date date) {
+        URL airlineServiceUrl = null;
+        try {
+            airlineServiceUrl = new URL("http://localhost:8080/AirlineService?wsdl");
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
+        AirlineService bs = new AirlineService(airlineServiceUrl);
+        BankPortType port = bs.getBankPort();
+
         return new FlightReservation[0];
     }
 
