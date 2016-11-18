@@ -20,6 +20,4 @@ public interface ItineraryInterface {
 
     boolean updateBooking(int itineraryId, Booking booking);
 
-
-
 }
