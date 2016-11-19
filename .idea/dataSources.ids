@@ -47,6 +47,8 @@
       <column name="bookingNumber" sqlType="VARCHAR(20)" precision="0" scale="-1" nullable="false" jdbcType="12"/>
       <column name="creditCardGuarantee" sqlType="TINYINT" precision="0" scale="-1" nullable="true" jdbcType="4" def="TlVMTA=="/>
       <column name="price" sqlType="BIGINT" precision="0" scale="-1" nullable="true" jdbcType="4" def="TlVMTA=="/>
+      <column name="opens" sqlType="BIGINT" precision="0" scale="-1" nullable="true" jdbcType="4" def="TlVMTA=="/>
+      <column name="closes" sqlType="BIGINT" precision="0" scale="-1" nullable="true" jdbcType="4" def="TlVMTA=="/>
       <primary-key columns="id"/>
     </table>
     <table name="HotelReservation" schema="" catalog="" type="TABLE">

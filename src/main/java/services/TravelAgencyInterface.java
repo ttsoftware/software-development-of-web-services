@@ -1,7 +1,7 @@
 package services;
 
 import bank.CreditCardInfoType;
-import models.BookingType;
+import models.Booking;
 import models.FlightReservation;
 import models.Hotel;
 import models.Itinerary;
@@ -38,18 +38,16 @@ public interface TravelAgencyInterface {
     Itinerary getItinerarie(@WebParam(name = "id") int id) throws Exception;
 
     @WebMethod(operationName = "cancelItinerarie")
-    boolean cancelItinerarie(@WebParam(name = "id") int id);
+    boolean cancelItinerarie(@WebParam(name = "id") int id,
+                             @WebParam(name = "cardInformation") CreditCardInfoType cardInformation) throws Exception;
 
     @WebMethod(operationName = "bookItinerarie")
-    boolean bookItinerarie(@WebParam(name = "id") int id);
+    boolean bookItinerarie(@WebParam(name = "id") int id,
+                           @WebParam(name = "cardInformation") CreditCardInfoType cardInformation);
 
     @WebMethod(operationName = "createBooking")
-    boolean createBooking(@WebParam(name = "itinerarieId") String itinerarieId,
-                          @WebParam(name = "bookingNumber") String bookingNumber,
-                          @WebParam(name = "cardInformation") CreditCardInfoType cardInformation,
-                          @WebParam(name = "bookingType") BookingType bookingType);
+    boolean createBooking(@WebParam(name = "itinerarieId") int itinerarieId,
+                          @WebParam(name = "booking") Booking booking);
 
-    @WebMethod(operationName = "cancelBooking")
-    boolean cancelBooking(@WebParam(name = "itinerarieId") String itinerarieId,
-                          @WebParam(name = "bookingNumber") String bookingNumber);
+
 }

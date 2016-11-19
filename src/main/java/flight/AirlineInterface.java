@@ -27,29 +27,6 @@ public interface AirlineInterface {
 
     /**
      * 
-     * @param cardInformation
-     * @param bookingNumber
-     * @return
-     *     returns boolean
-     * @throws BookingNumberException_Exception
-     * @throws CreditCardFaultMessage
-     */
-    @WebMethod
-    @WebResult(partName = "return")
-    @Action(input = "http://services/AirlineInterface/bookFlightRequest", output = "http://services/AirlineInterface/bookFlightResponse", fault = {
-        @FaultAction(className = CreditCardFaultMessage.class, value = "http://services/AirlineInterface/bookFlight/Fault/CreditCardFaultMessage"),
-        @FaultAction(className = BookingNumberException_Exception.class, value = "http://services/AirlineInterface/bookFlight/Fault/BookingNumberException")
-    })
-    public boolean bookFlight(
-        @WebParam(name = "bookingNumber", partName = "bookingNumber")
-        String bookingNumber,
-        @WebParam(name = "cardInformation", partName = "cardInformation")
-        CreditCardInfoType cardInformation)
-        throws BookingNumberException_Exception, CreditCardFaultMessage
-    ;
-
-    /**
-     * 
      * @param price
      * @param cardInformation
      * @param bookingNumber
@@ -69,6 +46,29 @@ public interface AirlineInterface {
         String bookingNumber,
         @WebParam(name = "price", partName = "price")
         float price,
+        @WebParam(name = "cardInformation", partName = "cardInformation")
+        CreditCardInfoType cardInformation)
+        throws BookingNumberException_Exception, CreditCardFaultMessage
+    ;
+
+    /**
+     * 
+     * @param cardInformation
+     * @param bookingNumber
+     * @return
+     *     returns boolean
+     * @throws BookingNumberException_Exception
+     * @throws CreditCardFaultMessage
+     */
+    @WebMethod
+    @WebResult(partName = "return")
+    @Action(input = "http://services/AirlineInterface/bookFlightRequest", output = "http://services/AirlineInterface/bookFlightResponse", fault = {
+        @FaultAction(className = CreditCardFaultMessage.class, value = "http://services/AirlineInterface/bookFlight/Fault/CreditCardFaultMessage"),
+        @FaultAction(className = BookingNumberException_Exception.class, value = "http://services/AirlineInterface/bookFlight/Fault/BookingNumberException")
+    })
+    public boolean bookFlight(
+        @WebParam(name = "bookingNumber", partName = "bookingNumber")
+        String bookingNumber,
         @WebParam(name = "cardInformation", partName = "cardInformation")
         CreditCardInfoType cardInformation)
         throws BookingNumberException_Exception, CreditCardFaultMessage

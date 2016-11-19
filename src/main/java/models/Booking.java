@@ -38,6 +38,19 @@ public class Booking {
             columnName = "fk_itinerary")
     private Itinerary itinerary;
 
+    @Override
+    public boolean equals(Object object)
+    {
+        boolean sameSame = false;
+
+        if (object != null && object instanceof Booking)
+        {
+            sameSame = this.id == ((Booking) object).id;
+        }
+
+        return sameSame;
+    }
+
     public int getId() {
         return id;
     }

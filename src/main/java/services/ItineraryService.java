@@ -1,5 +1,6 @@
 package services;
 
+import com.j256.ormlite.dao.ForeignCollection;
 import models.Booking;
 import models.Itinerary;
 
@@ -58,13 +59,17 @@ public class ItineraryService implements ItineraryInterface {
     public boolean updateBooking(int itineraryId, Booking booking) {
         Itinerary itinerary = getItinerary(itineraryId);
         if(itinerary == null) return false;
-        List<Booking> bookings = (List<Booking>) itinerary.getBookings();
+        ForeignCollection<Booking> bookings = itinerary.getBookings();
         Booking bookingDb = bookings.stream().filter(b -> b.getId() == (booking.getId())).findFirst().get();
         if(bookingDb == null) return false;
-        booking.setId(bookingDb.getId());
         bookingDb = booking;
+        bookingDb.setBookingNumber(booking.getBookingNumber());
+        bookingDb.setBookingStatus(booking.getBookingStatus());
+        bookingDb.setBookingType(booking.getBookingType());
+        bookingDb.setPrice(booking.getPrice());
+        bookingDb.setDate(booking.getDate());
         try {
-            DatabaseService.getDao(Itinerary.class).update(itinerary);
+            DatabaseService.getDao(Booking.class).update(bookingDb);
             return true;
         } catch (SQLException e) {
             e.printStackTrace();

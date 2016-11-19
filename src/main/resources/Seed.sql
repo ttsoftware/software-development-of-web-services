@@ -55,11 +55,12 @@ CREATE TABLE Booking (
   id                  INTEGER PRIMARY KEY AUTOINCREMENT,
   price               BIGINT NOT NULL,
   date                BIGINT NOT NULL,
-  bookingNumber       VARCHAR(20) UNIQUE  NOT NULL,
+  bookingNumber       VARCHAR(20) NOT NULL,
   bookingStatus       INT NOT NULL,
   bookingType         INT NOT NULL,
   fk_itinerary INT DEFAULT NULL,
-  FOREIGN KEY (fk_itinerary) REFERENCES Itinerary (id)
+  FOREIGN KEY (fk_itinerary) REFERENCES Itinerary (id),
+  UNIQUE(bookingNumber, bookingType)
 );
 
 CREATE TABLE Itinerary (

@@ -10,11 +10,12 @@
 <xsd:import namespace="http://fastmoney.imm.dtu.dk" schemaLocation="http://localhost:8080/webservices/AirlineService?xsd=3"/>
 </xsd:schema>
 </types>
-<message name="bookFlight">
+<message name="cancelFlight">
 <part name="bookingNumber" type="xsd:string"/>
+<part name="price" type="xsd:float"/>
 <part xmlns:ns1="http://types.fastmoney.imm.dtu.dk" name="cardInformation" type="ns1:creditCardInfoType"/>
 </message>
-<message name="bookFlightResponse">
+<message name="cancelFlightResponse">
 <part name="return" type="xsd:boolean"/>
 </message>
 <message name="CreditCardFaultMessage">
@@ -23,12 +24,11 @@
 <message name="BookingNumberException">
 <part name="fault" element="tns:BookingNumberException"/>
 </message>
-<message name="cancelFlight">
+<message name="bookFlight">
 <part name="bookingNumber" type="xsd:string"/>
-<part name="price" type="xsd:float"/>
 <part xmlns:ns3="http://types.fastmoney.imm.dtu.dk" name="cardInformation" type="ns3:creditCardInfoType"/>
 </message>
-<message name="cancelFlightResponse">
+<message name="bookFlightResponse">
 <part name="return" type="xsd:boolean"/>
 </message>
 <message name="getFlights">
@@ -40,17 +40,17 @@
 <part name="flightRevervations" type="tns:FlightReservationArray"/>
 </message>
 <portType name="AirlineInterface">
-<operation name="bookFlight" parameterOrder="bookingNumber cardInformation">
-<input wsam:Action="http://services/AirlineInterface/bookFlightRequest" message="tns:bookFlight"/>
-<output wsam:Action="http://services/AirlineInterface/bookFlightResponse" message="tns:bookFlightResponse"/>
-<fault message="tns:CreditCardFaultMessage" name="CreditCardFaultMessage" wsam:Action="http://services/AirlineInterface/bookFlight/Fault/CreditCardFaultMessage"/>
-<fault message="tns:BookingNumberException" name="BookingNumberException" wsam:Action="http://services/AirlineInterface/bookFlight/Fault/BookingNumberException"/>
-</operation>
 <operation name="cancelFlight" parameterOrder="bookingNumber price cardInformation">
 <input wsam:Action="http://services/AirlineInterface/cancelFlightRequest" message="tns:cancelFlight"/>
 <output wsam:Action="http://services/AirlineInterface/cancelFlightResponse" message="tns:cancelFlightResponse"/>
 <fault message="tns:CreditCardFaultMessage" name="CreditCardFaultMessage" wsam:Action="http://services/AirlineInterface/cancelFlight/Fault/CreditCardFaultMessage"/>
 <fault message="tns:BookingNumberException" name="BookingNumberException" wsam:Action="http://services/AirlineInterface/cancelFlight/Fault/BookingNumberException"/>
+</operation>
+<operation name="bookFlight" parameterOrder="bookingNumber cardInformation">
+<input wsam:Action="http://services/AirlineInterface/bookFlightRequest" message="tns:bookFlight"/>
+<output wsam:Action="http://services/AirlineInterface/bookFlightResponse" message="tns:bookFlightResponse"/>
+<fault message="tns:CreditCardFaultMessage" name="CreditCardFaultMessage" wsam:Action="http://services/AirlineInterface/bookFlight/Fault/CreditCardFaultMessage"/>
+<fault message="tns:BookingNumberException" name="BookingNumberException" wsam:Action="http://services/AirlineInterface/bookFlight/Fault/BookingNumberException"/>
 </operation>
 <operation name="getFlights" parameterOrder="from destination date">
 <input wsam:Action="http://services/AirlineInterface/getFlightsRequest" message="tns:getFlights"/>
@@ -59,7 +59,7 @@
 </portType>
 <binding name="AirlineServicePortBinding" type="tns:AirlineInterface">
 <soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="rpc"/>
-<operation name="bookFlight">
+<operation name="cancelFlight">
 <soap:operation soapAction=""/>
 <input>
 <soap:body use="literal" namespace="http://services/"/>
@@ -74,7 +74,7 @@
 <soap:fault name="BookingNumberException" use="literal"/>
 </fault>
 </operation>
-<operation name="cancelFlight">
+<operation name="bookFlight">
 <soap:operation soapAction=""/>
 <input>
 <soap:body use="literal" namespace="http://services/"/>
