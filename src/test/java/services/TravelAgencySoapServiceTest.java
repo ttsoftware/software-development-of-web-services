@@ -11,7 +11,7 @@ import java.net.URL;
 /**
  * Created by troels on 11/15/16.
  */
-public class TravelAgencyServiceTest {
+public class TravelAgencySoapServiceTest {
 
     private TravelAgencySoapInterface travelAgencyInterface;
 
