@@ -6,7 +6,29 @@
 <xsd:schema>
 <xsd:import namespace="http://services/" schemaLocation="http://localhost:8080/webservices/HotelService?xsd=2"/>
 </xsd:schema>
+<xsd:schema>
+<xsd:import namespace="http://fastmoney.imm.dtu.dk" schemaLocation="http://localhost:8080/webservices/HotelService?xsd=3"/>
+</xsd:schema>
 </types>
+<message name="bookHotel">
+<part name="hotelBookingRequest" type="tns:HotelBookingRequest"/>
+</message>
+<message name="bookHotelResponse">
+<part name="return" type="xsd:boolean"/>
+</message>
+<message name="SQLException">
+<part name="fault" element="tns:SQLException"/>
+</message>
+<message name="CreditCardFaultMessage">
+<part xmlns:ns1="http://fastmoney.imm.dtu.dk" name="fault" element="ns1:CreditCardFault"/>
+</message>
+<message name="cancelHotel">
+<part name="bookingNumber" type="xsd:string"/>
+</message>
+<message name="cancelHotelResponse"/>
+<message name="BookingNumberException">
+<part name="fault" element="tns:BookingNumberException"/>
+</message>
 <message name="getHotels">
 <part name="city" type="xsd:string"/>
 <part name="arrivalDate" type="tns:PenisDate"/>
@@ -15,37 +37,57 @@
 <message name="getHotelsResponse">
 <part name="hotels" type="tns:HotelArray"/>
 </message>
-<message name="SQLException">
-<part name="fault" element="tns:SQLException"/>
-</message>
-<message name="bookHotel">
-<part name="hotelBookingRequest" type="tns:HotelBookingRequest"/>
-</message>
-<message name="bookHotelResponse">
-<part name="return" type="xsd:boolean"/>
-</message>
-<message name="cancelHotel">
-<part name="bookingNumber" type="xsd:string"/>
-</message>
-<message name="cancelHotelResponse"/>
 <portType name="HotelInterface">
+<operation name="bookHotel">
+<input wsam:Action="http://services/HotelInterface/bookHotelRequest" message="tns:bookHotel"/>
+<output wsam:Action="http://services/HotelInterface/bookHotelResponse" message="tns:bookHotelResponse"/>
+<fault message="tns:SQLException" name="SQLException" wsam:Action="http://services/HotelInterface/bookHotel/Fault/SQLException"/>
+<fault message="tns:CreditCardFaultMessage" name="CreditCardFaultMessage" wsam:Action="http://services/HotelInterface/bookHotel/Fault/CreditCardFaultMessage"/>
+</operation>
+<operation name="cancelHotel">
+<input wsam:Action="http://services/HotelInterface/cancelHotelRequest" message="tns:cancelHotel"/>
+<output wsam:Action="http://services/HotelInterface/cancelHotelResponse" message="tns:cancelHotelResponse"/>
+<fault message="tns:CreditCardFaultMessage" name="CreditCardFaultMessage" wsam:Action="http://services/HotelInterface/cancelHotel/Fault/CreditCardFaultMessage"/>
+<fault message="tns:BookingNumberException" name="BookingNumberException" wsam:Action="http://services/HotelInterface/cancelHotel/Fault/BookingNumberException"/>
+</operation>
 <operation name="getHotels" parameterOrder="city arrivalDate departureDate">
 <input wsam:Action="http://services/HotelInterface/getHotelsRequest" message="tns:getHotels"/>
 <output wsam:Action="http://services/HotelInterface/getHotelsResponse" message="tns:getHotelsResponse"/>
 <fault message="tns:SQLException" name="SQLException" wsam:Action="http://services/HotelInterface/getHotels/Fault/SQLException"/>
 </operation>
-<operation name="bookHotel">
-<input wsam:Action="http://services/HotelInterface/bookHotelRequest" message="tns:bookHotel"/>
-<output wsam:Action="http://services/HotelInterface/bookHotelResponse" message="tns:bookHotelResponse"/>
-<fault message="tns:SQLException" name="SQLException" wsam:Action="http://services/HotelInterface/bookHotel/Fault/SQLException"/>
-</operation>
-<operation name="cancelHotel">
-<input wsam:Action="http://services/HotelInterface/cancelHotelRequest" message="tns:cancelHotel"/>
-<output wsam:Action="http://services/HotelInterface/cancelHotelResponse" message="tns:cancelHotelResponse"/>
-</operation>
 </portType>
 <binding name="HotelServicePortBinding" type="tns:HotelInterface">
 <soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="rpc"/>
+<operation name="bookHotel">
+<soap:operation soapAction=""/>
+<input>
+<soap:body use="literal" namespace="http://services/"/>
+</input>
+<output>
+<soap:body use="literal" namespace="http://services/"/>
+</output>
+<fault name="SQLException">
+<soap:fault name="SQLException" use="literal"/>
+</fault>
+<fault name="CreditCardFaultMessage">
+<soap:fault name="CreditCardFaultMessage" use="literal"/>
+</fault>
+</operation>
+<operation name="cancelHotel">
+<soap:operation soapAction=""/>
+<input>
+<soap:body use="literal" namespace="http://services/"/>
+</input>
+<output>
+<soap:body use="literal" namespace="http://services/"/>
+</output>
+<fault name="CreditCardFaultMessage">
+<soap:fault name="CreditCardFaultMessage" use="literal"/>
+</fault>
+<fault name="BookingNumberException">
+<soap:fault name="BookingNumberException" use="literal"/>
+</fault>
+</operation>
 <operation name="getHotels">
 <soap:operation soapAction=""/>
 <input>
@@ -57,27 +99,6 @@
 <fault name="SQLException">
 <soap:fault name="SQLException" use="literal"/>
 </fault>
-</operation>
-<operation name="bookHotel">
-<soap:operation soapAction=""/>
-<input>
-<soap:body use="literal" namespace="http://services/"/>
-</input>
-<output>
-<soap:body use="literal" namespace="http://services/"/>
-</output>
-<fault name="SQLException">
-<soap:fault name="SQLException" use="literal"/>
-</fault>
-</operation>
-<operation name="cancelHotel">
-<soap:operation soapAction=""/>
-<input>
-<soap:body use="literal" namespace="http://services/"/>
-</input>
-<output>
-<soap:body use="literal" namespace="http://services/"/>
-</output>
 </operation>
 </binding>
 <service name="HotelService">

@@ -130,8 +130,14 @@ public class TravelAgencySoapService implements TravelAgencySoapInterface {
     private void cancelHotel(Booking booking, CreditCardInfoType cardInformation) {
         hotel.HotelInterface hotelPort = getHotelServicePort();
         hotel.CreditCardInfoType ccit = mapCreditCardHotel(cardInformation);
-        hotelPort.cancelHotel(booking.getBookingNumber());
-        booking.setBookingStatus(BookingStatus.CANCELLED);
+        try {
+            hotelPort.cancelHotel(booking.getBookingNumber());
+            booking.setBookingStatus(BookingStatus.CANCELLED);
+        } catch (hotel.BookingNumberException_Exception e) {
+            e.printStackTrace();
+        } catch (hotel.CreditCardFaultMessage creditCardFaultMessage) {
+            creditCardFaultMessage.printStackTrace();
+        }
     }
 
     private void cancelFlight(Booking booking, CreditCardInfoType cardInformation) {
@@ -206,6 +212,8 @@ public class TravelAgencySoapService implements TravelAgencySoapInterface {
                 booking.setBookingStatus(BookingStatus.CANCELLED);
             }
         } catch (SQLException_Exception e) {
+            booking.setBookingStatus(BookingStatus.CANCELLED);
+        } catch (hotel.CreditCardFaultMessage creditCardFaultMessage) {
             booking.setBookingStatus(BookingStatus.CANCELLED);
         }
     }

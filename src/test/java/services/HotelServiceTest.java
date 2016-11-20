@@ -57,9 +57,9 @@ public class HotelServiceTest {
         HotelBookingRequest bookingRequest = new HotelBookingRequest();
         bookingRequest.setBookingNumber("penis");
 
-        boolean isBooked = hotelService.bookHotel(bookingRequest);
+       // boolean isBooked = hotelService.bookHotel(bookingRequest);
 
-        assertTrue(isBooked);
+        assertTrue(false);
     }
 
     @Test(expected = IndexOutOfBoundsException.class)
@@ -68,11 +68,11 @@ public class HotelServiceTest {
         HotelBookingRequest bookingRequest = new HotelBookingRequest();
         bookingRequest.setBookingNumber("penis");
 
-        boolean isBooked = hotelService.bookHotel(bookingRequest);
+        //boolean isBooked = hotelService.bookHotel(bookingRequest);
 
-        assertTrue(isBooked);
+        assertTrue(false);
 
-        hotelService.cancelHotel("penis");
+        //hotelService.cancelHotel("penis");
 
         HotelReservation hotelReservation = DatabaseService.getDao(HotelReservation.class)
                 .queryForEq("bookingNumber", "penis")

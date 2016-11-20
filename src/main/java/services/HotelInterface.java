@@ -28,5 +28,5 @@ public interface HotelInterface {
     boolean bookHotel(@WebParam(name = "hotelBookingRequest") HotelBookingRequest hotelBookingRequest) throws SQLException, CreditCardFaultMessage;
 
     @WebMethod(operationName = "cancelHotel")
-    void cancelHotel(@WebParam(name = "hotelCancleRequest") HotelBookingRequest hotelCancleRequest) throws CreditCardFaultMessage, BookingNumberException;
+    void cancelHotel(@WebParam(name = "bookingNumber") String bookingNumber) throws CreditCardFaultMessage, BookingNumberException;
 }

@@ -24,8 +24,10 @@ import javax.xml.namespace.QName;
 @XmlRegistry
 public class ObjectFactory {
 
+    private final static QName _BookingNumberException_QNAME = new QName("http://services/", "BookingNumberException");
     private final static QName _PenisDate_QNAME = new QName("http://services/", "PenisDate");
     private final static QName _Hotel_QNAME = new QName("http://services/", "Hotel");
+    private final static QName _CreditCardFault_QNAME = new QName("http://fastmoney.imm.dtu.dk", "CreditCardFault");
     private final static QName _SQLException_QNAME = new QName("http://services/", "SQLException");
 
     /**
@@ -44,6 +46,14 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link CreditCardFaultType }
+     * 
+     */
+    public CreditCardFaultType createCreditCardFaultType() {
+        return new CreditCardFaultType();
+    }
+
+    /**
      * Create an instance of {@link SQLException }
      * 
      */
@@ -57,6 +67,14 @@ public class ObjectFactory {
      */
     public PenisDate createPenisDate() {
         return new PenisDate();
+    }
+
+    /**
+     * Create an instance of {@link BookingNumberException }
+     * 
+     */
+    public BookingNumberException createBookingNumberException() {
+        return new BookingNumberException();
     }
 
     /**
@@ -124,6 +142,15 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link BookingNumberException }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://services/", name = "BookingNumberException")
+    public JAXBElement<BookingNumberException> createBookingNumberException(BookingNumberException value) {
+        return new JAXBElement<BookingNumberException>(_BookingNumberException_QNAME, BookingNumberException.class, null, value);
+    }
+
+    /**
      * Create an instance of {@link JAXBElement }{@code <}{@link PenisDate }{@code >}}
      * 
      */
@@ -139,6 +166,15 @@ public class ObjectFactory {
     @XmlElementDecl(namespace = "http://services/", name = "Hotel")
     public JAXBElement<Hotel> createHotel(Hotel value) {
         return new JAXBElement<Hotel>(_Hotel_QNAME, Hotel.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link CreditCardFaultType }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://fastmoney.imm.dtu.dk", name = "CreditCardFault")
+    public JAXBElement<CreditCardFaultType> createCreditCardFault(CreditCardFaultType value) {
+        return new JAXBElement<CreditCardFaultType>(_CreditCardFault_QNAME, CreditCardFaultType.class, null, value);
     }
 
     /**

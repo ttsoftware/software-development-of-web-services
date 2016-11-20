@@ -93,12 +93,12 @@ public class HotelService implements HotelInterface {
     }
 
     @Override
-    public void cancelHotel(HotelBookingRequest hotelCancleRequest) throws CreditCardFaultMessage, BookingNumberException {
+    public void cancelHotel(String bookingNumber) throws CreditCardFaultMessage, BookingNumberException {
         HotelReservation hotelRes = null;
         List<HotelReservation> hotelResList = null;
         try {
             hotelResList = DatabaseService.getDao(HotelReservation.class)
-                    .queryForEq("bookingNumber", hotelCancleRequest.getBookingNumber());
+                    .queryForEq("bookingNumber", bookingNumber);
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -122,8 +122,8 @@ public class HotelService implements HotelInterface {
         BankService bs = new BankService(bankServiceUrl);
         BankPortType port = bs.getBankPort();
 
-        int returnMoney = (int) Math.floor(hotelPrice/2);
-        port.refundCreditCard(22, hotelCancleRequest.getCardInformation(), returnMoney, hotelAccount);
+        int returnMoney = (int) Math.floor(hotelPrice);
+        port.refundCreditCard(22, hotelRes.getCardInformation(), returnMoney, hotelAccount);
 
         try {
             DatabaseService.getDao(HotelReservation.class)
