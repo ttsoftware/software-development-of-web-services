@@ -31,8 +31,7 @@ public class HotelServiceTest {
         } catch (MalformedURLException e) {
             e.printStackTrace();
         }
-    }
-
+    } 
     @Test
     public void getHotelsTest() throws SQLException {
 

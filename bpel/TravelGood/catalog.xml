@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<catalog xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog" prefer="system">
+    <nextCatalog catalog="nbproject/private/retriever/catalog.xml"/>
+    <system systemId="http://localhost:8080/webservices/AirlineService?wsdl" uri="src/localhost_8080/webservices/AirlineService.wsdl"/>
+    <system systemId="http://localhost:8080/webservices/AirlineService?xsd=1" uri="src/localhost_8080/webservices/AirlineService.xsd_1.xsd"/>
+    <system systemId="http://localhost:8080/webservices/AirlineService?xsd=2" uri="src/localhost_8080/webservices/AirlineService.xsd_2.xsd"/>
+    <system systemId="http://localhost:8080/webservices/AirlineService?xsd=3" uri="src/localhost_8080/webservices/AirlineService.xsd_3.xsd"/>
+    <system systemId="http://localhost:8080/webservices/HotelService?wsdl" uri="src/localhost_8080/webservices/HotelService.wsdl"/>
+    <system systemId="http://localhost:8080/webservices/HotelService?xsd=1" uri="src/localhost_8080/webservices/HotelService.xsd_1.xsd"/>
+    <system systemId="http://localhost:8080/webservices/HotelService?xsd=2" uri="src/localhost_8080/webservices/HotelService.xsd_2.xsd"/>
+</catalog>

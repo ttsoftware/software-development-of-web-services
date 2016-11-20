@@ -1,0 +1,39 @@
+<?xml version='1.0' encoding='UTF-8'?><!-- Published by JAX-WS RI at http://jax-ws.dev.java.net. RI's version is Metro/2.3 (tags/2.3-7528; 2013-04-29T19:34:10+0000) JAXWS-RI/2.2.8 JAXWS/2.2 svn-revision#unknown. --><xs:schema xmlns:tns="http://services/" xmlns:xs="http://www.w3.org/2001/XMLSchema" version="1.0" targetNamespace="http://services/">
+
+<xs:element name="BookingNumberException" type="tns:BookingNumberException"/>
+
+<xs:element name="FlightReservation" type="tns:FlightReservation"/>
+
+<xs:complexType name="FlightReservation">
+<xs:sequence>
+<xs:element name="id" type="xs:int"/>
+<xs:element name="bookingNumber" type="xs:string" minOccurs="0"/>
+<xs:element name="airlineName" type="xs:string" minOccurs="0"/>
+<xs:element name="price" type="xs:int"/>
+<xs:element name="flight" type="tns:Flight" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="Flight">
+<xs:sequence>
+<xs:element name="id" type="xs:int"/>
+<xs:element name="startAirport" type="xs:string"/>
+<xs:element name="destinationAirport" type="xs:string"/>
+<xs:element name="carrier" type="xs:string"/>
+<xs:element name="start" type="xs:dateTime"/>
+<xs:element name="end" type="xs:dateTime"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="BookingNumberException">
+<xs:sequence>
+<xs:element name="message" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="FlightReservationArray" final="#all">
+<xs:sequence>
+<xs:element name="item" type="tns:FlightReservation" minOccurs="0" maxOccurs="unbounded" nillable="true"/>
+</xs:sequence>
+</xs:complexType>
+</xs:schema>
