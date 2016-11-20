@@ -31,7 +31,7 @@ public class TravelAgencySoapServiceTest {
     @Test
     public void getItineraryTest() {
         try {
-           // travelAgencyInterface.getItinerarie(1);
+           travelAgencyInterface.getItinerarie(1);
         } catch (Exception e) {
             e.printStackTrace();
         }

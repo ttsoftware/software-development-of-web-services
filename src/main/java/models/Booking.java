@@ -7,6 +7,7 @@ import models.dao.BookingDaoImpl;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.XmlType;
 import java.util.Date;
 
@@ -36,6 +37,7 @@ public class Booking {
     @DatabaseField(
             foreign = true,
             columnName = "fk_itinerary")
+    @XmlTransient
     private Itinerary itinerary;
 
     @Override

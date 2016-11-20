@@ -1,6 +1,5 @@
 package services;
 
-import com.j256.ormlite.dao.ForeignCollection;
 import models.Booking;
 import models.BookingStatus;
 import models.BookingType;
@@ -9,6 +8,7 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.Collection;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
@@ -69,7 +69,7 @@ public class ItineraryServiceTest {
 
         Itinerary itineraryWithBooking = is.getItinerary(itineraryId);
 
-        ForeignCollection<Booking> bookings = itineraryWithBooking.getBookings();
+        Collection<Booking> bookings = itineraryWithBooking.getBookings();
         Assert.assertTrue(bookings.contains(b));
 
     }
@@ -81,7 +81,7 @@ public class ItineraryServiceTest {
         is.createItinerary();
         Itinerary i = itineraryList.get(0);
         int itineraryId = i.getId();
-        ForeignCollection<Booking> bookings = i.getBookings();
+        Collection<Booking> bookings = i.getBookings();
         Iterator<Booking> iterator = bookings.iterator();
         if(!iterator.hasNext()) Assert.fail();
         //Booking for update

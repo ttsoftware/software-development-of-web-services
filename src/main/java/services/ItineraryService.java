@@ -1,11 +1,11 @@
 package services;
 
-import com.j256.ormlite.dao.ForeignCollection;
 import models.Booking;
 import models.Itinerary;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 public class ItineraryService implements ItineraryInterface {
@@ -59,7 +59,7 @@ public class ItineraryService implements ItineraryInterface {
     public boolean updateBooking(int itineraryId, Booking booking) {
         Itinerary itinerary = getItinerary(itineraryId);
         if(itinerary == null) return false;
-        ForeignCollection<Booking> bookings = itinerary.getBookings();
+        Collection<Booking> bookings = itinerary.getBookings();
         Booking bookingDb = bookings.stream().filter(b -> b.getId() == (booking.getId())).findFirst().get();
         if(bookingDb == null) return false;
         bookingDb = booking;

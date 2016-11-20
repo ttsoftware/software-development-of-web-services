@@ -1,7 +1,6 @@
 package services;
 
 import bank.CreditCardInfoType;
-import com.j256.ormlite.dao.ForeignCollection;
 import flight.BookingNumberException_Exception;
 import flight.CreditCardFaultMessage;
 import hotel.SQLException_Exception;
@@ -11,6 +10,7 @@ import javax.jws.WebService;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.sql.SQLException;
+import java.util.Collection;
 import java.util.Iterator;
 
 /**
@@ -76,7 +76,7 @@ public class TravelAgencySoapService implements TravelAgencySoapInterface {
         ItineraryService itineraryService  = new ItineraryService();
         Itinerary itinerary = itineraryService.getItinerary(id);
         if(itinerary == null) return false;
-        ForeignCollection<Booking> bookings = itinerary.getBookings();
+        Collection<Booking> bookings = itinerary.getBookings();
         Iterator<Booking> iterator = bookings.iterator();
         while(iterator.hasNext()){
             Booking booking = iterator.next();
@@ -99,7 +99,7 @@ public class TravelAgencySoapService implements TravelAgencySoapInterface {
         Itinerary itinerary = itineraryService.getItinerary(id);
         if(itinerary == null) return false;
 
-        ForeignCollection<Booking> bookings = itinerary.getBookings();
+        Collection<Booking> bookings = itinerary.getBookings();
         Iterator<Booking> iterator = bookings.iterator();
 
         while(iterator.hasNext()){
