@@ -30,9 +30,13 @@ public interface TravelAgencySoapInterface {
     @WebMethod(operationName = "createItinerarie")
     int createItinerarie() throws Exception;
 
-    @WebMethod(operationName = "getItinerarie")
+    @WebMethod(operationName = "getItinerary")
     @WebResult(name="itinerary")
-    Itinerary getItinerarie(@WebParam(name = "id") int id) throws Exception;
+    Itinerary getItinerary(@WebParam(name = "id") int id) throws Exception;
+
+    @WebMethod(operationName = "getItineraries")
+    @WebResult(name="itineraries")
+    Itinerary[] getItineraries() throws Exception;
 
     @WebMethod(operationName = "cancelItinerarie")
     boolean cancelItinerarie(@WebParam(name = "id") int id,

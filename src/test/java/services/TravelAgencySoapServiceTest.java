@@ -1,5 +1,7 @@
 package services;
 
+import models.Itinerary;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -31,12 +33,28 @@ public class TravelAgencySoapServiceTest {
     @Test
     public void getItineraryTest() {
         try {
-           travelAgencyInterface.getItinerarie(1);
+            int id = travelAgencyInterface.createItinerarie();
+            Itinerary itinerary = travelAgencyInterface.getItinerary(id);
+            Assert.assertNotNull(itinerary);
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
+    @Test
+    public  void getItinerariesTest(){
+        try {
+            Itinerary[] itinerary = travelAgencyInterface.getItineraries();
+            Assert.assertNotNull(itinerary);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    @Test
+    public void P1(){
+    }
 
 
 }

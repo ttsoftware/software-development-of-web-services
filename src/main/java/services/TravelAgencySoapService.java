@@ -12,6 +12,7 @@ import java.net.URL;
 import java.sql.SQLException;
 import java.util.Collection;
 import java.util.Iterator;
+import java.util.List;
 
 /**
  * Created by troels on 11/20/16.
@@ -64,11 +65,23 @@ public class TravelAgencySoapService implements TravelAgencySoapInterface {
     }
 
     @Override
-    public Itinerary getItinerarie(int id) throws Exception {
+    public Itinerary getItinerary(int id) throws Exception {
         ItineraryService itineraryService  = new ItineraryService();
         Itinerary itinerary = itineraryService.getItinerary(id);
         if(itinerary == null) throw new Exception();
         return itinerary;
+    }
+
+    @Override
+    public Itinerary[] getItineraries() {
+        ItineraryService itineraryService  = new ItineraryService();
+        List<Itinerary> itineraries = itineraryService.getItineraries();
+        Itinerary[] itinerariesArray = new Itinerary[itineraries.size()];
+        for (int i = 0; i < itineraries.size(); i++) {
+            itinerariesArray[i] = itineraries.get(i);
+        }
+
+        return itinerariesArray;
     }
 
     @Override
