@@ -3,7 +3,15 @@
     xmlns="http://schemas.xmlsoap.org/wsdl/"
     xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
     xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://j2ee.netbeans.org/wsdl/TravelGood/src/client" xmlns:plnk="http://docs.oasis-open.org/wsbpel/2.0/plnktype" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/">
-    <types/>
+    <types>
+        <xsd:schema targetNamespace="http://j2ee.netbeans.org/wsdl/TravelGood/src/client" xmlns:tns="http://j2ee.netbeans.org/wsdl/TravelGood/src/client">
+            <xsd:complexType name="itinerary">
+                <xsd:sequence>
+                    <xsd:element name="booking" type="xsd:string" maxOccurs="unbounded"></xsd:element>
+                </xsd:sequence>
+            </xsd:complexType>
+        </xsd:schema>
+    </types>
     <message name="getFlightsRequest">
         <part name="from" type="xsd:string"/>
         <part name="destination" type="xsd:string"/>

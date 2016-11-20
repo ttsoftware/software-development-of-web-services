@@ -9,9 +9,8 @@
     xmlns:sxt="http://www.sun.com/wsbpel/2.0/process/executable/SUNExtension/Trace" 
     xmlns:sxed="http://www.sun.com/wsbpel/2.0/process/executable/SUNExtension/Editor2"
     xmlns:sxat="http://www.sun.com/wsbpel/2.0/process/executable/SUNExtension/Attachment"
-    xmlns:sxeh="http://www.sun.com/wsbpel/2.0/process/executable/SUNExtension/ErrorHandling">
+    xmlns:sxeh="http://www.sun.com/wsbpel/2.0/process/executable/SUNExtension/ErrorHandling" xmlns:ns0="http://j2ee.netbeans.org/wsdl/TravelGood/src/client">
     <import namespace="http://j2ee.netbeans.org/wsdl/TravelGood/src/client" location="client.wsdl" importType="http://schemas.xmlsoap.org/wsdl/"/>
-    <import namespace="http://j2ee.netbeans.org/wsdl/TravelGood/src/newWSDL" location="newWSDL.wsdl" importType="http://schemas.xmlsoap.org/wsdl/"/>
     <import namespace="http://enterprise.netbeans.org/bpel/AirlineServiceWrapper" location="AirlineServiceWrapper.wsdl" importType="http://schemas.xmlsoap.org/wsdl/"/>
     <import namespace="http://services/" location="http://localhost:8080/webservices/AirlineService?wsdl" importType="http://schemas.xmlsoap.org/wsdl/"/>
     <import namespace="http://enterprise.netbeans.org/bpel/HotelServiceWrapper" location="HotelServiceWrapper.wsdl" importType="http://schemas.xmlsoap.org/wsdl/"/>
@@ -22,18 +21,21 @@
         <partnerLink name="HotelServiceLink" xmlns:tns="http://enterprise.netbeans.org/bpel/HotelServiceWrapper" partnerLinkType="tns:HotelInterfaceLinkType" partnerRole="HotelInterfaceRole"/>
     </partnerLinks>
     <variables>
-        <variable name="itinerary" type="xs:anyType"/>
+        <variable name="flightIti" type="ns0:itinerary">
+            <sxed:editor>
+                <sxed:predicate path="$flightIti/booking[1 + count(.)]" source="to"/>
+            </sxed:editor>
+        </variable>
         <variable name="CreateItinerarieOut" xmlns:tns="http://j2ee.netbeans.org/wsdl/TravelGood/src/client" messageType="tns:createItinerarieResponse"/>
     </variables>
     <sequence>
         <receive name="Receive1" createInstance="yes" partnerLink="PartnerLink1" operation="createItinerarie" xmlns:tns="http://j2ee.netbeans.org/wsdl/TravelGood/src/client" portType="tns:clientPortType"/>
         <assign name="Assign1">
             <copy>
-                <from>23</from>
+                <from variable="flightIti"/>
                 <to variable="CreateItinerarieOut"/>
             </copy>
         </assign>
         <reply name="Reply1" partnerLink="PartnerLink1" operation="createItinerarie" xmlns:tns="http://j2ee.netbeans.org/wsdl/TravelGood/src/client" portType="tns:clientPortType" variable="CreateItinerarieOut"/>
-        <while name="While1"/>
     </sequence>
 </process>

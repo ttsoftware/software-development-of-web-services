@@ -10,3 +10,7 @@ out
 *.db
 /bpel/TravelGoodCA/test/results/
 /bpel/TravelGood/build/
+/bpel/TravelGood/nbproject/private/
+/bpel/TravelGoodCA/nbproject/private/
+/bpel/TravelGoodCA/build/
+/bpel/TravelGoodCA/dist/

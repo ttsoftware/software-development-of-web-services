@@ -7,11 +7,11 @@
         </identification>
         <service-unit>
             <identification>
-                <name>TravelGoodCA-getFlightsBPELtest</name>
+                <name>TravelGoodCA-TravelGood</name>
                 <description>Represents this Service Unit</description>
             </identification>
             <target>
-                <artifacts-zip>getFlightsBPELtest.jar</artifacts-zip>
+                <artifacts-zip>TravelGood.jar</artifacts-zip>
                 <component-name>sun-bpel-engine</component-name>
             </target>
         </service-unit>

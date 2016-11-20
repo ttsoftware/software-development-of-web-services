@@ -1,11 +1,24 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<casa xmlns="http://java.sun.com/xml/ns/casa" xmlns:xlink="http://www.w3.org/2000/xlink">
-    <endpoints/>
+<casa xmlns="http://java.sun.com/xml/ns/casa" xmlns:xlink="http://www.w3.org/2000/xlink" xmlns:ns="TravelGoodCA">
+    <endpoints>
+        <endpoint name="endpoint1" endpoint-name="casaPort1" interface-name="ns:dummyCasaPortType" service-name="ns:TravelGoodCAService1"/>
+    </endpoints>
     <service-units>
-        <service-engine-service-unit x="240" y="330" internal="true" unknown="false" defined="false" name="getFlightsBPELtest" unit-name="getFlightsBPELtest" description="Represents this Service Unit" component-name="sun-bpel-engine" artifacts-zip="getFlightsBPELtest.jar"/>
+        <binding-component-service-unit unit-name="sun-http-binding" component-name="sun-http-binding" name="sun-http-binding" description="Represents this Service Unit" artifacts-zip="sun-http-binding.jar">
+            <ports>
+                <port x="67" y="131" bindingType="soap">
+                    <link xlink:href="../jbiasa/TravelGoodCA.wsdl#xpointer(/definitions/service[@name=&apos;TravelGoodCAService1&apos;]/port[@name=&apos;casaPort1&apos;])" xlink:type="simple"/>
+                    <consumes endpoint="endpoint1"/>
+                    <provides endpoint="endpoint1"/>
+                </port>
+            </ports>
+        </binding-component-service-unit>
+        <service-engine-service-unit x="140" y="97" internal="true" unknown="false" defined="false" name="TravelGood" unit-name="TravelGood" description="some description" component-name="sun-bpel-engine" artifacts-zip="TravelGood.jar"/>
     </service-units>
     <connections/>
-    <porttypes/>
+    <porttypes>
+        <link xlink:href="../jbiasa/TravelGoodCA.wsdl#xpointer(/definitions/portType[@name=&apos;dummyCasaPortType&apos;])" xlink:type="simple"/>
+    </porttypes>
     <bindings/>
     <services/>
     <regions>
