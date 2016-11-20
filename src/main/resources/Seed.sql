@@ -36,45 +36,47 @@ CREATE TABLE Hotel (
 );
 
 CREATE TABLE CreditCardInfoType (
-  id     INTEGER PRIMARY KEY AUTOINCREMENT,
-  name   VARCHAR(20) NOT NULL,
-  number VARCHAR(50) NOT NULL,
-  price  BIGINT              DEFAULT NULL
+  id              INTEGER PRIMARY KEY AUTOINCREMENT,
+  name            VARCHAR(20) NOT NULL,
+  number          VARCHAR(50) UNIQUE NOT NULL,
+  expirationMonth INT         NOT NULL,
+  expirationYear  INT         NOT NULL
 );
 
 CREATE TABLE HotelReservation (
-  id            INTEGER PRIMARY KEY AUTOINCREMENT,
-  bookingNumber VARCHAR(20) NOT NULL,
-  /*fk_creditCardInfoType INT                 DEFAULT NULL,*/
-  fk_hotel      INT                 DEFAULT NULL,
-  /*FOREIGN KEY (fk_creditCardInfoType) REFERENCES CreditCardInfoType (id),*/
+  id                    INTEGER PRIMARY KEY AUTOINCREMENT,
+  bookingNumber         VARCHAR(20) NOT NULL,
+  fk_creditCardInfoType INT                 DEFAULT NULL,
+  fk_hotel              INT                 DEFAULT NULL,
+  FOREIGN KEY (fk_creditCardInfoType) REFERENCES CreditCardInfoType (id),
   FOREIGN KEY (fk_hotel) REFERENCES Hotel (id)
 );
 
 CREATE TABLE Booking (
-  id                  INTEGER PRIMARY KEY AUTOINCREMENT,
-  price               BIGINT NOT NULL,
-  date                BIGINT NOT NULL,
-  bookingNumber       VARCHAR(20) NOT NULL,
-  bookingStatus       INT NOT NULL,
-  bookingType         INT NOT NULL,
-  fk_itinerary INT DEFAULT NULL,
+  id            INTEGER PRIMARY KEY AUTOINCREMENT,
+  price         BIGINT      NOT NULL,
+  date          BIGINT      NOT NULL,
+  bookingNumber VARCHAR(20) NOT NULL,
+  bookingStatus INT         NOT NULL,
+  bookingType   INT         NOT NULL,
+  fk_itinerary  INT                 DEFAULT NULL,
   FOREIGN KEY (fk_itinerary) REFERENCES Itinerary (id),
-  UNIQUE(bookingNumber, bookingType)
+  UNIQUE (bookingNumber, bookingType)
 );
 
 CREATE TABLE Itinerary (
-  id  INTEGER PRIMARY KEY AUTOINCREMENT
+  id INTEGER PRIMARY KEY AUTOINCREMENT
 );
 
-INSERT INTO Itinerary(id) VALUES (1);
-INSERT INTO Itinerary(id) VALUES (2);
+INSERT INTO Itinerary (id) VALUES (1);
+INSERT INTO Itinerary (id) VALUES (2);
 
-INSERT INTO Booking(id, price, date, bookingNumber, bookingStatus, bookingType, fk_itinerary)
-VALUES (1, 100, datetime("2016-11-07"),"1234", 1, 1, 1);
+INSERT INTO Booking (id, price, date, bookingNumber, bookingStatus, bookingType, fk_itinerary)
+VALUES (1, 100, datetime("2016-11-07"), "1234", 1, 1, 1);
 
-INSERT INTO Hotel (name, city, bookingNumber, price) VALUES ("Danglen", "copenhagen", "penis", 50.00);
-
+INSERT INTO CreditCardInfoType (name, number, expirationMonth, expirationYear) VALUES ("Tobiasen Inge", "50408823", 9, 10);
+INSERT INTO Hotel (name, city, bookingNumber, price, opens, closes)
+VALUES ("Danglen", "copenhagen", "penis", 50.00, 1482706800000, 1483138800000);
 
 INSERT INTO Flight (id, startAirport, destinationAirport, carrier, start, end)
 VALUES (1, "Copenhagen", "Berlin", "Air Berlin", datetime("2016-11-07"), datetime("2016-11-07"));

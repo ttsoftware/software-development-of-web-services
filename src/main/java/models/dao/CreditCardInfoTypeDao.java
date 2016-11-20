@@ -1,6 +1,6 @@
 package models.dao;
 
-import bank.CreditCardInfoType;
+import models.CreditCardInfoType;
 import com.j256.ormlite.dao.Dao;
 
 import java.sql.SQLException;

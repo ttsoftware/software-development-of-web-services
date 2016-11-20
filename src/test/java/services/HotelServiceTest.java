@@ -1,11 +1,10 @@
 package services;
 
-import models.Hotel;
-import models.HotelBookingRequest;
-import models.HotelReservation;
-import models.PenisDate;
+import bank.CreditCardFaultMessage;
+import models.*;
 import org.junit.Before;
 import org.junit.Test;
+import services.exceptions.BookingNumberException;
 
 import javax.xml.namespace.QName;
 import javax.xml.ws.Service;
@@ -36,15 +35,15 @@ public class HotelServiceTest {
     @Test
     public void getHotelsTest() throws SQLException {
 
-        PenisDate arrivalDate = new PenisDate(2015-1900, 11, 27);
-        PenisDate depatureDate = new PenisDate(2018-1900, 11, 31);
+        CustomDate arrivalDate = new CustomDate(2015, 12, 27);
+        CustomDate depatureDate = new CustomDate(2018, 12, 31);
 
         Hotel[] hotels = hotelService.getHotels("copenhagen", arrivalDate, depatureDate);
 
         assertEquals(hotels.length, 0);
 
-        arrivalDate = new PenisDate(2016-1900, 11, 28);
-        depatureDate = new PenisDate(2016-1900, 11, 30);
+        arrivalDate = new CustomDate(2016, 12, 28);
+        depatureDate = new CustomDate(2016, 12, 30);
 
         hotels = hotelService.getHotels("copenhagen", arrivalDate, depatureDate);
 
@@ -54,25 +53,69 @@ public class HotelServiceTest {
     @Test
     public void bookHotelTest() throws SQLException {
 
+        CreditCardInfoType creditCard = new CreditCardInfoType();
+
+        creditCard.setExpirationMonth(9);
+        creditCard.setExpirationYear(10);
+        creditCard.setNumber("50408823");
+        creditCard.setName("Tobiasen Inge");
+
         HotelBookingRequest bookingRequest = new HotelBookingRequest();
         bookingRequest.setBookingNumber("penis");
+        bookingRequest.setCardInformation(creditCard);
 
-       // boolean isBooked = hotelService.bookHotel(bookingRequest);
+        try {
+            boolean isBooked = hotelService.bookHotel(bookingRequest);
+            assertTrue(isBooked);
+        } catch (CreditCardFaultMessage e) {
+            e.printStackTrace();
+        }
+    }
 
-        assertTrue(false);
+    @Test
+    public void bookHotelFailTest() throws SQLException {
+
+        CreditCardInfoType creditCard = new CreditCardInfoType();
+        creditCard.setNumber("nej");
+
+        HotelBookingRequest bookingRequest = new HotelBookingRequest();
+        bookingRequest.setBookingNumber("nej");
+        bookingRequest.setCardInformation(creditCard);
+
+        try {
+            boolean isBooked = hotelService.bookHotel(bookingRequest);
+            assertTrue(!isBooked);
+        } catch (CreditCardFaultMessage e) {
+            e.printStackTrace();
+        }
     }
 
     @Test(expected = IndexOutOfBoundsException.class)
     public void cancelHotel() throws SQLException {
 
+        CreditCardInfoType creditCard = new CreditCardInfoType();
+
+        creditCard.setExpirationMonth(9);
+        creditCard.setExpirationYear(10);
+        creditCard.setNumber("50408823");
+        creditCard.setName("Tobiasen Inge");
+
         HotelBookingRequest bookingRequest = new HotelBookingRequest();
         bookingRequest.setBookingNumber("penis");
+        bookingRequest.setCardInformation(creditCard);
 
-        //boolean isBooked = hotelService.bookHotel(bookingRequest);
+        try {
+            boolean isBooked = hotelService.bookHotel(bookingRequest);
+            assertTrue(isBooked);
+        } catch (CreditCardFaultMessage e) {
+            e.printStackTrace();
+        }
 
-        assertTrue(false);
-
-        //hotelService.cancelHotel("penis");
+        try {
+            hotelService.cancelHotel("penis");
+        } catch (CreditCardFaultMessage | BookingNumberException e) {
+            e.printStackTrace();
+        }
 
         HotelReservation hotelReservation = DatabaseService.getDao(HotelReservation.class)
                 .queryForEq("bookingNumber", "penis")

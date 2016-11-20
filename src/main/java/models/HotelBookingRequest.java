@@ -1,7 +1,5 @@
 package models;
 
-import bank.CreditCardInfoType;
-
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
 
@@ -20,7 +18,7 @@ public class HotelBookingRequest {
         this.bookingNumber = bookingNumber;
     }
 
-    @XmlElement(name = "creditCardInformation", required = false)
+    @XmlElement(name = "creditCardInformation", required = true)
     public CreditCardInfoType getCardInformation() {
         return cardInformation;
     }

@@ -5,14 +5,12 @@ import bank.BankPortType;
 import bank.BankService;
 import bank.CreditCardFaultMessage;
 import com.j256.ormlite.stmt.QueryBuilder;
-import models.Hotel;
-import models.HotelBookingRequest;
-import models.HotelReservation;
-import models.PenisDate;
+import models.*;
 import models.dao.HotelReservationDao;
 import services.exceptions.BookingNumberException;
 
 import javax.jws.WebService;
+import javax.xml.ws.soap.SOAPFaultException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.sql.SQLException;
@@ -28,8 +26,8 @@ public class HotelService implements HotelInterface {
 
     @Override
     public Hotel[] getHotels(String city,
-                             PenisDate arrivalDate,
-                             PenisDate departureDate) throws SQLException {
+                             CustomDate arrivalDate,
+                             CustomDate departureDate) throws SQLException {
 
         Date arrivalDatePenisDate = arrivalDate.toDate();
         Date departureDatePenisDate = departureDate.toDate();
@@ -49,17 +47,27 @@ public class HotelService implements HotelInterface {
     @Override
     public boolean bookHotel(HotelBookingRequest hotelBookingRequest) throws CreditCardFaultMessage {
 
-        Hotel hotel = null;
+        models.CreditCardInfoType customerCreditCardInfoType = null;
         try {
-            hotel = DatabaseService.getDao(Hotel.class)
-                    .queryForEq("bookingNumber", hotelBookingRequest.getBookingNumber())
-                    .get(0);
+            List<models.CreditCardInfoType> creditCards = DatabaseService
+                    .getDao(models.CreditCardInfoType.class)
+                    .queryForEq("number", hotelBookingRequest.getCardInformation().getNumber());
+
+            if (creditCards.isEmpty()) return false;
+            customerCreditCardInfoType = creditCards.get(0);
         } catch (SQLException e) {
             e.printStackTrace();
         }
 
-        if (hotel == null) {
-            return false;
+        Hotel hotel = null;
+        try {
+            List<Hotel> hotels = DatabaseService.getDao(Hotel.class)
+                    .queryForEq("bookingNumber", hotelBookingRequest.getBookingNumber());
+
+            if (hotels.isEmpty()) return false;
+            hotel = hotels.get(0);
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
 
         URL bankServiceUrl = null;
@@ -75,12 +83,13 @@ public class HotelService implements HotelInterface {
         hotelAccount.setName("LameDuck");
         hotelAccount.setNumber("50208812");
 
-        port.chargeCreditCard(22, hotelBookingRequest.getCardInformation(), (int) hotel.getPrice() , hotelAccount);
+        bank.CreditCardInfoType creditCardInfoType = customerCreditCardInfoType.getBankCreditCardInfoType();
+        boolean success = port.chargeCreditCard(22, creditCardInfoType, (int) hotel.getPrice(), hotelAccount);
 
         HotelReservation hotelReservation = new HotelReservation();
         hotelReservation.setHotel(hotel);
         hotelReservation.setBookingNumber(hotelBookingRequest.getBookingNumber());
-        hotelReservation.setCardInformation(hotelBookingRequest.getCardInformation());
+        hotelReservation.setCardInformation(customerCreditCardInfoType);
 
         try {
             HotelReservationDao hotelReservationDao = DatabaseService.getDao(HotelReservation.class);
@@ -103,7 +112,7 @@ public class HotelService implements HotelInterface {
             e.printStackTrace();
         }
 
-        if(hotelResList.size() == 0) throw new BookingNumberException("Booking number does not exists");
+        if (hotelResList.size() == 0) throw new BookingNumberException("Booking number does not exists");
         hotelRes = hotelResList.get(0);
 
         float hotelPrice = hotelRes.getHotel().getPrice();
@@ -115,7 +124,7 @@ public class HotelService implements HotelInterface {
         URL bankServiceUrl = null;
         try {
             bankServiceUrl = new URL("http://fastmoney.imm.dtu.dk:8080/BankService?wsdl");
-        } catch (MalformedURLException e) {
+        } catch (MalformedURLException | SOAPFaultException e) {
             e.printStackTrace();
         }
 
@@ -123,11 +132,13 @@ public class HotelService implements HotelInterface {
         BankPortType port = bs.getBankPort();
 
         int returnMoney = (int) Math.floor(hotelPrice);
-        port.refundCreditCard(22, hotelRes.getCardInformation(), returnMoney, hotelAccount);
+
+        bank.CreditCardInfoType creditCardInfoType = hotelRes.getCardInformation().getBankCreditCardInfoType();
+        port.refundCreditCard(22, creditCardInfoType, returnMoney, hotelAccount);
 
         try {
             DatabaseService.getDao(HotelReservation.class)
-                    .delete(hotelRes);
+                    .delete(hotelResList);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }

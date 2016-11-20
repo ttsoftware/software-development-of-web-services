@@ -25,7 +25,7 @@ import java.util.List;
 public class TravelAgencySoapService implements TravelAgencySoapInterface {
 
     @Override
-    public FlightReservation[] getFlights(String from, String destination, PenisDate date) {
+    public FlightReservation[] getFlights(String from, String destination, CustomDate date) {
         flight.AirlineInterface port = getFlightServicePort();
         flight.PenisDate customDate = new flight.PenisDate();
         customDate.setDay(date.getDay());
@@ -36,7 +36,7 @@ public class TravelAgencySoapService implements TravelAgencySoapInterface {
     }
 
     @Override
-    public Hotel[] getHotels(String city, PenisDate arrivalDate, PenisDate departureDate) throws SQLException {
+    public Hotel[] getHotels(String city, CustomDate arrivalDate, CustomDate departureDate) throws SQLException {
         hotel.HotelInterface port = getHotelServicePort();
         hotel.PenisDate customArrivalDate = new hotel.PenisDate();
         customArrivalDate.setDay(arrivalDate.getDay());

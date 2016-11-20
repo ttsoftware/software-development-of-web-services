@@ -5,7 +5,7 @@ import com.j256.ormlite.stmt.PreparedQuery;
 import com.j256.ormlite.stmt.QueryBuilder;
 import models.Flight;
 import models.FlightReservation;
-import models.PenisDate;
+import models.CustomDate;
 import services.exceptions.BookingNumberException;
 
 import javax.jws.WebService;
@@ -27,12 +27,12 @@ public class AirlineService implements AirlineInterface {
     private List<FlightReservation> availableFlights;
 
     @Override
-    public FlightReservation[] getFlights(String from, String destination, PenisDate penisDate) {
+    public FlightReservation[] getFlights(String from, String destination, CustomDate customDate) {
         try {
 
             QueryBuilder<Flight, ?> qbFlight = DatabaseService.getDao(Flight.class).queryBuilder();
 
-            Date date = penisDate.toDate();
+            Date date = customDate.toDate();
 
             qbFlight.where()
                     .eq("startAirport", from)
