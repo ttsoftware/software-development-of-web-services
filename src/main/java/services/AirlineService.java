@@ -87,10 +87,10 @@ public class AirlineService implements AirlineInterface {
         BankPortType port = bs.getBankPort();
 
         AccountType flightAccount = new AccountType();
-        flightAccount.setName("TravelGood");
-        flightAccount.setNumber("50108811");
+        flightAccount.setName("LameDuck");
+        flightAccount.setNumber("50208812");
 
-        port.chargeCreditCard(99, cardInformation, flightReservation.getPrice(), flightAccount);
+        port.chargeCreditCard(22, cardInformation, flightReservation.getPrice(), flightAccount);
 
         return true;
     }
@@ -112,8 +112,8 @@ public class AirlineService implements AirlineInterface {
 
 
         AccountType flightAccount = new AccountType();
-        flightAccount.setName("TravelGood");
-        flightAccount.setNumber("50108811");
+        flightAccount.setName("LameDuck");
+        flightAccount.setNumber("50208812");
 
         URL bankServiceUrl = null;
         try {
@@ -125,7 +125,7 @@ public class AirlineService implements AirlineInterface {
         BankPortType port = bs.getBankPort();
 
         int returnMoney = (int) Math.floor(flightPrice/2);
-        port.refundCreditCard(99, cardInformation, returnMoney, flightAccount);
+        port.refundCreditCard(22, cardInformation, returnMoney, flightAccount);
 
         return true;
     }

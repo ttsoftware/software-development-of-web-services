@@ -1,8 +1,10 @@
 package services;
 
+import bank.CreditCardFaultMessage;
 import models.Hotel;
 import models.HotelBookingRequest;
 import models.PenisDate;
+import services.exceptions.BookingNumberException;
 
 import javax.jws.WebMethod;
 import javax.jws.WebParam;
@@ -23,8 +25,8 @@ public interface HotelInterface {
                                 @WebParam(name = "departureDate") PenisDate departureDate) throws SQLException;
 
     @WebMethod(operationName = "bookHotel")
-    boolean bookHotel(@WebParam(name = "hotelBookingRequest") HotelBookingRequest hotelBookingRequest) throws SQLException;
+    boolean bookHotel(@WebParam(name = "hotelBookingRequest") HotelBookingRequest hotelBookingRequest) throws SQLException, CreditCardFaultMessage;
 
     @WebMethod(operationName = "cancelHotel")
-    void cancelHotel(@WebParam(name = "bookingNumber") String bookingNumber);
+    void cancelHotel(@WebParam(name = "hotelCancleRequest") HotelBookingRequest hotelCancleRequest) throws CreditCardFaultMessage, BookingNumberException;
 }
