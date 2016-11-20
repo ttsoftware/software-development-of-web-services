@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <casa xmlns="http://java.sun.com/xml/ns/casa" xmlns:xlink="http://www.w3.org/2000/xlink">
     <endpoints/>
-    <service-units/>
+    <service-units>
+        <service-engine-service-unit x="240" y="330" internal="true" unknown="false" defined="false" name="getFlightsBPELtest" unit-name="getFlightsBPELtest" description="Represents this Service Unit" component-name="sun-bpel-engine" artifacts-zip="getFlightsBPELtest.jar"/>
+    </service-units>
     <connections/>
     <porttypes/>
     <bindings/>

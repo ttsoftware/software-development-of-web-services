@@ -3,21 +3,7 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/home/dennis/Dropbox/DTU/webdev/TravelGood/src/createBooking.wsdl</file>
-            <file>file:/home/dennis/Dropbox/DTU/webdev/TravelGood/src/getItinerarie.bpel</file>
-            <file>file:/home/dennis/Dropbox/DTU/webdev/TravelGood/src/getHotels.wsdl</file>
-            <file>file:/home/dennis/Dropbox/DTU/webdev/TravelGood/src/getFlights.bpel</file>
-            <file>file:/home/dennis/Dropbox/DTU/webdev/TravelGood/src/getItinerarie.wsdl</file>
-            <file>file:/home/dennis/Dropbox/DTU/webdev/TravelGood/src/bookItinerarie.bpel</file>
-            <file>file:/home/dennis/Dropbox/DTU/webdev/TravelGood/src/getHotels.bpel</file>
-            <file>file:/home/dennis/Dropbox/DTU/webdev/TravelGood/src/createItinerarie.wsdl</file>
-            <file>file:/home/dennis/Dropbox/DTU/webdev/TravelGood/src/getFlights.wsdl</file>
-            <file>file:/home/dennis/Dropbox/DTU/webdev/TravelGood/src/cancelItinerarie.bpel</file>
-            <file>file:/home/dennis/Dropbox/DTU/webdev/TravelGood/src/cancelBooking.bpel</file>
-            <file>file:/home/dennis/Dropbox/DTU/webdev/TravelGood/src/cancelItinerarie.wsdl</file>
-            <file>file:/home/dennis/Dropbox/DTU/webdev/TravelGood/src/bookItinerarie.wsdl</file>
-            <file>file:/home/dennis/Dropbox/DTU/webdev/TravelGood/src/cancelBooking.wsdl</file>
-            <file>file:/home/dennis/Dropbox/DTU/webdev/TravelGood/src/createBooking.bpel</file>
+            <file>file:/home/dennis/Dropbox/DTU/webdev/software-development-of-web-services/bpel/TravelGood/src/TravelGood.bpel</file>
         </group>
     </open-files>
 </project-private>

@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions name="client" targetNamespace="http://j2ee.netbeans.org/wsdl/TravelGood/src/client"
+    xmlns="http://schemas.xmlsoap.org/wsdl/"
+    xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://j2ee.netbeans.org/wsdl/TravelGood/src/client" xmlns:plnk="http://docs.oasis-open.org/wsbpel/2.0/plnktype" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/">
+    <types/>
+    <message name="getFlightsRequest">
+        <part name="from" type="xsd:string"/>
+        <part name="destination" type="xsd:string"/>
+        <part name="date" type="xsd:anyType"/>
+    </message>
+    <message name="getFlightsResponse">
+        <part name="flightReservation" type="xsd:anyType"/>
+    </message>
+    <message name="getHotelsRequest">
+        <part name="city" type="xsd:string"/>
+        <part name="arrivalDate" type="xsd:anyType"/>
+        <part name="departureDate" type="xsd:anyType"/>
+    </message>
+    <message name="getHotelsResponse">
+        <part name="hotel" type="xsd:anyType"/>
+    </message>
+    <message name="createItinerarieRequest"/>
+    <message name="createItinerarieResponse">
+        <part name="itinerarieId" type="xsd:int"/>
+    </message>
+    <message name="cancelItinerarieRequest">
+        <part name="id" type="xsd:int"/>
+        <part name="cardInformation" type="xsd:anyType"/>
+    </message>
+    <message name="cancelItinerarieResponse">
+        <part name="cancelResult" type="xsd:boolean"/>
+    </message>
+    <message name="getItinerarieRequest">
+        <part name="id" type="xsd:int"/>
+    </message>
+    <message name="getItinerarieResponse">
+        <part name="itinerarie" type="xsd:anyType"/>
+    </message>
+    <message name="bookItinerarieRequest">
+        <part name="id" type="xsd:int"/>
+        <part name="cardInformation" type="xsd:anyType"/>
+    </message>
+    <message name="bookItinerarieResponse">
+        <part name="bookResult" type="xsd:boolean"/>
+    </message>
+    <message name="createBookingRequest">
+        <part name="itinerarieId" type="xsd:int"/>
+        <part name="booking" type="xsd:anyType"/>
+    </message>
+    <message name="createBookingResponse">
+        <part name="createResult" type="xsd:boolean"/>
+    </message>
+    <portType name="clientPortType">
+        <operation name="getFlights">
+            <input name="input1" message="tns:getFlightsRequest"/>
+            <output name="output1" message="tns:getFlightsResponse"/>
+        </operation>
+        <operation name="getHotels">
+            <input name="input2" message="tns:getHotelsRequest"/>
+            <output name="output2" message="tns:getHotelsResponse"/>
+        </operation>
+        <operation name="createItinerarie">
+            <input name="input3" message="tns:createItinerarieRequest"/>
+            <output name="output3" message="tns:createItinerarieResponse"/>
+        </operation>
+        <operation name="cancelItinerarie">
+            <input name="input4" message="tns:cancelItinerarieRequest"/>
+            <output name="output4" message="tns:cancelItinerarieResponse"/>
+        </operation>
+        <operation name="getItinerarie">
+            <input name="input5" message="tns:getItinerarieRequest"/>
+            <output name="output5" message="tns:getItinerarieResponse"/>
+        </operation>
+        <operation name="bookItinerarie">
+            <input name="input6" message="tns:bookItinerarieRequest"/>
+            <output name="output6" message="tns:bookItinerarieResponse"/>
+        </operation>
+        <operation name="createBooking">
+            <input name="input7" message="tns:createBookingRequest"/>
+            <output name="output7" message="tns:createBookingResponse"/>
+        </operation>
+    </portType>
+    <binding name="clientBinding" type="tns:clientPortType">
+        <soap:binding style="rpc" transport="http://schemas.xmlsoap.org/soap/http"/>
+        <operation name="getFlights">
+            <soap:operation/>
+            <input name="input1">
+                <soap:body use="literal" namespace="http://j2ee.netbeans.org/wsdl/TravelGood/src/client"/>
+            </input>
+            <output name="output1">
+                <soap:body use="literal" namespace="http://j2ee.netbeans.org/wsdl/TravelGood/src/client"/>
+            </output>
+        </operation>
+    </binding>
+    <service name="clientService">
+        <port name="clientPort" binding="tns:clientBinding">
+            <soap:address location="http://localhost:${HttpDefaultPort}/clientService/clientPort"/>
+        </port>
+    </service>
+    <plnk:partnerLinkType name="client">
+        <!-- A partner link type is automatically generated when a new port type is added. Partner link types are used by BPEL processes. 
+In a BPEL process, a partner link represents the interaction between the BPEL process and a partner service. Each partner link is associated with a partner link type.
+A partner link type characterizes the conversational relationship between two services. The partner link type can have one or two roles.-->
+        <plnk:role name="clientPortTypeRole" portType="tns:clientPortType"/>
+    </plnk:partnerLinkType>
+</definitions>
