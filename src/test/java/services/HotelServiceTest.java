@@ -72,6 +72,24 @@ public class HotelServiceTest {
         }
     }
 
+    @Test
+    public void bookHotelFailTest() throws SQLException {
+
+        CreditCardInfoType creditCard = new CreditCardInfoType();
+        creditCard.setNumber("nej");
+
+        HotelBookingRequest bookingRequest = new HotelBookingRequest();
+        bookingRequest.setBookingNumber("nej");
+        bookingRequest.setCardInformation(creditCard);
+
+        try {
+            boolean isBooked = hotelService.bookHotel(bookingRequest);
+            assertTrue(!isBooked);
+        } catch (CreditCardFaultMessage e) {
+            e.printStackTrace();
+        }
+    }
+
     @Test(expected = IndexOutOfBoundsException.class)
     public void cancelHotel() throws SQLException {
 

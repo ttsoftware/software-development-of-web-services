@@ -49,29 +49,25 @@ public class HotelService implements HotelInterface {
 
         models.CreditCardInfoType customerCreditCardInfoType = null;
         try {
-            customerCreditCardInfoType = DatabaseService
+            List<models.CreditCardInfoType> creditCards = DatabaseService
                     .getDao(models.CreditCardInfoType.class)
-                    .queryForEq("number", hotelBookingRequest.getCardInformation().getNumber())
-                    .get(0);
+                    .queryForEq("number", hotelBookingRequest.getCardInformation().getNumber());
+
+            if (creditCards.isEmpty()) return false;
+            customerCreditCardInfoType = creditCards.get(0);
         } catch (SQLException e) {
             e.printStackTrace();
-        }
-
-        if (customerCreditCardInfoType == null) {
-            return false;
         }
 
         Hotel hotel = null;
         try {
-            hotel = DatabaseService.getDao(Hotel.class)
-                    .queryForEq("bookingNumber", hotelBookingRequest.getBookingNumber())
-                    .get(0);
+            List<Hotel> hotels = DatabaseService.getDao(Hotel.class)
+                    .queryForEq("bookingNumber", hotelBookingRequest.getBookingNumber());
+
+            if (hotels.isEmpty()) return false;
+            hotel = hotels.get(0);
         } catch (SQLException e) {
             e.printStackTrace();
-        }
-
-        if (hotel == null) {
-            return false;
         }
 
         URL bankServiceUrl = null;
