@@ -27,8 +27,8 @@ public interface TravelAgencySoapInterface {
     Hotel[] getHotels(@WebParam(name = "city") String city,
                       @WebParam(name = "arrivalDate") CustomDate arrivalDate,
                       @WebParam(name = "departureDate") CustomDate departureDate) throws SQLException;
-    @WebMethod(operationName = "createItinerarie")
-    int createItinerarie() throws Exception;
+    @WebMethod(operationName = "createItinerary")
+    int createItinerary() throws Exception;
 
     @WebMethod(operationName = "getItinerary")
     @WebResult(name="itinerary")

@@ -37,7 +37,7 @@ public class TravelAgencySoapServiceTest {
     @Test
     public void getItineraryTest() {
         try {
-            int id = travelAgencyInterface.createItinerarie();
+            int id = travelAgencyInterface.createItinerary();
             Itinerary itinerary = travelAgencyInterface.getItinerary(id);
             Assert.assertNotNull(itinerary);
         } catch (Exception e) {

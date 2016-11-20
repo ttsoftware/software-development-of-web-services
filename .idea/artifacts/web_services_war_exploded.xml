@@ -7,6 +7,7 @@
           <element id="module-output" name="web.services" />
         </element>
         <element id="directory" name="lib">
+          <element id="library" level="project" name="Maven: javax.ws.rs:javax.ws.rs-api:2.0.1" />
           <element id="library" level="project" name="Maven: org.xerial:sqlite-jdbc:3.7.2" />
           <element id="library" level="project" name="Maven: com.j256.ormlite:ormlite-core:4.48" />
           <element id="library" level="project" name="Maven: com.j256.ormlite:ormlite-jdbc:4.48" />
