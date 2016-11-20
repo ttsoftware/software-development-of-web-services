@@ -1,5 +1,5 @@
 <component name="ArtifactManager">
-  <artifact type="exploded-war" build-on-make="true" name="webservices">
+  <artifact type="exploded-war" name="webservices">
     <output-path>$PROJECT_DIR$/out/artifacts/webservices</output-path>
     <root id="root">
       <element id="directory" name="WEB-INF">
@@ -14,9 +14,6 @@
           <element id="library" level="project" name="Maven: junit:junit:4.12" />
           <element id="library" level="project" name="Maven: org.hamcrest:hamcrest-core:1.3" />
         </element>
-      </element>
-      <element id="directory" name="META-INF">
-        <element id="file-copy" path="$PROJECT_DIR$/target/web.services-1.0-SNAPSHOT/META-INF/MANIFEST.MF" />
       </element>
       <element id="javaee-facet-resources" facet="web.services/web/Web" />
     </root>

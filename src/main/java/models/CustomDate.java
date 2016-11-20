@@ -7,19 +7,19 @@ import javax.xml.bind.annotation.XmlType;
 import java.util.Date;
 
 
-@XmlType(name = "PenisDate")
-@XmlRootElement(name = "PenisDate")
+@XmlType(name = "CustomDate")
+@XmlRootElement(name = "CustomDate")
 @XmlAccessorType(XmlAccessType.FIELD)
-public class PenisDate {
+public class CustomDate {
 
     private int year;
     private int month;
     private int day;
 
-    public PenisDate() {
+    public CustomDate() {
     }
 
-    public PenisDate(int year, int month, int day) {
+    public CustomDate(int year, int month, int day) {
         this.year = year;
         this.month = month;
         this.day = day;

@@ -2,8 +2,8 @@ package services;
 
 import bank.CreditCardFaultMessage;
 import bank.CreditCardInfoType;
+import models.CustomDate;
 import models.FlightReservation;
-import models.PenisDate;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -33,7 +33,7 @@ public class AirlineServiceTest {
 
     @Test
     public void getFlightsTest() {
-        FlightReservation[] result = airlineService.getFlights("Copenhagen", "Berlin", new PenisDate(2016, 11, 7));
+        FlightReservation[] result = airlineService.getFlights("Copenhagen", "Berlin", new CustomDate(2016, 11, 7));
 
         System.out.println(result.length);
         System.out.println(result[0].getAirlineName());

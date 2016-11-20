@@ -20,13 +20,13 @@ public interface TravelAgencySoapInterface {
     @WebResult(name="FlightReservation")
     FlightReservation[] getFlights(@WebParam(name = "from") String from,
                                    @WebParam(name = "destination") String destination,
-                                   @WebParam(name = "date") PenisDate date);
+                                   @WebParam(name = "date") CustomDate date);
 
     @WebMethod(operationName = "getHotels")
     @WebResult(name="hotels")
     Hotel[] getHotels(@WebParam(name = "city") String city,
-                      @WebParam(name = "arrivalDate") PenisDate arrivalDate,
-                      @WebParam(name = "departureDate") PenisDate departureDate) throws SQLException;
+                      @WebParam(name = "arrivalDate") CustomDate arrivalDate,
+                      @WebParam(name = "departureDate") CustomDate departureDate) throws SQLException;
     @WebMethod(operationName = "createItinerarie")
     int createItinerarie() throws Exception;
 

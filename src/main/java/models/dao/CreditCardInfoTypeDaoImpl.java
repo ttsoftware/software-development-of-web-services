@@ -1,6 +1,6 @@
 package models.dao;
 
-import bank.CreditCardInfoType;
+import models.CreditCardInfoType;
 import com.j256.ormlite.dao.BaseDaoImpl;
 import com.j256.ormlite.support.ConnectionSource;
 import com.j256.ormlite.table.DatabaseTableConfig;
@@ -11,6 +11,10 @@ public class CreditCardInfoTypeDaoImpl extends BaseDaoImpl<CreditCardInfoType, I
 
     protected CreditCardInfoTypeDaoImpl(Class<CreditCardInfoType> dataClass) throws SQLException {
         super(dataClass);
+    }
+
+    public CreditCardInfoTypeDaoImpl(ConnectionSource connectionSource) throws SQLException {
+        super(connectionSource, CreditCardInfoType.class);
     }
 
     protected CreditCardInfoTypeDaoImpl(ConnectionSource connectionSource, Class<CreditCardInfoType> dataClass) throws SQLException {
