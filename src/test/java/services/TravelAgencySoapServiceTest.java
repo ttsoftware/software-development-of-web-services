@@ -1,5 +1,8 @@
 package services;
 
+import models.CustomDate;
+import models.FlightReservation;
+import models.Hotel;
 import models.Itinerary;
 import org.junit.Assert;
 import org.junit.Before;
@@ -9,6 +12,7 @@ import javax.xml.namespace.QName;
 import javax.xml.ws.Service;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.sql.SQLException;
 
 /**
  * Created by troels on 11/15/16.
@@ -54,6 +58,12 @@ public class TravelAgencySoapServiceTest {
 
     @Test
     public void P1(){
+       FlightReservation[] flight = travelAgencyInterface.getFlights("Copenhagen", "Berlin", new CustomDate(2016, 11, 7));
+        try {
+            Hotel[] hotels = travelAgencyInterface.getHotels("copenhagen", new CustomDate(2016, 11, 7), new CustomDate(2016, 11, 7));
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
 
