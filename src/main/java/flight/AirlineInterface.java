@@ -27,29 +27,22 @@ public interface AirlineInterface {
 
     /**
      * 
-     * @param price
-     * @param cardInformation
-     * @param bookingNumber
+     * @param date
+     * @param destination
+     * @param from
      * @return
-     *     returns boolean
-     * @throws BookingNumberException_Exception
-     * @throws CreditCardFaultMessage
+     *     returns flight.FlightReservationArray
      */
     @WebMethod
-    @WebResult(partName = "return")
-    @Action(input = "http://services/AirlineInterface/cancelFlightRequest", output = "http://services/AirlineInterface/cancelFlightResponse", fault = {
-        @FaultAction(className = CreditCardFaultMessage.class, value = "http://services/AirlineInterface/cancelFlight/Fault/CreditCardFaultMessage"),
-        @FaultAction(className = BookingNumberException_Exception.class, value = "http://services/AirlineInterface/cancelFlight/Fault/BookingNumberException")
-    })
-    public boolean cancelFlight(
-        @WebParam(name = "bookingNumber", partName = "bookingNumber")
-        String bookingNumber,
-        @WebParam(name = "price", partName = "price")
-        float price,
-        @WebParam(name = "cardInformation", partName = "cardInformation")
-        CreditCardInfoType cardInformation)
-        throws BookingNumberException_Exception, CreditCardFaultMessage
-    ;
+    @WebResult(name = "flightRevervations", partName = "flightRevervations")
+    @Action(input = "http://services/AirlineInterface/getFlightsRequest", output = "http://services/AirlineInterface/getFlightsResponse")
+    public FlightReservationArray getFlights(
+        @WebParam(name = "from", partName = "from")
+        String from,
+        @WebParam(name = "destination", partName = "destination")
+        String destination,
+        @WebParam(name = "date", partName = "date")
+        PenisDate date);
 
     /**
      * 
@@ -76,21 +69,28 @@ public interface AirlineInterface {
 
     /**
      * 
-     * @param date
-     * @param destination
-     * @param from
+     * @param price
+     * @param cardInformation
+     * @param bookingNumber
      * @return
-     *     returns flight.FlightReservationArray
+     *     returns boolean
+     * @throws BookingNumberException_Exception
+     * @throws CreditCardFaultMessage
      */
     @WebMethod
-    @WebResult(name = "flightRevervations", partName = "flightRevervations")
-    @Action(input = "http://services/AirlineInterface/getFlightsRequest", output = "http://services/AirlineInterface/getFlightsResponse")
-    public FlightReservationArray getFlights(
-        @WebParam(name = "from", partName = "from")
-        String from,
-        @WebParam(name = "destination", partName = "destination")
-        String destination,
-        @WebParam(name = "date", partName = "date")
-        PenisDate date);
+    @WebResult(partName = "return")
+    @Action(input = "http://services/AirlineInterface/cancelFlightRequest", output = "http://services/AirlineInterface/cancelFlightResponse", fault = {
+        @FaultAction(className = CreditCardFaultMessage.class, value = "http://services/AirlineInterface/cancelFlight/Fault/CreditCardFaultMessage"),
+        @FaultAction(className = BookingNumberException_Exception.class, value = "http://services/AirlineInterface/cancelFlight/Fault/BookingNumberException")
+    })
+    public boolean cancelFlight(
+        @WebParam(name = "bookingNumber", partName = "bookingNumber")
+        String bookingNumber,
+        @WebParam(name = "price", partName = "price")
+        float price,
+        @WebParam(name = "cardInformation", partName = "cardInformation")
+        CreditCardInfoType cardInformation)
+        throws BookingNumberException_Exception, CreditCardFaultMessage
+    ;
 
 }

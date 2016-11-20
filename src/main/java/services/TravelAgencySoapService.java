@@ -4,7 +4,6 @@ import bank.CreditCardInfoType;
 import com.j256.ormlite.dao.ForeignCollection;
 import flight.BookingNumberException_Exception;
 import flight.CreditCardFaultMessage;
-import flight.PenisDate;
 import hotel.SQLException_Exception;
 import models.*;
 
@@ -12,20 +11,22 @@ import javax.jws.WebService;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.sql.SQLException;
-import java.util.Date;
 import java.util.Iterator;
 
+/**
+ * Created by troels on 11/20/16.
+ */
 @WebService(
-        name = "TravelAgencyService",
-        serviceName = "TravelAgencyService",
-        endpointInterface = "services.TravelAgencyInterface                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      "
+        name = "TravelAgencySoapService",
+        serviceName = "TravelAgencySoapService",
+        endpointInterface = "services.TravelAgencySoapInterface"
 )
-public class TravelAgencyService implements TravelAgencyInterface {
+public class TravelAgencySoapService implements TravelAgencySoapInterface {
 
     @Override
-    public FlightReservation[] getFlights(String from, String destination, Date date) {
+    public FlightReservation[] getFlights(String from, String destination, PenisDate date) {
         flight.AirlineInterface port = getFlightServicePort();
-        PenisDate customDate = new PenisDate();
+        flight.PenisDate customDate = new flight.PenisDate();
         customDate.setDay(date.getDay());
         customDate.setMonth(date.getMonth());
         customDate.setYear(date.getYear());
@@ -34,8 +35,7 @@ public class TravelAgencyService implements TravelAgencyInterface {
     }
 
     @Override
-    public Hotel[] getHotels(String city, Date arrivalDate, Date departureDate) throws SQLException {
-
+    public Hotel[] getHotels(String city, PenisDate arrivalDate, PenisDate departureDate) throws SQLException {
         hotel.HotelInterface port = getHotelServicePort();
         hotel.PenisDate customArrivalDate = new hotel.PenisDate();
         customArrivalDate.setDay(arrivalDate.getDay());
@@ -72,7 +72,7 @@ public class TravelAgencyService implements TravelAgencyInterface {
     }
 
     @Override
-    public boolean cancelItinerarie(int id, CreditCardInfoType cardInformation) {
+    public boolean cancelItinerarie(int id, CreditCardInfoType cardInformation) throws Exception {
         ItineraryService itineraryService  = new ItineraryService();
         Itinerary itinerary = itineraryService.getItinerary(id);
         if(itinerary == null) return false;
@@ -91,26 +91,6 @@ public class TravelAgencyService implements TravelAgencyInterface {
             itineraryService.updateBooking(id, booking);
         }
         return true;
-    }
-
-    private void cancelHotel(Booking booking, CreditCardInfoType cardInformation) {
-        hotel.HotelInterface hotelPort = getHotelServicePort();
-        hotel.CreditCardInfoType ccit = mapCreditCardHotel(cardInformation);
-        hotelPort.cancelHotel(booking.getBookingNumber());
-        booking.setBookingStatus(BookingStatus.CANCELLED);
-    }
-
-    private void cancelFlight(Booking booking, CreditCardInfoType cardInformation) {
-        flight.AirlineInterface flightPort = getFlightServicePort();
-        flight.CreditCardInfoType ccit = mapCreditCardFlight(cardInformation);
-        try {
-           boolean success = flightPort.cancelFlight(booking.getBookingNumber(), booking.getPrice(), ccit);
-            if (success) booking.setBookingStatus(BookingStatus.CANCELLED);
-        } catch (BookingNumberException_Exception e) {
-            e.printStackTrace();
-        } catch (CreditCardFaultMessage creditCardFaultMessage) {
-            creditCardFaultMessage.printStackTrace();
-        }
     }
 
     @Override
@@ -147,6 +127,26 @@ public class TravelAgencyService implements TravelAgencyInterface {
         return true;
     }
 
+    private void cancelHotel(Booking booking, CreditCardInfoType cardInformation) {
+        hotel.HotelInterface hotelPort = getHotelServicePort();
+        hotel.CreditCardInfoType ccit = mapCreditCardHotel(cardInformation);
+        hotelPort.cancelHotel(booking.getBookingNumber());
+        booking.setBookingStatus(BookingStatus.CANCELLED);
+    }
+
+    private void cancelFlight(Booking booking, CreditCardInfoType cardInformation) {
+        flight.AirlineInterface flightPort = getFlightServicePort();
+        flight.CreditCardInfoType ccit = mapCreditCardFlight(cardInformation);
+        try {
+            boolean success = flightPort.cancelFlight(booking.getBookingNumber(), booking.getPrice(), ccit);
+            if (success) booking.setBookingStatus(BookingStatus.CANCELLED);
+        } catch (BookingNumberException_Exception e) {
+            e.printStackTrace();
+        } catch (CreditCardFaultMessage creditCardFaultMessage) {
+            creditCardFaultMessage.printStackTrace();
+        }
+    }
+
     private hotel.HotelInterface getHotelServicePort(){
         URL hotelServiceUrl = null;
         try {
@@ -171,7 +171,6 @@ public class TravelAgencyService implements TravelAgencyInterface {
         return bs.getAirlineServicePort();
     }
 
-
     private void bookflight(Booking booking, CreditCardInfoType cardInformation) {
         flight.AirlineInterface flightPort = getFlightServicePort();
 
@@ -189,7 +188,6 @@ public class TravelAgencyService implements TravelAgencyInterface {
             booking.setBookingStatus(BookingStatus.CANCELLED);
         }
     }
-
 
     private void bookHotel(Booking booking, CreditCardInfoType cardInformation) {
         hotel.HotelInterface hotelPort = getHotelServicePort();
@@ -233,5 +231,4 @@ public class TravelAgencyService implements TravelAgencyInterface {
         ccit.setNumber(credit.getNumber());
         return ccit;
     }
-
 }
