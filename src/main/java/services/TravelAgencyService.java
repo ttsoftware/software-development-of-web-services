@@ -3,7 +3,6 @@ package services;
 import bank.CreditCardInfoType;
 import flight.BookingNumberException_Exception;
 import flight.CreditCardFaultMessage;
-import hotel.SQLException_Exception;
 import models.*;
 
 import java.net.MalformedURLException;
@@ -14,14 +13,41 @@ import java.util.List;
 
 public class TravelAgencyService {
 
-    public models.FlightReservation[] getFlights(String from, String destination, CustomDate date) {
+    public flight.FlightReservation[] getFlights(String from, String destination, CustomDate date) {
         flight.AirlineInterface port = getFlightServicePort();
         flight.PenisDate customDate = new flight.PenisDate();
         customDate.setDay(date.getDay());
         customDate.setMonth(date.getMonth());
         customDate.setYear(date.getYear());
-        FlightReservation[] flights = (FlightReservation[]) port.getFlights(from, destination, customDate).getItem().toArray();
-        return flights;
+        List<flight.FlightReservation> flights = port.getFlights(from, destination, customDate).getItem();
+
+        flight.FlightReservation[] flightsArray = new flight.FlightReservation[flights.size()];
+        for (int i = 0; i < flights.size(); i++) {
+            flightsArray[i] = flights.get(i);
+        }
+
+        return flightsArray;
+    }
+
+    public hotel.Hotel[] getHotels(String city, CustomDate arrivalDate, CustomDate departureDate) {
+        hotel.HotelInterface port = getHotelServicePort();
+        hotel.CustomDate customArrivalDate = new hotel.CustomDate();
+        customArrivalDate.setDay(arrivalDate.getDay());
+        customArrivalDate.setMonth(arrivalDate.getMonth());
+        customArrivalDate.setYear(arrivalDate.getYear());
+
+        hotel.CustomDate customDepartureDate = new hotel.CustomDate();
+        customDepartureDate.setDay(departureDate.getDay());
+        customDepartureDate.setMonth(departureDate.getMonth());
+        customDepartureDate.setYear(departureDate.getYear());
+
+        List<hotel.Hotel> hotels = port.getHotels(city, customArrivalDate, customDepartureDate).getItem();
+        hotel.Hotel[] hotelArray = new hotel.Hotel[hotels.size()];
+        for (int i = 0; i < hotels.size(); i++) {
+            hotelArray[i] = hotels.get(i);
+        }
+        return hotelArray;
+
     }
 
     public Itinerary getItinerary(int id) throws Exception {
@@ -100,26 +126,6 @@ public class TravelAgencyService {
             itineraryService.updateBooking(id, booking);
         }
         return true;
-    }
-
-    public Hotel[] getHotels(String city, CustomDate arrivalDate, CustomDate departureDate) {
-        hotel.HotelInterface port = getHotelServicePort();
-        hotel.PenisDate customArrivalDate = new hotel.PenisDate();
-        customArrivalDate.setDay(arrivalDate.getDay());
-        customArrivalDate.setMonth(arrivalDate.getMonth());
-        customArrivalDate.setYear(arrivalDate.getYear());
-
-        hotel.PenisDate customDepartureDate = new hotel.PenisDate();
-        customDepartureDate.setDay(departureDate.getDay());
-        customDepartureDate.setMonth(departureDate.getMonth());
-        customDepartureDate.setYear(departureDate.getYear());
-        try {
-            Hotel[] hotels = (Hotel[]) port.getHotels(city, customArrivalDate, customDepartureDate).getItem().toArray();
-            return hotels;
-        } catch (SQLException_Exception e) {
-            e.printStackTrace();
-        }
-        return new Hotel[]{};
     }
 
     public void cancelHotel(Booking booking, CreditCardInfoType cardInformation) {
@@ -203,11 +209,9 @@ public class TravelAgencyService {
             success = hotelPort.bookHotel(request);
             if(success){
                 booking.setBookingStatus(BookingStatus.CONFIRMED);
-            }else{
+            }else {
                 booking.setBookingStatus(BookingStatus.CANCELLED);
             }
-        } catch (SQLException_Exception e) {
-            booking.setBookingStatus(BookingStatus.CANCELLED);
         } catch (hotel.CreditCardFaultMessage creditCardFaultMessage) {
             booking.setBookingStatus(BookingStatus.CANCELLED);
         }
@@ -226,10 +230,8 @@ public class TravelAgencyService {
 
     public hotel.CreditCardInfoType mapCreditCardHotel(bank.CreditCardInfoType credit){
         hotel.CreditCardInfoType ccit = new hotel.CreditCardInfoType();
-        hotel.CreditCardInfoType.ExpirationDate date = new hotel.CreditCardInfoType.ExpirationDate();
-        date.setYear(credit.getExpirationDate().getYear());
-        date.setMonth(credit.getExpirationDate().getMonth());
-        ccit.setExpirationDate(date);
+        ccit.setExpirationYear(credit.getExpirationDate().getYear());
+        ccit.setExpirationMonth(credit.getExpirationDate().getMonth());
         ccit.setName(credit.getName());
         ccit.setNumber(credit.getNumber());
         return ccit;

@@ -28,12 +28,12 @@ import javax.xml.bind.annotation.XmlType;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "PenisDate", propOrder = {
+@XmlType(name = "CustomDate", propOrder = {
     "year",
     "month",
     "day"
 })
-public class PenisDate {
+public class CustomDate {
 
     protected int year;
     protected int month;

@@ -11,7 +11,6 @@ import javax.jws.WebParam;
 import javax.jws.WebResult;
 import javax.jws.WebService;
 import javax.jws.soap.SOAPBinding;
-import java.sql.SQLException;
 
 
 @WebService
@@ -22,10 +21,10 @@ public interface HotelInterface {
     @WebResult(name="hotels")
     Hotel[] getHotels(@WebParam(name = "city") String city,
                                 @WebParam(name = "arrivalDate") CustomDate arrivalDate,
-                                @WebParam(name = "departureDate") CustomDate departureDate) throws SQLException;
+                                @WebParam(name = "departureDate") CustomDate departureDate);
 
     @WebMethod(operationName = "bookHotel")
-    boolean bookHotel(@WebParam(name = "hotelBookingRequest") HotelBookingRequest hotelBookingRequest) throws SQLException, CreditCardFaultMessage;
+    boolean bookHotel(@WebParam(name = "hotelBookingRequest") HotelBookingRequest hotelBookingRequest)throws CreditCardFaultMessage;
 
     @WebMethod(operationName = "cancelHotel")
     void cancelHotel(@WebParam(name = "bookingNumber") String bookingNumber) throws CreditCardFaultMessage, BookingNumberException;

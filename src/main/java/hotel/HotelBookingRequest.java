@@ -18,7 +18,7 @@ import javax.xml.bind.annotation.XmlType;
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
  *         &lt;element name="bookingNumber" type="{http://www.w3.org/2001/XMLSchema}string"/>
- *         &lt;element name="creditCardInformation" type="{http://types.fastmoney.imm.dtu.dk}creditCardInfoType" minOccurs="0"/>
+ *         &lt;element name="creditCardInformation" type="{http://services/}CreditCardInfoType"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
  *   &lt;/complexContent>
@@ -36,6 +36,7 @@ public class HotelBookingRequest {
 
     @XmlElement(required = true)
     protected String bookingNumber;
+    @XmlElement(required = true)
     protected CreditCardInfoType creditCardInformation;
 
     /**

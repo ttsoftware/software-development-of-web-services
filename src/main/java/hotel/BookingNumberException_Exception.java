@@ -12,7 +12,7 @@ import javax.xml.ws.WebFault;
  */
 @WebFault(name = "BookingNumberException", targetNamespace = "http://services/")
 public class BookingNumberException_Exception
-    extends java.lang.Exception
+    extends Exception
 {
 
     /**
@@ -37,7 +37,7 @@ public class BookingNumberException_Exception
      * @param cause
      * @param message
      */
-    public BookingNumberException_Exception(String message, BookingNumberException faultInfo, java.lang.Throwable cause) {
+    public BookingNumberException_Exception(String message, BookingNumberException faultInfo, Throwable cause) {
         super(message, cause);
         this.faultInfo = faultInfo;
     }

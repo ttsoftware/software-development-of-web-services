@@ -12,7 +12,7 @@ import javax.xml.ws.WebFault;
  */
 @WebFault(name = "CreditCardFault", targetNamespace = "http://fastmoney.imm.dtu.dk")
 public class CreditCardFaultMessage
-    extends java.lang.Exception
+    extends Exception
 {
 
     /**
@@ -37,7 +37,7 @@ public class CreditCardFaultMessage
      * @param cause
      * @param message
      */
-    public CreditCardFaultMessage(String message, CreditCardFaultType faultInfo, java.lang.Throwable cause) {
+    public CreditCardFaultMessage(String message, CreditCardFaultType faultInfo, Throwable cause) {
         super(message, cause);
         this.faultInfo = faultInfo;
     }

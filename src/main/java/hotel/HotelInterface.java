@@ -31,25 +31,23 @@ public interface HotelInterface {
      * @return
      *     returns boolean
      * @throws CreditCardFaultMessage
-     * @throws SQLException_Exception
      */
     @WebMethod
     @WebResult(partName = "return")
     @Action(input = "http://services/HotelInterface/bookHotelRequest", output = "http://services/HotelInterface/bookHotelResponse", fault = {
-        @FaultAction(className = SQLException_Exception.class, value = "http://services/HotelInterface/bookHotel/Fault/SQLException"),
         @FaultAction(className = CreditCardFaultMessage.class, value = "http://services/HotelInterface/bookHotel/Fault/CreditCardFaultMessage")
     })
     public boolean bookHotel(
         @WebParam(name = "hotelBookingRequest", partName = "hotelBookingRequest")
         HotelBookingRequest hotelBookingRequest)
-        throws CreditCardFaultMessage, SQLException_Exception
+        throws CreditCardFaultMessage
     ;
 
     /**
      * 
      * @param bookingNumber
-     * @throws CreditCardFaultMessage
      * @throws BookingNumberException_Exception
+     * @throws CreditCardFaultMessage
      */
     @WebMethod
     @Action(input = "http://services/HotelInterface/cancelHotelRequest", output = "http://services/HotelInterface/cancelHotelResponse", fault = {
@@ -69,21 +67,16 @@ public interface HotelInterface {
      * @param arrivalDate
      * @return
      *     returns hotel.HotelArray
-     * @throws SQLException_Exception
      */
     @WebMethod
     @WebResult(name = "hotels", partName = "hotels")
-    @Action(input = "http://services/HotelInterface/getHotelsRequest", output = "http://services/HotelInterface/getHotelsResponse", fault = {
-        @FaultAction(className = SQLException_Exception.class, value = "http://services/HotelInterface/getHotels/Fault/SQLException")
-    })
+    @Action(input = "http://services/HotelInterface/getHotelsRequest", output = "http://services/HotelInterface/getHotelsResponse")
     public HotelArray getHotels(
         @WebParam(name = "city", partName = "city")
         String city,
         @WebParam(name = "arrivalDate", partName = "arrivalDate")
-        PenisDate arrivalDate,
+        CustomDate arrivalDate,
         @WebParam(name = "departureDate", partName = "departureDate")
-        PenisDate departureDate)
-        throws SQLException_Exception
-    ;
+        CustomDate departureDate);
 
 }

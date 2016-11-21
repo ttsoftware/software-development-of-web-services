@@ -13,7 +13,7 @@ public class ItineraryRESTService {
     @GET
     @Path("/flights?from={from}&destination={destination}&year={year}&month={month}&day={day}")
     @Produces(MediaType.APPLICATION_JSON)
-    public FlightReservation[] flights(@PathParam("from") String from,
+    public flight.FlightReservation[] flights(@PathParam("from") String from,
                                        @PathParam("destination") String destination,
                                        @PathParam("day") int day,
                                        @PathParam("month") int month,
@@ -24,7 +24,7 @@ public class ItineraryRESTService {
     @GET
     @Path("/hotels?city={city}&arrivalDateYear={arrivalDateYear}&arrivalDateMonth={arrivalDateMonth}&arrivalDateDay={arrivalDateDay}&departureDateYear={departureDateYear}&departureDateMonth={departureDateMonth}&departureDateDay={departureDateDay}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Hotel[] hotels(@PathParam("city") String city,
+    public hotel.Hotel[] hotels(@PathParam("city") String city,
                           @PathParam("arrivalDateYear") int arrivalDateYear,
                           @PathParam("arrivalDateMonth") int arrivalDateMonth,
                           @PathParam("arrivalDateDay") int arrivalDateDay,

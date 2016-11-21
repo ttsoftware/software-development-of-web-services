@@ -6,6 +6,7 @@ import models.Itinerary;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Iterator;
 import java.util.List;
 
 public class ItineraryService implements ItineraryInterface {
@@ -13,7 +14,7 @@ public class ItineraryService implements ItineraryInterface {
     public Itinerary getItinerary(int id) {
         List<Itinerary> itinerary = null;
         try {
-            itinerary = DatabaseService.getDao(Itinerary.class).queryForEq("id", 1);
+            itinerary = DatabaseService.getDao(Itinerary.class).queryForEq("id", id);
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -24,7 +25,9 @@ public class ItineraryService implements ItineraryInterface {
     @Override
     public int createItinerary() {
         try {
-            return DatabaseService.getDao(Itinerary.class).create(new Itinerary());
+            Itinerary i = new Itinerary();
+            DatabaseService.getDao(Itinerary.class).create(i);
+            return i.getId();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -48,6 +51,7 @@ public class ItineraryService implements ItineraryInterface {
         itinerary.getBookings().add(booking);
         try {
             DatabaseService.getDao(Itinerary.class).update(itinerary);
+            Iterator<Booking> iterator = itinerary.getBookings().iterator();
             return true;
         } catch (SQLException e) {
             e.printStackTrace();

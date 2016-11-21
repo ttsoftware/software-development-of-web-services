@@ -25,24 +25,15 @@ import javax.xml.namespace.QName;
 public class ObjectFactory {
 
     private final static QName _BookingNumberException_QNAME = new QName("http://services/", "BookingNumberException");
-    private final static QName _PenisDate_QNAME = new QName("http://services/", "CustomDate");
     private final static QName _Hotel_QNAME = new QName("http://services/", "Hotel");
+    private final static QName _CustomDate_QNAME = new QName("http://services/", "CustomDate");
     private final static QName _CreditCardFault_QNAME = new QName("http://fastmoney.imm.dtu.dk", "CreditCardFault");
-    private final static QName _SQLException_QNAME = new QName("http://services/", "SQLException");
 
     /**
      * Create a new ObjectFactory that can be used to create new instances of schema derived classes for package: hotel
      * 
      */
     public ObjectFactory() {
-    }
-
-    /**
-     * Create an instance of {@link CreditCardInfoType }
-     * 
-     */
-    public CreditCardInfoType createCreditCardInfoType() {
-        return new CreditCardInfoType();
     }
 
     /**
@@ -54,27 +45,19 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link SQLException }
-     * 
-     */
-    public SQLException createSQLException() {
-        return new SQLException();
-    }
-
-    /**
-     * Create an instance of {@link PenisDate }
-     * 
-     */
-    public PenisDate createPenisDate() {
-        return new PenisDate();
-    }
-
-    /**
      * Create an instance of {@link BookingNumberException }
      * 
      */
     public BookingNumberException createBookingNumberException() {
         return new BookingNumberException();
+    }
+
+    /**
+     * Create an instance of {@link CustomDate }
+     * 
+     */
+    public CustomDate createCustomDate() {
+        return new CustomDate();
     }
 
     /**
@@ -86,14 +69,6 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link Exception }
-     * 
-     */
-    public Exception createException() {
-        return new Exception();
-    }
-
-    /**
      * Create an instance of {@link HotelArray }
      * 
      */
@@ -102,27 +77,11 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link Throwable }
+     * Create an instance of {@link CreditCardInfoType }
      * 
      */
-    public Throwable createThrowable() {
-        return new Throwable();
-    }
-
-    /**
-     * Create an instance of {@link SqlException }
-     * 
-     */
-    public SqlException createSqlException() {
-        return new SqlException();
-    }
-
-    /**
-     * Create an instance of {@link StackTraceElement }
-     * 
-     */
-    public StackTraceElement createStackTraceElement() {
-        return new StackTraceElement();
+    public CreditCardInfoType createCreditCardInfoType() {
+        return new CreditCardInfoType();
     }
 
     /**
@@ -131,14 +90,6 @@ public class ObjectFactory {
      */
     public HotelBookingRequest createHotelBookingRequest() {
         return new HotelBookingRequest();
-    }
-
-    /**
-     * Create an instance of {@link CreditCardInfoType.ExpirationDate }
-     * 
-     */
-    public CreditCardInfoType.ExpirationDate createCreditCardInfoTypeExpirationDate() {
-        return new CreditCardInfoType.ExpirationDate();
     }
 
     /**
@@ -151,15 +102,6 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link PenisDate }{@code >}}
-     * 
-     */
-    @XmlElementDecl(namespace = "http://services/", name = "CustomDate")
-    public JAXBElement<PenisDate> createPenisDate(PenisDate value) {
-        return new JAXBElement<PenisDate>(_PenisDate_QNAME, PenisDate.class, null, value);
-    }
-
-    /**
      * Create an instance of {@link JAXBElement }{@code <}{@link Hotel }{@code >}}
      * 
      */
@@ -169,21 +111,21 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link CustomDate }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://services/", name = "CustomDate")
+    public JAXBElement<CustomDate> createCustomDate(CustomDate value) {
+        return new JAXBElement<CustomDate>(_CustomDate_QNAME, CustomDate.class, null, value);
+    }
+
+    /**
      * Create an instance of {@link JAXBElement }{@code <}{@link CreditCardFaultType }{@code >}}
      * 
      */
     @XmlElementDecl(namespace = "http://fastmoney.imm.dtu.dk", name = "CreditCardFault")
     public JAXBElement<CreditCardFaultType> createCreditCardFault(CreditCardFaultType value) {
         return new JAXBElement<CreditCardFaultType>(_CreditCardFault_QNAME, CreditCardFaultType.class, null, value);
-    }
-
-    /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link SQLException }{@code >}}
-     * 
-     */
-    @XmlElementDecl(namespace = "http://services/", name = "SQLException")
-    public JAXBElement<SQLException> createSQLException(SQLException value) {
-        return new JAXBElement<SQLException>(_SQLException_QNAME, SQLException.class, null, value);
     }
 
 }

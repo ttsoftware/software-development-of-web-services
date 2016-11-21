@@ -1,14 +1,15 @@
 package services;
 
 import bank.CreditCardInfoType;
-import models.*;
+import models.Booking;
+import models.CustomDate;
+import models.Itinerary;
 
 import javax.jws.WebMethod;
 import javax.jws.WebParam;
 import javax.jws.WebResult;
 import javax.jws.WebService;
 import javax.jws.soap.SOAPBinding;
-import java.sql.SQLException;
 
 /**
  * Created by troels on 11/20/16.
@@ -18,15 +19,15 @@ import java.sql.SQLException;
 public interface TravelAgencySoapInterface {
     @WebMethod(operationName = "getFlights")
     @WebResult(name="FlightReservation")
-    FlightReservation[] getFlights(@WebParam(name = "from") String from,
+    flight.FlightReservation[] getFlights(@WebParam(name = "from") String from,
                                    @WebParam(name = "destination") String destination,
                                    @WebParam(name = "date") CustomDate date);
 
     @WebMethod(operationName = "getHotels")
     @WebResult(name="hotels")
-    Hotel[] getHotels(@WebParam(name = "city") String city,
+    hotel.Hotel[] getHotels(@WebParam(name = "city") String city,
                       @WebParam(name = "arrivalDate") CustomDate arrivalDate,
-                      @WebParam(name = "departureDate") CustomDate departureDate) throws SQLException;
+                      @WebParam(name = "departureDate") CustomDate departureDate);
     @WebMethod(operationName = "createItinerary")
     int createItinerary() throws Exception;
 

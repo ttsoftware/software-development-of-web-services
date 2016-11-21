@@ -27,21 +27,28 @@ public class HotelService implements HotelInterface {
     @Override
     public Hotel[] getHotels(String city,
                              CustomDate arrivalDate,
-                             CustomDate departureDate) throws SQLException {
+                             CustomDate departureDate)  {
 
         Date arrivalDatePenisDate = arrivalDate.toDate();
         Date departureDatePenisDate = departureDate.toDate();
 
-        QueryBuilder<Hotel, ?> queryBuilder = DatabaseService.getDao(Hotel.class).queryBuilder();
-        queryBuilder.
-                where()
-                .eq("city", city)
-                .and().le("opens", arrivalDatePenisDate.getTime())
-                .and().ge("closes", departureDatePenisDate.getTime());
+        QueryBuilder<Hotel, ?> queryBuilder = null;
+        try {
+            queryBuilder = DatabaseService.getDao(Hotel.class).queryBuilder();
 
-        List<Hotel> hotels = DatabaseService.getDao(Hotel.class).query(queryBuilder.prepare());
+            queryBuilder.
+                    where()
+                    .eq("city", city)
+                    .and().le("opens", arrivalDatePenisDate.getTime())
+                    .and().ge("closes", departureDatePenisDate.getTime());
 
-        return hotels.toArray(new Hotel[hotels.size()]);
+            List<Hotel> hotels = DatabaseService.getDao(Hotel.class).query(queryBuilder.prepare());
+
+            return hotels.toArray(new Hotel[hotels.size()]);
+        } catch (SQLException e) {
+            return new Hotel[]{};
+        }
+
     }
 
     @Override

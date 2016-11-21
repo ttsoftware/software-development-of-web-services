@@ -47,7 +47,9 @@ public class Booking {
 
         if (object != null && object instanceof Booking)
         {
-            sameSame = this.id == ((Booking) object).id;
+            boolean bookingNumberSame = this.bookingNumber.equals(((Booking) object).bookingNumber);
+            boolean statusSame = this.bookingStatus.equals(((Booking) object).bookingStatus);
+            sameSame = bookingNumberSame & statusSame;
         }
 
         return sameSame;

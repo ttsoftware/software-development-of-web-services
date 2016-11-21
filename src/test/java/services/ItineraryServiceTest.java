@@ -37,7 +37,7 @@ public class ItineraryServiceTest {
     @Test
     public void getItineraryTest(){
         List<Itinerary> itineraryList = is.getItineraries();
-        is.createItinerary();
+        int id = is.createItinerary();
         Itinerary i = itineraryList.get(0);
         int iId = i.getId();
         Itinerary i2 = is.getItinerary(iId);

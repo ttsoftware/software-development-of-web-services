@@ -3,34 +3,24 @@ package hotel;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Java class for creditCardInfoType complex type.
+ * <p>Java class for CreditCardInfoType complex type.
  * 
  * <p>The following schema fragment specifies the expected content contained within this class.
  * 
  * <pre>
- * &lt;complexType name="creditCardInfoType">
+ * &lt;complexType name="CreditCardInfoType">
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
- *         &lt;element name="expirationDate">
- *           &lt;complexType>
- *             &lt;complexContent>
- *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *                 &lt;sequence>
- *                   &lt;element name="month" type="{http://www.w3.org/2001/XMLSchema}int"/>
- *                   &lt;element name="year" type="{http://www.w3.org/2001/XMLSchema}int"/>
- *                 &lt;/sequence>
- *               &lt;/restriction>
- *             &lt;/complexContent>
- *           &lt;/complexType>
- *         &lt;/element>
- *         &lt;element name="name" type="{http://www.w3.org/2001/XMLSchema}string"/>
- *         &lt;element name="number" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="id" type="{http://www.w3.org/2001/XMLSchema}int"/>
+ *         &lt;element name="name" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
+ *         &lt;element name="number" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
+ *         &lt;element name="expirationMonth" type="{http://www.w3.org/2001/XMLSchema}int"/>
+ *         &lt;element name="expirationYear" type="{http://www.w3.org/2001/XMLSchema}int"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
  *   &lt;/complexContent>
@@ -40,42 +30,35 @@ import javax.xml.bind.annotation.XmlType;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "creditCardInfoType", namespace = "http://types.fastmoney.imm.dtu.dk", propOrder = {
-    "expirationDate",
+@XmlType(name = "CreditCardInfoType", propOrder = {
+    "id",
     "name",
-    "number"
+    "number",
+    "expirationMonth",
+    "expirationYear"
 })
 public class CreditCardInfoType {
 
-    @XmlElement(required = true)
-    protected CreditCardInfoType.ExpirationDate expirationDate;
-    @XmlElement(required = true)
+    protected int id;
     protected String name;
-    @XmlElement(required = true)
     protected String number;
+    protected int expirationMonth;
+    protected int expirationYear;
 
     /**
-     * Gets the value of the expirationDate property.
+     * Gets the value of the id property.
      * 
-     * @return
-     *     possible object is
-     *     {@link CreditCardInfoType.ExpirationDate }
-     *     
      */
-    public CreditCardInfoType.ExpirationDate getExpirationDate() {
-        return expirationDate;
+    public int getId() {
+        return id;
     }
 
     /**
-     * Sets the value of the expirationDate property.
+     * Sets the value of the id property.
      * 
-     * @param value
-     *     allowed object is
-     *     {@link CreditCardInfoType.ExpirationDate }
-     *     
      */
-    public void setExpirationDate(CreditCardInfoType.ExpirationDate value) {
-        this.expirationDate = value;
+    public void setId(int value) {
+        this.id = value;
     }
 
     /**
@@ -126,69 +109,36 @@ public class CreditCardInfoType {
         this.number = value;
     }
 
-
     /**
-     * <p>Java class for anonymous complex type.
-     * 
-     * <p>The following schema fragment specifies the expected content contained within this class.
-     * 
-     * <pre>
-     * &lt;complexType>
-     *   &lt;complexContent>
-     *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-     *       &lt;sequence>
-     *         &lt;element name="month" type="{http://www.w3.org/2001/XMLSchema}int"/>
-     *         &lt;element name="year" type="{http://www.w3.org/2001/XMLSchema}int"/>
-     *       &lt;/sequence>
-     *     &lt;/restriction>
-     *   &lt;/complexContent>
-     * &lt;/complexType>
-     * </pre>
-     * 
+     * Gets the value of the expirationMonth property.
      * 
      */
-    @XmlAccessorType(XmlAccessType.FIELD)
-    @XmlType(name = "", propOrder = {
-        "month",
-        "year"
-    })
-    public static class ExpirationDate {
+    public int getExpirationMonth() {
+        return expirationMonth;
+    }
 
-        protected int month;
-        protected int year;
+    /**
+     * Sets the value of the expirationMonth property.
+     * 
+     */
+    public void setExpirationMonth(int value) {
+        this.expirationMonth = value;
+    }
 
-        /**
-         * Gets the value of the month property.
-         * 
-         */
-        public int getMonth() {
-            return month;
-        }
+    /**
+     * Gets the value of the expirationYear property.
+     * 
+     */
+    public int getExpirationYear() {
+        return expirationYear;
+    }
 
-        /**
-         * Sets the value of the month property.
-         * 
-         */
-        public void setMonth(int value) {
-            this.month = value;
-        }
-
-        /**
-         * Gets the value of the year property.
-         * 
-         */
-        public int getYear() {
-            return year;
-        }
-
-        /**
-         * Sets the value of the year property.
-         * 
-         */
-        public void setYear(int value) {
-            this.year = value;
-        }
-
+    /**
+     * Sets the value of the expirationYear property.
+     * 
+     */
+    public void setExpirationYear(int value) {
+        this.expirationYear = value;
     }
 
 }

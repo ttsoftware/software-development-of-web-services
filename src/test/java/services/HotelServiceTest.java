@@ -38,16 +38,16 @@ public class HotelServiceTest {
         CustomDate arrivalDate = new CustomDate(2015, 12, 27);
         CustomDate depatureDate = new CustomDate(2018, 12, 31);
 
-        Hotel[] hotels = hotelService.getHotels("copenhagen", arrivalDate, depatureDate);
+        Hotel[] hotels = hotelService.getHotels("Copenhagen", arrivalDate, depatureDate);
 
         assertEquals(hotels.length, 0);
 
         arrivalDate = new CustomDate(2016, 12, 28);
         depatureDate = new CustomDate(2016, 12, 30);
 
-        hotels = hotelService.getHotels("copenhagen", arrivalDate, depatureDate);
+        hotels = hotelService.getHotels("Copenhagen", arrivalDate, depatureDate);
 
-        assertEquals(hotels[0].getName(), "Danglen");
+        assertEquals(hotels[0].getName(), "Slumpen");
     }
 
     @Test
@@ -61,7 +61,7 @@ public class HotelServiceTest {
         creditCard.setName("Tobiasen Inge");
 
         HotelBookingRequest bookingRequest = new HotelBookingRequest();
-        bookingRequest.setBookingNumber("penis");
+        bookingRequest.setBookingNumber("2457");
         bookingRequest.setCardInformation(creditCard);
 
         try {
@@ -101,7 +101,7 @@ public class HotelServiceTest {
         creditCard.setName("Tobiasen Inge");
 
         HotelBookingRequest bookingRequest = new HotelBookingRequest();
-        bookingRequest.setBookingNumber("penis");
+        bookingRequest.setBookingNumber("2457");
         bookingRequest.setCardInformation(creditCard);
 
         try {
@@ -112,7 +112,7 @@ public class HotelServiceTest {
         }
 
         try {
-            hotelService.cancelHotel("penis");
+            hotelService.cancelHotel("2457");
         } catch (CreditCardFaultMessage | BookingNumberException e) {
             e.printStackTrace();
         }
