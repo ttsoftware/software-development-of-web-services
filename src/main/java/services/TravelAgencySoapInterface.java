@@ -4,6 +4,9 @@ import bank.CreditCardInfoType;
 import models.Booking;
 import models.CustomDate;
 import models.Itinerary;
+import services.exceptions.BookingFaultException;
+import services.exceptions.CancleBookingException;
+import services.exceptions.ItineraryDoesNotExistException;
 
 import javax.jws.WebMethod;
 import javax.jws.WebParam;
@@ -33,7 +36,7 @@ public interface TravelAgencySoapInterface {
 
     @WebMethod(operationName = "getItinerary")
     @WebResult(name="itinerary")
-    Itinerary getItinerary(@WebParam(name = "id") int id) throws Exception;
+    Itinerary getItinerary(@WebParam(name = "id") int id) throws ItineraryDoesNotExistException;
 
     @WebMethod(operationName = "getItineraries")
     @WebResult(name="itineraries")
@@ -41,11 +44,11 @@ public interface TravelAgencySoapInterface {
 
     @WebMethod(operationName = "cancelItinerarie")
     boolean cancelItinerarie(@WebParam(name = "id") int id,
-                             @WebParam(name = "cardInformation") CreditCardInfoType cardInformation) throws Exception;
+                             @WebParam(name = "cardInformation") CreditCardInfoType cardInformation) throws CancleBookingException;
 
     @WebMethod(operationName = "bookItinerarie")
     boolean bookItinerarie(@WebParam(name = "id") int id,
-                           @WebParam(name = "cardInformation") CreditCardInfoType cardInformation);
+                           @WebParam(name = "cardInformation") CreditCardInfoType cardInformation) throws BookingFaultException;
 
     @WebMethod(operationName = "createBooking")
     boolean createBooking(@WebParam(name = "itinerarieId") int itinerarieId,

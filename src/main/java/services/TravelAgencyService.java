@@ -4,10 +4,14 @@ import bank.CreditCardInfoType;
 import flight.BookingNumberException_Exception;
 import flight.CreditCardFaultMessage;
 import models.*;
+import services.exceptions.BookingFaultException;
+import services.exceptions.CancleBookingException;
+import services.exceptions.ItineraryDoesNotExistException;
 
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Collection;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
@@ -50,17 +54,17 @@ public class TravelAgencyService {
 
     }
 
-    public Itinerary getItinerary(int id) throws Exception {
+    public Itinerary getItinerary(int id) throws ItineraryDoesNotExistException {
         ItineraryService itineraryService  = new ItineraryService();
         Itinerary itinerary = itineraryService.getItinerary(id);
-        if (itinerary == null) throw new Exception();
+        if (itinerary == null) throw new ItineraryDoesNotExistException("Initirary with id " + id + " does not exist");
         return itinerary;
     }
 
     public int createItinerary() throws Exception {
         ItineraryService itineraryService = new ItineraryService();
         int id = itineraryService.createItinerary();
-        if (id == -1) throw new Exception();
+        if (id == -1) throw new Exception("Server error could not create new itinerary");
         return id;
     }
 
@@ -75,24 +79,46 @@ public class TravelAgencyService {
         return itinerariesArray;
     }
 
-    public boolean cancelItinerarie(int id, CreditCardInfoType cardInformation) throws Exception {
+    public boolean cancelItinerarie(int id, CreditCardInfoType cardInformation) throws CancleBookingException {
         ItineraryService itineraryService = new ItineraryService();
         Itinerary itinerary = itineraryService.getItinerary(id);
         if (itinerary == null) return false;
         Collection<Booking> bookings = itinerary.getBookings();
+        boolean faultHappend = false;
+
+
+        Iterator<Booking> iteratorForDate = bookings.iterator();
+        Date now = new Date();
+        while(iteratorForDate.hasNext()) {
+            Booking b = iteratorForDate.next();
+            if (b.getDate().getTime() >= now.getTime()) {
+                throw new CancleBookingException("First booking started");
+            }
+        }
+
         Iterator<Booking> iterator = bookings.iterator();
         while (iterator.hasNext()) {
             Booking booking = iterator.next();
 
             if (booking.getBookingType().equals(BookingType.FLIGHT)) {
-                cancelFlight(booking, cardInformation);
+                try{
+                    cancelFlight(booking, cardInformation);
+                }catch (CancleBookingException e){
+                    faultHappend = true;
+                }
             }
 
             if (booking.getBookingType().equals(BookingType.HOTEL)) {
-                cancelHotel(booking, cardInformation);
+                try{
+                    cancelHotel(booking, cardInformation);
+                }catch (CancleBookingException e){
+                    faultHappend = true;
+                }
             }
             itineraryService.updateBooking(id, booking);
         }
+
+        if(faultHappend) throw new CancleBookingException("One or more bookings failed");
         return true;
     }
 
@@ -105,9 +131,12 @@ public class TravelAgencyService {
         return true;
     }
 
-    public boolean bookItinerarie(int id, CreditCardInfoType cardInformation) {
+    public boolean bookItinerarie(int id, CreditCardInfoType cardInformation) throws BookingFaultException {
         ItineraryService itineraryService = new ItineraryService();
         Itinerary itinerary = itineraryService.getItinerary(id);
+
+        boolean faultHappen = false;
+
         if (itinerary == null) return false;
 
         Collection<Booking> bookings = itinerary.getBookings();
@@ -117,43 +146,102 @@ public class TravelAgencyService {
             Booking booking = iterator.next();
 
             if (booking.getBookingType().equals(BookingType.FLIGHT)) {
-                bookflight(booking, cardInformation);
+                try {
+                    bookflight(booking, cardInformation);
+                } catch (BookingFaultException e) {
+                    faultHappen = true;
+                }
             }
 
             if (booking.getBookingType().equals(BookingType.HOTEL)) {
-                bookHotel(booking, cardInformation);
+                try{
+                    bookHotel(booking, cardInformation);
+                } catch (BookingFaultException e) {
+                    faultHappen = true;
+                }
             }
             itineraryService.updateBooking(id, booking);
         }
+        if(faultHappen) throw new BookingFaultException("Booking failed");
         return true;
     }
 
-    public void cancelHotel(Booking booking, CreditCardInfoType cardInformation) {
+    public void cancelHotel(Booking booking, CreditCardInfoType cardInformation) throws CancleBookingException {
         hotel.HotelInterface hotelPort = getHotelServicePort();
         hotel.CreditCardInfoType ccit = mapCreditCardHotel(cardInformation);
         try {
             hotelPort.cancelHotel(booking.getBookingNumber());
             booking.setBookingStatus(BookingStatus.CANCELLED);
         } catch (hotel.BookingNumberException_Exception e) {
-            e.printStackTrace();
+            throw new CancleBookingException("Booking number does not exists");
         } catch (hotel.CreditCardFaultMessage creditCardFaultMessage) {
-            creditCardFaultMessage.printStackTrace();
+            throw new CancleBookingException("Credit card not valid");
         }
     }
 
-    public void cancelFlight(Booking booking, CreditCardInfoType cardInformation) {
+    public void cancelFlight(Booking booking, CreditCardInfoType cardInformation) throws CancleBookingException {
         flight.AirlineInterface flightPort = getFlightServicePort();
         flight.CreditCardInfoType ccit = mapCreditCardFlight(cardInformation);
         try {
             boolean success = flightPort.cancelFlight(booking.getBookingNumber(), booking.getPrice(), ccit);
-            if (success) booking.setBookingStatus(BookingStatus.CANCELLED);
+            if (success) {
+                booking.setBookingStatus(BookingStatus.CANCELLED);
+            }else {
+                throw new CancleBookingException("");
+            }
         } catch (BookingNumberException_Exception e) {
-            e.printStackTrace();
+            throw new CancleBookingException("Booking number does not exists");
         } catch (CreditCardFaultMessage creditCardFaultMessage) {
-            creditCardFaultMessage.printStackTrace();
+            throw new CancleBookingException("Credit card not valid");
         }
     }
 
+    public void bookflight(Booking booking, CreditCardInfoType cardInformation) throws BookingFaultException {
+        flight.AirlineInterface flightPort = getFlightServicePort();
+
+        flight.CreditCardInfoType ccit = mapCreditCardFlight(cardInformation);
+        try {
+            boolean success = flightPort.bookFlight(booking.getBookingNumber(), ccit);
+            if(success){
+                booking.setBookingStatus(BookingStatus.CONFIRMED);
+            }else{
+                booking.setBookingStatus(BookingStatus.CANCELLED);
+                throw new BookingFaultException("Booking failed");
+            }
+        } catch (BookingNumberException_Exception e) {
+            booking.setBookingStatus(BookingStatus.CANCELLED);
+            throw new BookingFaultException("Booking failed");
+        } catch (CreditCardFaultMessage creditCardFaultMessage) {
+            booking.setBookingStatus(BookingStatus.CANCELLED);
+            throw new BookingFaultException("Booking failed");
+        }
+    }
+
+    public void bookHotel(Booking booking, CreditCardInfoType cardInformation) throws BookingFaultException {
+        hotel.HotelInterface hotelPort = getHotelServicePort();
+
+        hotel.CreditCardInfoType ccit = mapCreditCardHotel(cardInformation);
+        hotel.HotelBookingRequest request = new hotel.HotelBookingRequest();
+        request.setBookingNumber(booking.getBookingNumber());
+        request.setCreditCardInformation(ccit);
+
+        boolean success = false;
+        try {
+            success = hotelPort.bookHotel(request);
+            if(success){
+                booking.setBookingStatus(BookingStatus.CONFIRMED);
+            }else {
+                booking.setBookingStatus(BookingStatus.CANCELLED);
+                throw new BookingFaultException("Booking failed");
+            }
+        } catch (hotel.CreditCardFaultMessage creditCardFaultMessage) {
+            booking.setBookingStatus(BookingStatus.CANCELLED);
+            throw new BookingFaultException("Booking failed");
+        }
+    }
+
+
+    //-----------------------------------------PORT FUNC---------------------------------------------------
     public hotel.HotelInterface getHotelServicePort(){
         URL hotelServiceUrl = null;
         try {
@@ -178,45 +266,7 @@ public class TravelAgencyService {
         return bs.getAirlineServicePort();
     }
 
-    public void bookflight(Booking booking, CreditCardInfoType cardInformation) {
-        flight.AirlineInterface flightPort = getFlightServicePort();
-
-        flight.CreditCardInfoType ccit = mapCreditCardFlight(cardInformation);
-        try {
-            boolean success = flightPort.bookFlight(booking.getBookingNumber(), ccit);
-            if(success){
-                booking.setBookingStatus(BookingStatus.CONFIRMED);
-            }else{
-                booking.setBookingStatus(BookingStatus.CANCELLED);
-            }
-        } catch (BookingNumberException_Exception e) {
-            booking.setBookingStatus(BookingStatus.CANCELLED);
-        } catch (CreditCardFaultMessage creditCardFaultMessage) {
-            booking.setBookingStatus(BookingStatus.CANCELLED);
-        }
-    }
-
-    public void bookHotel(Booking booking, CreditCardInfoType cardInformation) {
-        hotel.HotelInterface hotelPort = getHotelServicePort();
-
-        hotel.CreditCardInfoType ccit = mapCreditCardHotel(cardInformation);
-        hotel.HotelBookingRequest request = new hotel.HotelBookingRequest();
-        request.setBookingNumber(booking.getBookingNumber());
-        request.setCreditCardInformation(ccit);
-
-        boolean success = false;
-        try {
-            success = hotelPort.bookHotel(request);
-            if(success){
-                booking.setBookingStatus(BookingStatus.CONFIRMED);
-            }else {
-                booking.setBookingStatus(BookingStatus.CANCELLED);
-            }
-        } catch (hotel.CreditCardFaultMessage creditCardFaultMessage) {
-            booking.setBookingStatus(BookingStatus.CANCELLED);
-        }
-    }
-
+    //-----------------------------------------MAPPING FUNC---------------------------------------------------
     public flight.CreditCardInfoType mapCreditCardFlight(bank.CreditCardInfoType credit){
         flight.CreditCardInfoType ccit = new flight.CreditCardInfoType();
         flight.CreditCardInfoType.ExpirationDate date = new flight.CreditCardInfoType.ExpirationDate();

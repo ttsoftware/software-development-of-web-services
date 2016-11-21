@@ -4,6 +4,9 @@ import bank.CreditCardInfoType;
 import models.Booking;
 import models.CustomDate;
 import models.Itinerary;
+import services.exceptions.BookingFaultException;
+import services.exceptions.CancleBookingException;
+import services.exceptions.ItineraryDoesNotExistException;
 
 import javax.jws.WebService;
 
@@ -33,7 +36,7 @@ public class TravelAgencySoapService implements TravelAgencySoapInterface {
     }
 
     @Override
-    public Itinerary getItinerary(int id) throws Exception {
+    public Itinerary getItinerary(int id) throws ItineraryDoesNotExistException {
         return travelAgencyService.getItinerary(id);
     }
 
@@ -43,12 +46,12 @@ public class TravelAgencySoapService implements TravelAgencySoapInterface {
     }
 
     @Override
-    public boolean cancelItinerarie(int id, CreditCardInfoType cardInformation) throws Exception {
+    public boolean cancelItinerarie(int id, CreditCardInfoType cardInformation) throws CancleBookingException {
         return travelAgencyService.cancelItinerarie(id, cardInformation);
     }
 
     @Override
-    public boolean bookItinerarie(int id, CreditCardInfoType cardInformation) {
+    public boolean bookItinerarie(int id, CreditCardInfoType cardInformation) throws BookingFaultException {
         return travelAgencyService.bookItinerarie(id, cardInformation);
     }
 
