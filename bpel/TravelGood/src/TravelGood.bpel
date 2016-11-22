@@ -9,33 +9,66 @@
     xmlns:sxt="http://www.sun.com/wsbpel/2.0/process/executable/SUNExtension/Trace" 
     xmlns:sxed="http://www.sun.com/wsbpel/2.0/process/executable/SUNExtension/Editor2"
     xmlns:sxat="http://www.sun.com/wsbpel/2.0/process/executable/SUNExtension/Attachment"
-    xmlns:sxeh="http://www.sun.com/wsbpel/2.0/process/executable/SUNExtension/ErrorHandling" xmlns:ns0="http://j2ee.netbeans.org/wsdl/TravelGood/src/client">
+    xmlns:sxeh="http://www.sun.com/wsbpel/2.0/process/executable/SUNExtension/ErrorHandling" xmlns:ns0="http://j2ee.netbeans.org/wsdl/TravelGood/src/client" xmlns:sxxf="http://www.sun.com/wsbpel/2.0/process/executable/SUNExtension/XPathFunctions" xmlns:ns1="http://enterprise.netbeans.org/bpel/WizardCorrelationProperties">
     <import namespace="http://j2ee.netbeans.org/wsdl/TravelGood/src/client" location="client.wsdl" importType="http://schemas.xmlsoap.org/wsdl/"/>
     <import namespace="http://enterprise.netbeans.org/bpel/AirlineServiceWrapper" location="AirlineServiceWrapper.wsdl" importType="http://schemas.xmlsoap.org/wsdl/"/>
     <import namespace="http://services/" location="http://localhost:8080/webservices/AirlineService?wsdl" importType="http://schemas.xmlsoap.org/wsdl/"/>
     <import namespace="http://enterprise.netbeans.org/bpel/HotelServiceWrapper" location="HotelServiceWrapper.wsdl" importType="http://schemas.xmlsoap.org/wsdl/"/>
     <import namespace="http://services/" location="http://localhost:8080/webservices/HotelService?wsdl" importType="http://schemas.xmlsoap.org/wsdl/"/>
+    <import namespace="http://enterprise.netbeans.org/bpel/WizardCorrelationProperties" location="WizardCorrelationProperties.wsdl" importType="http://schemas.xmlsoap.org/wsdl/"/>
     <partnerLinks>
         <partnerLink name="PartnerLink1" xmlns:tns="http://j2ee.netbeans.org/wsdl/TravelGood/src/client" partnerLinkType="tns:client" myRole="clientPortTypeRole"/>
         <partnerLink name="AirlineServiceLink" xmlns:tns="http://enterprise.netbeans.org/bpel/AirlineServiceWrapper" partnerLinkType="tns:AirlineInterfaceLinkType" partnerRole="AirlineInterfaceRole"/>
         <partnerLink name="HotelServiceLink" xmlns:tns="http://enterprise.netbeans.org/bpel/HotelServiceWrapper" partnerLinkType="tns:HotelInterfaceLinkType" partnerRole="HotelInterfaceRole"/>
     </partnerLinks>
     <variables>
+        <variable name="AddHotelOut" messageType="ns0:addHotelOperationResponse"/>
+        <variable name="HotelServiceToGetHotel" xmlns:tns="http://services/" messageType="tns:getHotelsResponse"/>
+        <variable name="GetHotelsToHotelService" xmlns:tns="http://services/" messageType="tns:getHotels"/>
+        <variable name="CreateItineraryIn1" messageType="ns0:createItineraryRequest"/>
+        <variable name="CreateItineraryIn" messageType="ns0:createItineraryRequest"/>
+        <variable name="hotelIti" type="ns0:itinerary">
+            <sxed:editor>
+                <sxed:predicate path="$hotelIti/booking[1 + count($hotelIti)]" source="to"/>
+            </sxed:editor>
+        </variable>
+        <variable name="isCancelled" type="xs:boolean"/>
         <variable name="flightIti" type="ns0:itinerary">
             <sxed:editor>
                 <sxed:predicate path="$flightIti/booking[1 + count(.)]" source="to"/>
             </sxed:editor>
         </variable>
-        <variable name="CreateItinerarieOut" xmlns:tns="http://j2ee.netbeans.org/wsdl/TravelGood/src/client" messageType="tns:createItinerarieResponse"/>
+        <variable name="CreateItineraryOut" xmlns:tns="http://j2ee.netbeans.org/wsdl/TravelGood/src/client" messageType="tns:createItineraryResponse"/>
     </variables>
+    <correlationSets>
+        <correlationSet name="wzrd_set_Reply1_OnMessage_Pick1_addHotel" properties="ns1:wzrd_prop_string_string"/>
+        <correlationSet name="wzrd_set_Reply1_OnMessage_Pick1_addHotel_1" properties="ns1:wzrd_prop_string_string"/>
+    </correlationSets>
     <sequence>
-        <receive name="Receive1" createInstance="yes" partnerLink="PartnerLink1" operation="createItinerarie" xmlns:tns="http://j2ee.netbeans.org/wsdl/TravelGood/src/client" portType="tns:clientPortType"/>
+        <receive name="Receive1" createInstance="yes" partnerLink="PartnerLink1" operation="createItinerary" xmlns:tns="http://j2ee.netbeans.org/wsdl/TravelGood/src/client" portType="tns:clientPortType" variable="CreateItineraryIn1"/>
         <assign name="Assign1">
             <copy>
-                <from variable="flightIti"/>
-                <to variable="CreateItinerarieOut"/>
+                <from>false()</from>
+                <to variable="isCancelled"/>
+            </copy>
+            <copy>
+                <from>''</from>
+                <to variable="flightIti"/>
+            </copy>
+            <copy>
+                <from>''</from>
+                <to variable="hotelIti"/>
+            </copy>
+            <copy>
+                <from>sxxf:getBPId()</from>
+                <to variable="CreateItineraryOut" part="itineraryId"/>
             </copy>
         </assign>
-        <reply name="Reply1" partnerLink="PartnerLink1" operation="createItinerarie" xmlns:tns="http://j2ee.netbeans.org/wsdl/TravelGood/src/client" portType="tns:clientPortType" variable="CreateItinerarieOut"/>
+        <reply name="Reply1" partnerLink="PartnerLink1" operation="createItinerary" xmlns:tns="http://j2ee.netbeans.org/wsdl/TravelGood/src/client" portType="tns:clientPortType" variable="CreateItineraryOut">
+            <correlations>
+                <correlation set="wzrd_set_Reply1_OnMessage_Pick1_addHotel" initiate="yes"/>
+                <correlation set="wzrd_set_Reply1_OnMessage_Pick1_addHotel_1" initiate="yes"/>
+            </correlations>
+        </reply>
     </sequence>
 </process>

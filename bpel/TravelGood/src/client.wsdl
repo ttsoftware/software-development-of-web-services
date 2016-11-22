@@ -7,7 +7,14 @@
         <xsd:schema targetNamespace="http://j2ee.netbeans.org/wsdl/TravelGood/src/client" xmlns:tns="http://j2ee.netbeans.org/wsdl/TravelGood/src/client">
             <xsd:complexType name="itinerary">
                 <xsd:sequence>
-                    <xsd:element name="booking" type="xsd:string" maxOccurs="unbounded"></xsd:element>
+                    <xsd:element name="booking" maxOccurs="unbounded">
+                        <xsd:complexType>
+                            <xsd:sequence>
+                                <xsd:element name="price" type="xsd:float"></xsd:element>
+                                <xsd:element name="bookingId" type="xsd:int"></xsd:element>
+                            </xsd:sequence>
+                        </xsd:complexType>
+                    </xsd:element>
                 </xsd:sequence>
             </xsd:complexType>
         </xsd:schema>
@@ -28,28 +35,28 @@
     <message name="getHotelsResponse">
         <part name="hotel" type="xsd:anyType"/>
     </message>
-    <message name="createItinerarieRequest"/>
-    <message name="createItinerarieResponse">
-        <part name="itinerarieId" type="xsd:int"/>
+    <message name="createItineraryRequest"/>
+    <message name="createItineraryResponse">
+        <part name="itineraryId" type="xsd:string"/>
     </message>
-    <message name="cancelItinerarieRequest">
+    <message name="cancelItineraryRequest">
         <part name="id" type="xsd:int"/>
         <part name="cardInformation" type="xsd:anyType"/>
     </message>
-    <message name="cancelItinerarieResponse">
+    <message name="cancelItineraryResponse">
         <part name="cancelResult" type="xsd:boolean"/>
     </message>
-    <message name="getItinerarieRequest">
+    <message name="getItineraryRequest">
         <part name="id" type="xsd:int"/>
     </message>
-    <message name="getItinerarieResponse">
+    <message name="getItineraryResponse">
         <part name="itinerarie" type="xsd:anyType"/>
     </message>
-    <message name="bookItinerarieRequest">
+    <message name="bookItineraryRequest">
         <part name="id" type="xsd:int"/>
         <part name="cardInformation" type="xsd:anyType"/>
     </message>
-    <message name="bookItinerarieResponse">
+    <message name="bookItineraryResponse">
         <part name="bookResult" type="xsd:boolean"/>
     </message>
     <message name="createBookingRequest">
@@ -58,6 +65,15 @@
     </message>
     <message name="createBookingResponse">
         <part name="createResult" type="xsd:boolean"/>
+    </message>
+    <message name="addHotelOperationRequest">
+        <part name="city" type="xsd:string"/>
+        <part name="arrivalDate" type="xsd:anyType"/>
+        <part name="departureDate" type="xsd:anyType"/>
+        <part name="itineraryId" type="xsd:string"/>
+    </message>
+    <message name="addHotelOperationResponse">
+        <part name="success" type="xsd:boolean"/>
     </message>
     <portType name="clientPortType">
         <operation name="getFlights">
@@ -68,25 +84,29 @@
             <input name="input2" message="tns:getHotelsRequest"/>
             <output name="output2" message="tns:getHotelsResponse"/>
         </operation>
-        <operation name="createItinerarie">
-            <input name="input3" message="tns:createItinerarieRequest"/>
-            <output name="output3" message="tns:createItinerarieResponse"/>
+        <operation name="createItinerary">
+            <input name="input3" message="tns:createItineraryRequest"/>
+            <output name="output3" message="tns:createItineraryResponse"/>
         </operation>
-        <operation name="cancelItinerarie">
-            <input name="input4" message="tns:cancelItinerarieRequest"/>
-            <output name="output4" message="tns:cancelItinerarieResponse"/>
+        <operation name="cancelItinerary">
+            <input name="input4" message="tns:cancelItineraryRequest"/>
+            <output name="output4" message="tns:cancelItineraryResponse"/>
         </operation>
-        <operation name="getItinerarie">
-            <input name="input5" message="tns:getItinerarieRequest"/>
-            <output name="output5" message="tns:getItinerarieResponse"/>
+        <operation name="getItinerary">
+            <input name="input5" message="tns:getItineraryRequest"/>
+            <output name="output5" message="tns:getItineraryResponse"/>
         </operation>
-        <operation name="bookItinerarie">
-            <input name="input6" message="tns:bookItinerarieRequest"/>
-            <output name="output6" message="tns:bookItinerarieResponse"/>
+        <operation name="bookItinerary">
+            <input name="input6" message="tns:bookItineraryRequest"/>
+            <output name="output6" message="tns:bookItineraryResponse"/>
         </operation>
         <operation name="createBooking">
             <input name="input7" message="tns:createBookingRequest"/>
             <output name="output7" message="tns:createBookingResponse"/>
+        </operation>
+        <operation name="addHotel">
+            <input name="input8" message="tns:addHotelOperationRequest"/>
+            <output name="output8" message="tns:addHotelOperationResponse"/>
         </operation>
     </portType>
     <binding name="clientBinding" type="tns:clientPortType">
