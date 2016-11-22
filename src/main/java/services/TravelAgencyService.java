@@ -60,10 +60,10 @@ public class TravelAgencyService {
         return itinerary;
     }
 
-    public int createItinerary() throws Exception {
+    public int createItinerary() {
         ItineraryService itineraryService = new ItineraryService();
         int id = itineraryService.createItinerary();
-        if (id == -1) throw new Exception("Server error could not create new itinerary");
+        if (id == -1) throw new RuntimeException("Server error could not create new itinerary");
         return id;
     }
 

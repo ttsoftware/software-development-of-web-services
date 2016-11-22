@@ -1,7 +1,11 @@
 package services;
 
+import models.CreditCardInfoType;
 import models.CustomDate;
 import models.Itinerary;
+import services.exceptions.BookingFaultException;
+import services.exceptions.CancleBookingException;
+import services.exceptions.ItineraryDoesNotExistException;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
@@ -18,10 +22,10 @@ public class ItineraryRESTService {
     @Path("/flights")
     @Produces(MediaType.APPLICATION_XML)
     public models.FlightReservation[] flights(@QueryParam("from") String from,
-                                       @QueryParam("destination") String destination,
-                                       @QueryParam("day") int day,
-                                       @QueryParam("month") int month,
-                                       @QueryParam("year") int year) {
+                                              @QueryParam("destination") String destination,
+                                              @QueryParam("day") int day,
+                                              @QueryParam("month") int month,
+                                              @QueryParam("year") int year) {
 
         flight.FlightReservation[] flightReservations = travelAgencyService.getFlights(from, destination, new CustomDate(year, month, day));
 
@@ -37,12 +41,12 @@ public class ItineraryRESTService {
     @Path("/hotels")
     @Produces(MediaType.APPLICATION_XML)
     public models.Hotel[] hotels(@QueryParam("city") String city,
-                          @QueryParam("arrivalDateYear") int arrivalDateYear,
-                          @QueryParam("arrivalDateMonth") int arrivalDateMonth,
-                          @QueryParam("arrivalDateDay") int arrivalDateDay,
-                          @QueryParam("departureDateYear") int departureDateYear,
-                          @QueryParam("departureDateMonth") int departureDateMonth,
-                          @QueryParam("departureDateDay") int departureDateDay) {
+                                 @QueryParam("arrivalDateYear") int arrivalDateYear,
+                                 @QueryParam("arrivalDateMonth") int arrivalDateMonth,
+                                 @QueryParam("arrivalDateDay") int arrivalDateDay,
+                                 @QueryParam("departureDateYear") int departureDateYear,
+                                 @QueryParam("departureDateMonth") int departureDateMonth,
+                                 @QueryParam("departureDateDay") int departureDateDay) {
 
         hotel.Hotel[] hotelServiceHotels = travelAgencyService.getHotels(
                 city,
@@ -61,31 +65,49 @@ public class ItineraryRESTService {
     @GET
     @Path("/itinerary/{id}")
     @Produces(MediaType.APPLICATION_XML)
-    public Itinerary show() {
-        return new Itinerary();
+    public Itinerary show(@PathParam("id") int id) throws ItineraryDoesNotExistException {
+        return travelAgencyService.getItinerary(id);
     }
 
     @POST
     @Path("/itinerary")
-    @Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+    @Consumes({MediaType.APPLICATION_XML})
     @Produces(MediaType.APPLICATION_XML)
-    public int create(Itinerary itinerary) {
-        return new Itinerary().getId();
+    public int create() {
+        return travelAgencyService.createItinerary();
     }
 
     @PUT
     @Path("/itinerary/{id}/cancel")
-    @Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+    @Consumes({MediaType.APPLICATION_XML})
     @Produces(MediaType.APPLICATION_XML)
-    public boolean cancel(Itinerary itinerary) {
+    public boolean cancel(Itinerary itinerary,
+                          CreditCardInfoType cardInformation) {
+        try {
+            return travelAgencyService.cancelItinerarie(
+                    itinerary.getId(),
+                    cardInformation.getBankCreditCardInfoType()
+            );
+        } catch (CancleBookingException e) {
+            e.printStackTrace();
+        }
         return false;
     }
 
     @PUT
     @Path("/itinerary/{id}/book")
-    @Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+    @Consumes({MediaType.APPLICATION_XML})
     @Produces(MediaType.APPLICATION_XML)
-    public boolean book(Itinerary itinerary) {
+    public boolean book(Itinerary itinerary,
+                        CreditCardInfoType cardInformation) {
+        try {
+            return travelAgencyService.bookItinerarie(
+                    itinerary.getId(),
+                    cardInformation.getBankCreditCardInfoType()
+            );
+        } catch (BookingFaultException e) {
+            e.printStackTrace();
+        }
         return false;
     }
 }
