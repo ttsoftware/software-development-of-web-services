@@ -1,71 +1,34 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<casa xmlns="http://java.sun.com/xml/ns/casa" xmlns:ns1="http://services/" xmlns:ns2="http://j2ee.netbeans.org/wsdl/TravelGood/src/client" xmlns:ns3="TravelGoodCA" xmlns:ns4="http://enterprise.netbeans.org/bpel/TravelGood/TravelGood" xmlns:xlink="http://www.w3.org/2000/xlink">
+<casa xmlns="http://java.sun.com/xml/ns/casa" xmlns:ns1="http://services/" xmlns:ns2="http://enterprise.netbeans.org/bpel/TravelGood/TravelGood" xmlns:xlink="http://www.w3.org/2000/xlink">
     <endpoints>
-        <endpoint endpoint-name="AirlineServicePort" interface-name="ns1:AirlineInterface" name="endpoint1" service-name="ns1:AirlineService"/>
-        <endpoint endpoint-name="HotelServicePort" interface-name="ns1:HotelInterface" name="endpoint2" service-name="ns1:HotelService"/>
-        <endpoint endpoint-name="clientPort" interface-name="ns2:clientPortType" name="endpoint3" service-name="ns2:clientService"/>
-        <endpoint endpoint-name="casaPort1" interface-name="ns2:clientPortType" name="endpoint4" service-name="ns3:TravelGoodCAService1"/>
-        <endpoint display-name="PartnerLink1" endpoint-name="clientPortTypeRole_myRole" file-path="TravelGood.bpel" interface-name="ns2:clientPortType" name="endpoint5" process-name="TravelGood" service-name="ns4:PartnerLink1"/>
-        <endpoint display-name="AirlineServiceLink" endpoint-name="AirlineInterfaceRole_partnerRole" file-path="TravelGood.bpel" interface-name="ns1:AirlineInterface" name="endpoint6" process-name="TravelGood" service-name="ns4:AirlineServiceLink"/>
-        <endpoint display-name="HotelServiceLink" endpoint-name="HotelInterfaceRole_partnerRole" file-path="TravelGood.bpel" interface-name="ns1:HotelInterface" name="endpoint7" process-name="TravelGood" service-name="ns4:HotelServiceLink"/>
+        <endpoint endpoint-name="TravelAgencySoapServicePort" interface-name="ns1:TravelAgencySoapInterface" name="endpoint1" service-name="ns1:TravelAgencySoapService"/>
+        <endpoint display-name="TravelGood" endpoint-name="TravelAgencySoapInterfaceRole_myRole" file-path="TravelGood.bpel" interface-name="ns1:TravelAgencySoapInterface" name="endpoint2" process-name="TravelGood" service-name="ns2:TravelGood"/>
     </endpoints>
     <service-units>
         <service-engine-service-unit artifacts-zip="TravelGood.jar" component-name="sun-bpel-engine" defined="true" description="Represents this Service Unit" internal="true" name="TravelGoodCA-TravelGood" unit-name="TravelGood" unknown="false" x="148" y="97">
-            <provides endpoint="endpoint5"/>
-            <consumes endpoint="endpoint6"/>
-            <consumes endpoint="endpoint7"/>
+            <provides endpoint="endpoint2"/>
         </service-engine-service-unit>
         <binding-component-service-unit artifacts-zip="sun-http-binding.jar" component-name="sun-http-binding" description="Represents this Service Unit" name="TravelGoodCA-sun-http-binding" unit-name="sun-http-binding">
             <ports>
-                <port bindingType="soap" x="67" y="37">
-                    <link xlink:href="../jbiasa/TravelGoodCA.wsdl#xpointer(/definitions/service[@name='TravelGoodCAService1']/port[@name='casaPort1'])" xlink:type="simple"/>
-                    <consumes endpoint="endpoint4"/>
-                    <provides endpoint="endpoint4"/>
-                </port>
-                <port x="67" y="208">
-                    <link xlink:href="../jbiServiceUnits/TravelGood/localhost_8080/webservices/AirlineService.wsdl#xpointer(/definitions/service[@name='AirlineService']/port[@name='AirlineServicePort'])" xlink:type="simple"/>
+                <port x="67" y="37">
+                    <link xlink:href="../jbiServiceUnits/TravelGood/TravelGood.wsdl#xpointer(/definitions/service[@name='TravelAgencySoapService']/port[@name='TravelAgencySoapServicePort'])" xlink:type="simple"/>
                     <consumes endpoint="endpoint1"/>
                     <provides endpoint="endpoint1"/>
-                </port>
-                <port x="67" y="128">
-                    <link xlink:href="../jbiServiceUnits/TravelGood/localhost_8080/webservices/HotelService.wsdl#xpointer(/definitions/service[@name='HotelService']/port[@name='HotelServicePort'])" xlink:type="simple"/>
-                    <consumes endpoint="endpoint2"/>
-                    <provides endpoint="endpoint2"/>
-                </port>
-                <port state="deleted" x="67" y="37">
-                    <link xlink:href="../jbiServiceUnits/TravelGood/client.wsdl#xpointer(/definitions/service[@name='clientService']/port[@name='clientPort'])" xlink:type="simple"/>
-                    <consumes endpoint="endpoint3"/>
-                    <provides endpoint="endpoint3"/>
                 </port>
             </ports>
         </binding-component-service-unit>
     </service-units>
     <connections>
-        <connection consumer="endpoint6" provider="endpoint1" state="unchanged"/>
-        <connection consumer="endpoint7" provider="endpoint2" state="unchanged"/>
-        <connection consumer="endpoint4" provider="endpoint5" state="new"/>
-        <connection consumer="endpoint3" provider="endpoint5" state="deleted"/>
+        <connection consumer="endpoint1" provider="endpoint2" state="unchanged"/>
     </connections>
     <porttypes>
-        <link xlink:href="../jbiasa/TravelGoodCA.wsdl#xpointer(/definitions/portType[@name='dummyCasaPortType'])" xlink:type="simple"/>
-        <link xlink:href="../jbiServiceUnits/TravelGood/localhost_8080/webservices/AirlineService.wsdl#xpointer(/definitions/portType[@name='AirlineInterface'])" xlink:type="simple"/>
-        <link xlink:href="../jbiServiceUnits/TravelGood/localhost_8080/webservices/HotelService.wsdl#xpointer(/definitions/portType[@name='HotelInterface'])" xlink:type="simple"/>
-        <link xlink:href="../jbiServiceUnits/TravelGood/client.wsdl#xpointer(/definitions/portType[@name='clientPortType'])" xlink:type="simple"/>
-        <link xlink:href="../jbiServiceUnits/TravelGoodCA.wsdl#xpointer(/definitions/portType[@name='dummyCasaPortType'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/TravelGood/TravelGood.wsdl#xpointer(/definitions/portType[@name='TravelAgencySoapInterface'])" xlink:type="simple"/>
     </porttypes>
     <bindings>
-        <link xlink:href="../jbiasa/TravelGoodCA.wsdl#xpointer(/definitions/binding[@name='casaBinding1'])" xlink:type="simple"/>
-        <link xlink:href="../jbiServiceUnits/TravelGood/localhost_8080/webservices/AirlineService.wsdl#xpointer(/definitions/binding[@name='AirlineServicePortBinding'])" xlink:type="simple"/>
-        <link xlink:href="../jbiServiceUnits/TravelGood/localhost_8080/webservices/HotelService.wsdl#xpointer(/definitions/binding[@name='HotelServicePortBinding'])" xlink:type="simple"/>
-        <link xlink:href="../jbiServiceUnits/TravelGood/client.wsdl#xpointer(/definitions/binding[@name='clientBinding'])" xlink:type="simple"/>
-        <link xlink:href="../jbiServiceUnits/TravelGoodCA.wsdl#xpointer(/definitions/binding[@name='casaBinding1'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/TravelGood/TravelGood.wsdl#xpointer(/definitions/binding[@name='TravelAgencySoapServicePortBinding'])" xlink:type="simple"/>
     </bindings>
     <services>
-        <link xlink:href="../jbiasa/TravelGoodCA.wsdl#xpointer(/definitions/service[@name='TravelGoodCAService1'])" xlink:type="simple"/>
-        <link xlink:href="../jbiServiceUnits/TravelGood/localhost_8080/webservices/AirlineService.wsdl#xpointer(/definitions/service[@name='AirlineService'])" xlink:type="simple"/>
-        <link xlink:href="../jbiServiceUnits/TravelGood/localhost_8080/webservices/HotelService.wsdl#xpointer(/definitions/service[@name='HotelService'])" xlink:type="simple"/>
-        <link xlink:href="../jbiServiceUnits/TravelGood/client.wsdl#xpointer(/definitions/service[@name='clientService'])" xlink:type="simple"/>
-        <link xlink:href="../jbiServiceUnits/TravelGoodCA.wsdl#xpointer(/definitions/service[@name='TravelGoodCAService1'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/TravelGood/TravelGood.wsdl#xpointer(/definitions/service[@name='TravelAgencySoapService'])" xlink:type="simple"/>
     </services>
     <regions>
         <region name="WSDL Endpoints" width="150"/>

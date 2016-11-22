@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<process
+    name="travelGood"
+    targetNamespace="http://enterprise.netbeans.org/bpel/TravelGood/travelGood"
+    xmlns:tns="http://enterprise.netbeans.org/bpel/TravelGood/travelGood"
+    xmlns:xs="http://www.w3.org/2001/XMLSchema"
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+    xmlns="http://docs.oasis-open.org/wsbpel/2.0/process/executable"
+    xmlns:sxt="http://www.sun.com/wsbpel/2.0/process/executable/SUNExtension/Trace" 
+    xmlns:sxed="http://www.sun.com/wsbpel/2.0/process/executable/SUNExtension/Editor2"
+    xmlns:sxat="http://www.sun.com/wsbpel/2.0/process/executable/SUNExtension/Attachment"
+    xmlns:sxeh="http://www.sun.com/wsbpel/2.0/process/executable/SUNExtension/ErrorHandling" xmlns:ns0="http://services/" xmlns:sxxf="http://www.sun.com/wsbpel/2.0/process/executable/SUNExtension/XPathFunctions">
+    <import namespace="http://enterprise.netbeans.org/bpel/HotelServiceWrapper" location="HotelServiceWrapper.wsdl" importType="http://schemas.xmlsoap.org/wsdl/"/>
+    <import namespace="http://services/" location="HotelService.wsdl" importType="http://schemas.xmlsoap.org/wsdl/"/>
+    <import namespace="http://enterprise.netbeans.org/bpel/TravelGoodWrapper" location="TravelGoodWrapper.wsdl" importType="http://schemas.xmlsoap.org/wsdl/"/>
+    <import namespace="http://services/" location="TravelGood.wsdl" importType="http://schemas.xmlsoap.org/wsdl/"/>
+    <import namespace="http://enterprise.netbeans.org/bpel/AirlineServiceWrapper" location="AirlineServiceWrapper.wsdl" importType="http://schemas.xmlsoap.org/wsdl/"/>
+    <import namespace="http://services/" location="AirlineService.wsdl" importType="http://schemas.xmlsoap.org/wsdl/"/>
+    <partnerLinks>
+        <partnerLink name="TravelGoodLink" xmlns:tns="http://enterprise.netbeans.org/bpel/TravelGoodWrapper" partnerLinkType="tns:TravelAgencySoapInterfaceLinkType" myRole="TravelAgencySoapInterfaceRole"/>
+        <partnerLink name="AirlineService" xmlns:tns="http://enterprise.netbeans.org/bpel/AirlineServiceWrapper" partnerLinkType="tns:AirlineInterfaceLinkType" partnerRole="AirlineInterfaceRole"/>
+        <partnerLink name="HotelServiceLink" xmlns:tns="http://enterprise.netbeans.org/bpel/HotelServiceWrapper" partnerLinkType="tns:HotelInterfaceLinkType" partnerRole="HotelInterfaceRole"/>
+    </partnerLinks>
+    <variables>
+        <variable name="getFlightsTGToService" messageType="ns0:getFlights"/>
+        <variable name="getFlightsServiceToTG" messageType="ns0:getFlightsResponse"/>
+        <variable name="getFlightsIn" messageType="ns0:getFlightsTravelGood"/>
+        <variable name="getFlightsOut" messageType="ns0:getFlightsResponseTravelGood"/>
+        <variable name="getHotelsIn" messageType="ns0:getHotelsTravelGood"/>
+        <variable name="getHotelsFromTGToService" messageType="ns0:getHotels"/>
+        <variable name="getHotelsServiceToTG" messageType="ns0:getHotelsResponse"/>
+        <variable name="getHotelsOut" messageType="ns0:getHotelsResponseTravelGood"/>
+        <variable name="createItinneraryOut" messageType="ns0:createItineraryResponse"/>
+    </variables>
+    <sequence name="Sequence1">
+        <sequence name="Sequence2">
+            <receive name="Receive3" createInstance="yes" partnerLink="TravelGoodLink" operation="createItinerary" portType="ns0:TravelAgencySoapInterface"/>
+            <assign name="Assign5">
+                <copy>
+                    <from>number(sxxf:getGUID())</from>
+                    <to variable="createItinneraryOut" part="return"/>
+                </copy>
+            </assign>
+            <reply name="Reply3" partnerLink="TravelGoodLink" operation="createItinerary" portType="ns0:TravelAgencySoapInterface" variable="createItinneraryOut"/>
+        </sequence>
+        <sequence name="ServeHotels">
+            <receive name="Receive2" createInstance="no" partnerLink="TravelGoodLink" operation="getHotels" portType="ns0:TravelAgencySoapInterface" variable="getHotelsIn"/>
+            <assign name="Assign3">
+                <copy>
+                    <from variable="getHotelsIn" part="city"/>
+                    <to variable="getHotelsFromTGToService" part="city"/>
+                </copy>
+                <copy>
+                    <from variable="getHotelsIn" part="arrivalDate"/>
+                    <to variable="getHotelsFromTGToService" part="arrivalDate"/>
+                </copy>
+                <copy>
+                    <from variable="getHotelsIn" part="departureDate"/>
+                    <to variable="getHotelsFromTGToService" part="departureDate"/>
+                </copy>
+            </assign>
+            <invoke name="Invoke2" partnerLink="HotelServiceLink" operation="getHotels" portType="ns0:HotelInterface" inputVariable="getHotelsFromTGToService" outputVariable="getHotelsServiceToTG"/>
+            <assign name="Assign4">
+                <copy>
+                    <from variable="getHotelsServiceToTG" part="hotels"/>
+                    <to variable="getHotelsOut" part="hotels"/>
+                </copy>
+            </assign>
+            <reply name="Reply2" partnerLink="TravelGoodLink" operation="getHotels" portType="ns0:TravelAgencySoapInterface" variable="getHotelsOut"/>
+        </sequence>
+        <sequence name="ServeFlights">
+            <receive name="Receive1" createInstance="no" partnerLink="TravelGoodLink" operation="getFlights" portType="ns0:TravelAgencySoapInterface" variable="getFlightsIn"/>
+            <assign name="Assign1">
+                <copy>
+                        <from variable="getFlightsIn" part="from"/>
+                            <to variable="getFlightsTGToService" part="from"/>
+                    </copy>
+                    <copy>
+                        <from variable="getFlightsIn" part="destination"/>
+                            <to variable="getFlightsTGToService" part="destination"/>
+                    </copy>
+                    <copy>
+                        <from variable="getFlightsIn" part="date"/>
+                            <to variable="getFlightsTGToService" part="date"/>
+                    </copy>
+            </assign>
+            <invoke name="Invoke1" partnerLink="AirlineService" operation="getFlights" portType="ns0:AirlineInterface" inputVariable="getFlightsTGToService" outputVariable="getFlightsServiceToTG"/>
+            <assign name="Assign2">
+                <copy>
+                        <from>$getFlightsServiceToTG.flightRevervations/item</from>
+                            <to>$getFlightsOut.FlightReservation/item</to>
+                    </copy>
+            </assign>
+            <reply name="Reply1" partnerLink="TravelGoodLink" operation="getFlights" portType="ns0:TravelAgencySoapInterface" variable="getFlightsOut"/>
+        </sequence>
+    </sequence>
+</process>
