@@ -4,15 +4,13 @@ import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 import models.dao.FlightDaoImpl;
 
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlType;
+import javax.xml.bind.annotation.*;
 
 /**
  * Created by troels thomsen on stalin.
  */
 @XmlType(name = "Flight")
+@XmlRootElement(name = "Flight")
 @XmlAccessorType(XmlAccessType.FIELD)
 @DatabaseTable(tableName = "Flight", daoClass = FlightDaoImpl.class)
 public class Flight {
@@ -39,6 +37,18 @@ public class Flight {
     @XmlElement(name = "end", required = true)
     @DatabaseField(canBeNull = false)
     private long end;
+
+    public Flight() {
+    }
+
+    public Flight(flight.Flight flight) {
+        id = flight.getId();
+        startAirport = flight.getStartAirport();
+        destinationAirport = flight.getDestinationAirport();
+        carrier = flight.getCarrier();
+        start = flight.getStart();
+        end = flight.getEnd();
+    }
 
     public long getStart() {
         return start;

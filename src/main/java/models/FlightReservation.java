@@ -40,6 +40,25 @@ public class FlightReservation {
             columnName = "fk_flight")
     private Flight flight;
 
+    public FlightReservation() {
+    }
+
+    public FlightReservation(flight.FlightReservation flightReservation) {
+        id = flightReservation.getId();
+        bookingNumber = flightReservation.getBookingNumber();
+        airlineName = flightReservation.getAirlineName();
+        price = flightReservation.getPrice();
+        flight = new models.Flight(flightReservation.getFlight());
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
     public Flight getFlight() {
         return flight;
     }

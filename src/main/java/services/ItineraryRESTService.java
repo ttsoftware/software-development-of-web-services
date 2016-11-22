@@ -1,7 +1,6 @@
 package services;
 
 import models.CustomDate;
-import models.Hotel;
 import models.Itinerary;
 
 import javax.ws.rs.*;
@@ -17,13 +16,21 @@ public class ItineraryRESTService {
 
     @GET
     @Path("/flights")
-    @Produces(MediaType.APPLICATION_JSON)
-    public flight.FlightReservation[] flights(@QueryParam("from") String from,
+    @Produces(MediaType.APPLICATION_XML)
+    public models.FlightReservation[] flights(@QueryParam("from") String from,
                                        @QueryParam("destination") String destination,
                                        @QueryParam("day") int day,
                                        @QueryParam("month") int month,
                                        @QueryParam("year") int year) {
-        return travelAgencyService.getFlights(from, destination, new CustomDate(year, month, day));
+
+        flight.FlightReservation[] flightReservations = travelAgencyService.getFlights(from, destination, new CustomDate(year, month, day));
+
+        List<models.FlightReservation> flightReservationList = new ArrayList<>();
+        Arrays.stream(flightReservations).forEach(flightReservation -> {
+            flightReservationList.add(new models.FlightReservation(flightReservation));
+        });
+
+        return flightReservationList.toArray(new models.FlightReservation[flightReservationList.size()]);
     }
 
     @GET
@@ -45,15 +52,15 @@ public class ItineraryRESTService {
 
         List<models.Hotel> hotels = new ArrayList<>();
         Arrays.stream(hotelServiceHotels).forEach(hotel -> {
-            hotels.add(new Hotel(hotel));
+            hotels.add(new models.Hotel(hotel));
         });
 
-        return hotels.toArray(new Hotel[hotels.size()]);
+        return hotels.toArray(new models.Hotel[hotels.size()]);
     }
 
     @GET
     @Path("/itinerary/{id}")
-    @Produces(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_XML)
     public Itinerary show() {
         return new Itinerary();
     }
@@ -61,7 +68,7 @@ public class ItineraryRESTService {
     @POST
     @Path("/itinerary")
     @Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
-    @Produces(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_XML)
     public int create(Itinerary itinerary) {
         return new Itinerary().getId();
     }
@@ -69,7 +76,7 @@ public class ItineraryRESTService {
     @PUT
     @Path("/itinerary/{id}/cancel")
     @Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
-    @Produces(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_XML)
     public boolean cancel(Itinerary itinerary) {
         return false;
     }
@@ -77,7 +84,7 @@ public class ItineraryRESTService {
     @PUT
     @Path("/itinerary/{id}/book")
     @Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
-    @Produces(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_XML)
     public boolean book(Itinerary itinerary) {
         return false;
     }
