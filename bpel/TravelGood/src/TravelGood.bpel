@@ -60,6 +60,12 @@
                 </copy>
             </assign>
             <invoke name="Invoke1" partnerLink="HotelServiceLink" operation="getHotels" portType="ns0:HotelInterface" inputVariable="getHotelsServiceIn" outputVariable="getHotelsServiceOut"/>
+            <assign name="Assign5">
+                <copy>
+                    <from variable="getHotelsServiceOut" part="hotels"/>
+                    <to variable="getHotelsOut" part="hotels"/>
+                </copy>
+            </assign>
             <reply name="Reply2" partnerLink="TravelGood" operation="getHotels" portType="ns0:TravelAgencySoapInterface" variable="getHotelsOut"/>
         </sequence>
         <sequence name="Sequence3">

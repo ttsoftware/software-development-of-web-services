@@ -25,7 +25,6 @@
     </content>
     <orderEntry type="jdk" jdkName="1.8" jdkType="JavaSDK" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" name="Maven: javax.ws.rs:javax.ws.rs-api:2.0.1" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Maven: org.glassfish.metro:webservices-rt:2.3" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Maven: org.glassfish.metro:webservices-api:2.3" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Maven: javax.annotation:javax.annotation-api:1.2-b03" level="project" />
