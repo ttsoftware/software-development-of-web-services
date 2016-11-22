@@ -1,2 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<catalog xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog" prefer="system"></catalog>
+<catalog xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog" prefer="system">
+    <system systemId="http://sterling:8080/webservices/TravelAgencySoapService?xsd=1" uri="sterling_8080/webservices/TravelAgencySoapService.xsd_1.xsd"/>
+    <system systemId="http://sterling:8080/webservices/TravelAgencySoapService?xsd=2" uri="sterling_8080/webservices/TravelAgencySoapService.xsd_2.xsd"/>
+    <system systemId="http://sterling:8080/webservices/HotelService?xsd=1" uri="sterling_8080/webservices/HotelService.xsd_1.xsd"/>
+    <system systemId="http://sterling:8080/webservices/HotelService?xsd=2" uri="sterling_8080/webservices/HotelService.xsd_2.xsd"/>
+</catalog>
