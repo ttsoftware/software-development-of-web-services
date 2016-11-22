@@ -51,7 +51,6 @@ public class TravelAgencyService {
             hotelArray[i] = hotels.get(i);
         }
         return hotelArray;
-
     }
 
     public Itinerary getItinerary(int id) throws ItineraryDoesNotExistException {

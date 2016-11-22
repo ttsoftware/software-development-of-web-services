@@ -5,7 +5,7 @@ import models.Booking;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 
-@Path("/travelagency")
+@Path("/")
 public class BookingRESTService {
 
     @POST

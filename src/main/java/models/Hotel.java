@@ -42,6 +42,17 @@ public class Hotel {
     public Hotel() {
     }
 
+    public Hotel(hotel.Hotel hotel) {
+        id = hotel.getId();
+        name = hotel.getName();
+        city = hotel.getCity();
+        bookingNumber = hotel.getBookingNumber();
+        creditCardGuarantee = hotel.isCreditCardGuarantee();
+        price = hotel.getPrice();
+        opens = hotel.getOpens();
+        closes = hotel.getCloses();
+    }
+
     public String getName() {
         return name;
     }

@@ -1,41 +1,54 @@
 package services;
 
-import models.*;
+import models.CustomDate;
+import models.Hotel;
+import models.Itinerary;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
-@Path("/travelagency")
+@Path("/")
 public class ItineraryRESTService {
 
     private TravelAgencyService travelAgencyService = new TravelAgencyService();
 
     @GET
-    @Path("/flights?from={from}&destination={destination}&year={year}&month={month}&day={day}")
+    @Path("/flights")
     @Produces(MediaType.APPLICATION_JSON)
-    public flight.FlightReservation[] flights(@PathParam("from") String from,
-                                       @PathParam("destination") String destination,
-                                       @PathParam("day") int day,
-                                       @PathParam("month") int month,
-                                       @PathParam("year") int year) {
+    public flight.FlightReservation[] flights(@QueryParam("from") String from,
+                                       @QueryParam("destination") String destination,
+                                       @QueryParam("day") int day,
+                                       @QueryParam("month") int month,
+                                       @QueryParam("year") int year) {
         return travelAgencyService.getFlights(from, destination, new CustomDate(year, month, day));
     }
 
     @GET
-    @Path("/hotels?city={city}&arrivalDateYear={arrivalDateYear}&arrivalDateMonth={arrivalDateMonth}&arrivalDateDay={arrivalDateDay}&departureDateYear={departureDateYear}&departureDateMonth={departureDateMonth}&departureDateDay={departureDateDay}")
-    @Produces(MediaType.APPLICATION_JSON)
-    public hotel.Hotel[] hotels(@PathParam("city") String city,
-                          @PathParam("arrivalDateYear") int arrivalDateYear,
-                          @PathParam("arrivalDateMonth") int arrivalDateMonth,
-                          @PathParam("arrivalDateDay") int arrivalDateDay,
-                          @PathParam("departureDateYear") int departureDateYear,
-                          @PathParam("departureDateMonth") int departureDateMonth,
-                          @PathParam("departureDateDay") int departureDateDay) {
-        return travelAgencyService.getHotels(
+    @Path("/hotels")
+    @Produces(MediaType.APPLICATION_XML)
+    public models.Hotel[] hotels(@QueryParam("city") String city,
+                          @QueryParam("arrivalDateYear") int arrivalDateYear,
+                          @QueryParam("arrivalDateMonth") int arrivalDateMonth,
+                          @QueryParam("arrivalDateDay") int arrivalDateDay,
+                          @QueryParam("departureDateYear") int departureDateYear,
+                          @QueryParam("departureDateMonth") int departureDateMonth,
+                          @QueryParam("departureDateDay") int departureDateDay) {
+
+        hotel.Hotel[] hotelServiceHotels = travelAgencyService.getHotels(
                 city,
                 new CustomDate(arrivalDateYear, arrivalDateMonth, arrivalDateDay),
                 new CustomDate(departureDateYear, departureDateMonth, departureDateDay)
         );
+
+        List<models.Hotel> hotels = new ArrayList<>();
+        Arrays.stream(hotelServiceHotels).forEach(hotel -> {
+            hotels.add(new Hotel(hotel));
+        });
+
+        return hotels.toArray(new Hotel[hotels.size()]);
     }
 
     @GET
