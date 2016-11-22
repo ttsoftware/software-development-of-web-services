@@ -7,6 +7,7 @@ import models.dao.BookingDaoImpl;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.XmlType;
 import java.util.Date;
 
@@ -36,6 +37,7 @@ public class Booking {
     @DatabaseField(
             foreign = true,
             columnName = "fk_itinerary")
+    @XmlTransient
     private Itinerary itinerary;
 
     @Override
@@ -45,7 +47,9 @@ public class Booking {
 
         if (object != null && object instanceof Booking)
         {
-            sameSame = this.id == ((Booking) object).id;
+            boolean bookingNumberSame = this.bookingNumber.equals(((Booking) object).bookingNumber);
+            boolean statusSame = this.bookingStatus.equals(((Booking) object).bookingStatus);
+            sameSame = bookingNumberSame & statusSame;
         }
 
         return sameSame;

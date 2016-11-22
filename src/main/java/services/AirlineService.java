@@ -5,7 +5,7 @@ import com.j256.ormlite.stmt.PreparedQuery;
 import com.j256.ormlite.stmt.QueryBuilder;
 import models.Flight;
 import models.FlightReservation;
-import models.PenisDate;
+import models.CustomDate;
 import services.exceptions.BookingNumberException;
 
 import javax.jws.WebService;
@@ -27,12 +27,12 @@ public class AirlineService implements AirlineInterface {
     private List<FlightReservation> availableFlights;
 
     @Override
-    public FlightReservation[] getFlights(String from, String destination, PenisDate penisDate) {
+    public FlightReservation[] getFlights(String from, String destination, CustomDate customDate) {
         try {
 
             QueryBuilder<Flight, ?> qbFlight = DatabaseService.getDao(Flight.class).queryBuilder();
 
-            Date date = penisDate.toDate();
+            Date date = customDate.toDate();
 
             qbFlight.where()
                     .eq("startAirport", from)
@@ -87,10 +87,10 @@ public class AirlineService implements AirlineInterface {
         BankPortType port = bs.getBankPort();
 
         AccountType flightAccount = new AccountType();
-        flightAccount.setName("TravelGood");
-        flightAccount.setNumber("50108811");
+        flightAccount.setName("LameDuck");
+        flightAccount.setNumber("50208812");
 
-        port.chargeCreditCard(99, cardInformation, flightReservation.getPrice(), flightAccount);
+        port.chargeCreditCard(22, cardInformation, flightReservation.getPrice(), flightAccount);
 
         return true;
     }
@@ -112,8 +112,8 @@ public class AirlineService implements AirlineInterface {
 
 
         AccountType flightAccount = new AccountType();
-        flightAccount.setName("TravelGood");
-        flightAccount.setNumber("50108811");
+        flightAccount.setName("LameDuck");
+        flightAccount.setNumber("50208812");
 
         URL bankServiceUrl = null;
         try {
@@ -125,7 +125,7 @@ public class AirlineService implements AirlineInterface {
         BankPortType port = bs.getBankPort();
 
         int returnMoney = (int) Math.floor(flightPrice/2);
-        port.refundCreditCard(99, cardInformation, returnMoney, flightAccount);
+        port.refundCreditCard(22, cardInformation, returnMoney, flightAccount);
 
         return true;
     }

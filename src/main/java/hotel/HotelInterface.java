@@ -27,54 +27,56 @@ public interface HotelInterface {
 
     /**
      * 
-     * @param city
-     * @param departureDate
-     * @param arrivalDate
-     * @return
-     *     returns hotel.HotelArray
-     * @throws SQLException_Exception
-     */
-    @WebMethod
-    @WebResult(name = "hotels", partName = "hotels")
-    @Action(input = "http://services/HotelInterface/getHotelsRequest", output = "http://services/HotelInterface/getHotelsResponse", fault = {
-        @FaultAction(className = SQLException_Exception.class, value = "http://services/HotelInterface/getHotels/Fault/SQLException")
-    })
-    public HotelArray getHotels(
-        @WebParam(name = "city", partName = "city")
-        String city,
-        @WebParam(name = "arrivalDate", partName = "arrivalDate")
-        PenisDate arrivalDate,
-        @WebParam(name = "departureDate", partName = "departureDate")
-        PenisDate departureDate)
-        throws SQLException_Exception
-    ;
-
-    /**
-     * 
      * @param hotelBookingRequest
      * @return
      *     returns boolean
-     * @throws SQLException_Exception
+     * @throws CreditCardFaultMessage
      */
     @WebMethod
     @WebResult(partName = "return")
     @Action(input = "http://services/HotelInterface/bookHotelRequest", output = "http://services/HotelInterface/bookHotelResponse", fault = {
-        @FaultAction(className = SQLException_Exception.class, value = "http://services/HotelInterface/bookHotel/Fault/SQLException")
+        @FaultAction(className = CreditCardFaultMessage.class, value = "http://services/HotelInterface/bookHotel/Fault/CreditCardFaultMessage")
     })
     public boolean bookHotel(
         @WebParam(name = "hotelBookingRequest", partName = "hotelBookingRequest")
         HotelBookingRequest hotelBookingRequest)
-        throws SQLException_Exception
+        throws CreditCardFaultMessage
     ;
 
     /**
      * 
      * @param bookingNumber
+     * @throws BookingNumberException_Exception
+     * @throws CreditCardFaultMessage
      */
     @WebMethod
-    @Action(input = "http://services/HotelInterface/cancelHotelRequest", output = "http://services/HotelInterface/cancelHotelResponse")
+    @Action(input = "http://services/HotelInterface/cancelHotelRequest", output = "http://services/HotelInterface/cancelHotelResponse", fault = {
+        @FaultAction(className = CreditCardFaultMessage.class, value = "http://services/HotelInterface/cancelHotel/Fault/CreditCardFaultMessage"),
+        @FaultAction(className = BookingNumberException_Exception.class, value = "http://services/HotelInterface/cancelHotel/Fault/BookingNumberException")
+    })
     public void cancelHotel(
         @WebParam(name = "bookingNumber", partName = "bookingNumber")
-        String bookingNumber);
+        String bookingNumber)
+        throws BookingNumberException_Exception, CreditCardFaultMessage
+    ;
+
+    /**
+     * 
+     * @param city
+     * @param departureDate
+     * @param arrivalDate
+     * @return
+     *     returns hotel.HotelArray
+     */
+    @WebMethod
+    @WebResult(name = "hotels", partName = "hotels")
+    @Action(input = "http://services/HotelInterface/getHotelsRequest", output = "http://services/HotelInterface/getHotelsResponse")
+    public HotelArray getHotels(
+        @WebParam(name = "city", partName = "city")
+        String city,
+        @WebParam(name = "arrivalDate", partName = "arrivalDate")
+        CustomDate arrivalDate,
+        @WebParam(name = "departureDate", partName = "departureDate")
+        CustomDate departureDate);
 
 }

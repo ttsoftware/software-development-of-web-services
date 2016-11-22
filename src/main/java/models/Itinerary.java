@@ -1,15 +1,12 @@
 package models;
 
-import com.j256.ormlite.dao.ForeignCollection;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.field.ForeignCollectionField;
 import com.j256.ormlite.table.DatabaseTable;
 import models.dao.ItineraryDaoImpl;
 
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlType;
+import javax.xml.bind.annotation.*;
+import java.util.Collection;
 
 /**
  * Created by troels on 11/14/16.
@@ -24,13 +21,14 @@ public class Itinerary {
     private int id;
 
     @ForeignCollectionField(eager = true)
-    private ForeignCollection<Booking> bookings;
+    @XmlElement(name = "bookings")
+    private Collection<Booking> bookings;
 
-    public ForeignCollection<Booking> getBookings() {
+    public Collection<Booking> getBookings() {
         return bookings;
     }
 
-    public void setBookings(ForeignCollection<Booking> bookings) {
+    public void setBookings(Collection<Booking> bookings) {
         this.bookings = bookings;
     }
 

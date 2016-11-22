@@ -7,12 +7,12 @@ import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Java class for PenisDate complex type.
+ * <p>Java class for CustomDate complex type.
  * 
  * <p>The following schema fragment specifies the expected content contained within this class.
  * 
  * <pre>
- * &lt;complexType name="PenisDate">
+ * &lt;complexType name="CustomDate">
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
@@ -28,12 +28,12 @@ import javax.xml.bind.annotation.XmlType;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "PenisDate", propOrder = {
+@XmlType(name = "CustomDate", propOrder = {
     "year",
     "month",
     "day"
 })
-public class PenisDate {
+public class CustomDate {
 
     protected int year;
     protected int month;

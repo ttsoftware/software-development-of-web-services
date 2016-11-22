@@ -1,6 +1,5 @@
 package models;
 
-import bank.CreditCardInfoType;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 import models.dao.HotelReservationDaoImpl;
@@ -22,13 +21,19 @@ public class HotelReservation {
     @DatabaseField(canBeNull = false)
     private String bookingNumber;
 
-    /*@DatabaseField(
+    @DatabaseField(
+            canBeNull = false,
             foreign = true,
-            columnName = "fk_creditCardInfoType")*/
+            foreignAutoCreate = true,
+            foreignAutoRefresh = true,
+            columnName = "fk_creditCardInfoType")
     private CreditCardInfoType cardInformation;
 
     @DatabaseField(
+            canBeNull = false,
             foreign = true,
+            foreignAutoCreate = true,
+            foreignAutoRefresh = true,
             columnName = "fk_hotel")
     private Hotel hotel;
 

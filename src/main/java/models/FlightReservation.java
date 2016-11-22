@@ -36,6 +36,7 @@ public class FlightReservation {
             canBeNull = false,
             foreign = true,
             foreignAutoCreate = true,
+            foreignAutoRefresh = true,
             columnName = "fk_flight")
     private Flight flight;
 

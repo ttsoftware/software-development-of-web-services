@@ -10,23 +10,23 @@ import javax.xml.ws.WebFault;
  * Generated source version: 2.2
  * 
  */
-@WebFault(name = "SQLException", targetNamespace = "http://services/")
-public class SQLException_Exception
-    extends java.lang.Exception
+@WebFault(name = "BookingNumberException", targetNamespace = "http://services/")
+public class BookingNumberException_Exception
+    extends Exception
 {
 
     /**
      * Java type that goes as soapenv:Fault detail element.
      * 
      */
-    private SQLException faultInfo;
+    private BookingNumberException faultInfo;
 
     /**
      * 
      * @param faultInfo
      * @param message
      */
-    public SQLException_Exception(String message, SQLException faultInfo) {
+    public BookingNumberException_Exception(String message, BookingNumberException faultInfo) {
         super(message);
         this.faultInfo = faultInfo;
     }
@@ -37,7 +37,7 @@ public class SQLException_Exception
      * @param cause
      * @param message
      */
-    public SQLException_Exception(String message, SQLException faultInfo, java.lang.Throwable cause) {
+    public BookingNumberException_Exception(String message, BookingNumberException faultInfo, Throwable cause) {
         super(message, cause);
         this.faultInfo = faultInfo;
     }
@@ -45,9 +45,9 @@ public class SQLException_Exception
     /**
      * 
      * @return
-     *     returns fault bean: hotel.SQLException
+     *     returns fault bean: hotel.BookingNumberException
      */
-    public SQLException getFaultInfo() {
+    public BookingNumberException getFaultInfo() {
         return faultInfo;
     }
 
