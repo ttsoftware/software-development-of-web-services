@@ -27,7 +27,7 @@ public class HotelService implements HotelInterface {
     @Override
     public Hotel[] getHotels(String city,
                              CustomDate arrivalDate,
-                             CustomDate departureDate)  {
+                             CustomDate departureDate) {
 
         Date arrivalDatePenisDate = arrivalDate.toDate();
         Date departureDatePenisDate = departureDate.toDate();
@@ -54,18 +54,6 @@ public class HotelService implements HotelInterface {
     @Override
     public boolean bookHotel(HotelBookingRequest hotelBookingRequest) throws CreditCardFaultMessage {
 
-        models.CreditCardInfoType customerCreditCardInfoType = null;
-        try {
-            List<models.CreditCardInfoType> creditCards = DatabaseService
-                    .getDao(models.CreditCardInfoType.class)
-                    .queryForEq("number", hotelBookingRequest.getCardInformation().getNumber());
-
-            if (creditCards.isEmpty()) return false;
-            customerCreditCardInfoType = creditCards.get(0);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
         Hotel hotel = null;
         try {
             List<Hotel> hotels = DatabaseService.getDao(Hotel.class)
@@ -77,26 +65,41 @@ public class HotelService implements HotelInterface {
             e.printStackTrace();
         }
 
-        URL bankServiceUrl = null;
-        try {
-            bankServiceUrl = new URL("http://fastmoney.imm.dtu.dk:8080/BankService?wsdl");
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        }
-        BankService bs = new BankService(bankServiceUrl);
-        BankPortType port = bs.getBankPort();
-
-        AccountType hotelAccount = new AccountType();
-        hotelAccount.setName("LameDuck");
-        hotelAccount.setNumber("50208812");
-
-        bank.CreditCardInfoType creditCardInfoType = customerCreditCardInfoType.getBankCreditCardInfoType();
-        boolean success = port.chargeCreditCard(22, creditCardInfoType, (int) hotel.getPrice(), hotelAccount);
-
         HotelReservation hotelReservation = new HotelReservation();
         hotelReservation.setHotel(hotel);
         hotelReservation.setBookingNumber(hotelBookingRequest.getBookingNumber());
-        hotelReservation.setCardInformation(customerCreditCardInfoType);
+
+        if (hotel.isCreditCardGuarantee()) {
+            models.CreditCardInfoType customerCreditCardInfoType = null;
+            try {
+                List<models.CreditCardInfoType> creditCards = DatabaseService
+                        .getDao(models.CreditCardInfoType.class)
+                        .queryForEq("number", hotelBookingRequest.getCardInformation().getNumber());
+
+                if (creditCards.isEmpty()) return false;
+                customerCreditCardInfoType = creditCards.get(0);
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+
+            URL bankServiceUrl = null;
+            try {
+                bankServiceUrl = new URL("http://fastmoney.imm.dtu.dk:8080/BankService?wsdl");
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            }
+            BankService bs = new BankService(bankServiceUrl);
+            BankPortType port = bs.getBankPort();
+
+            AccountType hotelAccount = new AccountType();
+            hotelAccount.setName("LameDuck");
+            hotelAccount.setNumber("50208812");
+
+            bank.CreditCardInfoType creditCardInfoType = customerCreditCardInfoType.getBankCreditCardInfoType();
+            boolean success = port.chargeCreditCard(22, creditCardInfoType, (int) hotel.getPrice(), hotelAccount);
+
+            hotelReservation.setCardInformation(customerCreditCardInfoType);
+        }
 
         try {
             HotelReservationDao hotelReservationDao = DatabaseService.getDao(HotelReservation.class);
@@ -140,8 +143,10 @@ public class HotelService implements HotelInterface {
 
         int returnMoney = (int) Math.floor(hotelPrice);
 
-        bank.CreditCardInfoType creditCardInfoType = hotelRes.getCardInformation().getBankCreditCardInfoType();
-        port.refundCreditCard(22, creditCardInfoType, returnMoney, hotelAccount);
+        if (hotelRes.getCardInformation() != null) {
+            bank.CreditCardInfoType creditCardInfoType = hotelRes.getCardInformation().getBankCreditCardInfoType();
+            port.refundCreditCard(22, creditCardInfoType, returnMoney, hotelAccount);
+        }
 
         try {
             DatabaseService.getDao(HotelReservation.class)

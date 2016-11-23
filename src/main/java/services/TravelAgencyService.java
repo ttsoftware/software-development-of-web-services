@@ -85,7 +85,6 @@ public class TravelAgencyService {
         Collection<Booking> bookings = itinerary.getBookings();
         boolean faultHappend = false;
 
-
         Iterator<Booking> iteratorForDate = bookings.iterator();
         Date now = new Date();
         while (iteratorForDate.hasNext()) {

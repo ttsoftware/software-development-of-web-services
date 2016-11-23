@@ -11,6 +11,7 @@ import javax.ws.rs.core.MediaType;
 import java.util.Collection;
 import java.util.Date;
 import java.util.Iterator;
+import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
@@ -567,10 +568,22 @@ public class TravelAgencyRESTServiceTest {
 
     @Test
     public void C2() {
+        int itineraryId = create();
         try {
-            int itineraryId = create();
             Itinerary itinerary = show(itineraryId);
-            flight.FlightReservation[] flights = flights("Copenhagen", "Berlin", "7", "11", "2016");
+
+            hotel.Hotel[] hotels = hotels("Berlin", "2016", "11", "7", "2016", "11", "12");
+            hotel.Hotel hotel1 = hotels[0];
+            Booking hotelBooking1 = new Booking();
+            hotelBooking1.setBookingNumber(hotel1.getBookingNumber());
+            hotelBooking1.setBookingStatus(BookingStatus.UNCONFIRMMED);
+            hotelBooking1.setBookingType(BookingType.HOTEL);
+            hotelBooking1.setPrice(hotel1.getPrice());
+            hotelBooking1.setDate(new Date(hotel1.getOpens()));
+            hotelBooking1.setItinerary(itinerary);
+            createBooking(itineraryId, hotelBooking1);
+
+            flight.FlightReservation[] flights = flights("Berlin", "Copenhagen", "12", "11", "2016");
             flight.FlightReservation flight1 = flights[0];
             Booking flightBooking1 = new Booking();
 
@@ -582,40 +595,16 @@ public class TravelAgencyRESTServiceTest {
             flightBooking1.setItinerary(itinerary);
             createBooking(itineraryId, flightBooking1);
 
-            hotel.Hotel[] hotels = hotels("Berlin", "2016", "11", "7", "2016", "11", "12");
-            hotel.Hotel hotel1 = hotels[0];
-            Booking hotelBooking = new Booking();
-            hotelBooking.setBookingNumber(hotel1.getBookingNumber());
-            hotelBooking.setBookingStatus(BookingStatus.UNCONFIRMMED);
-            hotelBooking.setBookingType(BookingType.HOTEL);
-            hotelBooking.setPrice(hotel1.getPrice());
-            hotelBooking.setDate(new Date(hotel1.getOpens()));
-            hotelBooking.setItinerary(itinerary);
-            createBooking(itineraryId, hotelBooking);
-
-            flights = flights("Berlin", "London", "12", "11", "2016");
-            flight1 = flights[0];
-            Booking flightBooking2 = new Booking();
-
-            flightBooking2.setBookingNumber(flight1.getBookingNumber());
-            flightBooking2.setBookingStatus(BookingStatus.UNCONFIRMMED);
-            flightBooking2.setBookingType(BookingType.FLIGHT);
-            flightBooking2.setDate(new Date(flight1.getFlight().getStart()));
-            flightBooking2.setPrice(flight1.getPrice());
-            flightBooking2.setItinerary(itinerary);
-            createBooking(itineraryId, flightBooking2);
-
-            flights = flights("London", "Amsterdam", "20", "11", "2016");
-            flight1 = flights[0];
-            Booking flightBooking3 = new Booking();
-
-            flightBooking3.setBookingNumber(flight1.getBookingNumber());
-            flightBooking3.setBookingStatus(BookingStatus.UNCONFIRMMED);
-            flightBooking3.setBookingType(BookingType.FLIGHT);
-            flightBooking3.setDate(new Date(flight1.getFlight().getStart()));
-            flightBooking3.setPrice(flight1.getPrice());
-            flightBooking3.setItinerary(itinerary);
-            createBooking(itineraryId, flightBooking3);
+            hotels = hotels("Copenhagen", "2016", "11", "7", "2016", "11", "7");
+            hotel.Hotel hotel2 = hotels[0];
+            Booking hotelBooking2 = new Booking();
+            hotelBooking2.setBookingNumber(hotel2.getBookingNumber());
+            hotelBooking2.setBookingStatus(BookingStatus.UNCONFIRMMED);
+            hotelBooking2.setBookingType(BookingType.HOTEL);
+            hotelBooking2.setPrice(hotel2.getPrice());
+            hotelBooking2.setDate(new Date(hotel2.getOpens()));
+            hotelBooking2.setItinerary(itinerary);
+            createBooking(itineraryId, hotelBooking2);
 
             Itinerary itineraryWithBookings = show(itineraryId);
             Collection<Booking> bookings = itineraryWithBookings.getBookings();
@@ -635,14 +624,25 @@ public class TravelAgencyRESTServiceTest {
             Iterator<Booking> iterator2 = bookingsBooked.iterator();
 
             while (iterator2.hasNext()) {
-                Booking b = iterator.next();
+                Booking b = iterator2.next();
                 assertEquals(b.getBookingStatus(), BookingStatus.CONFIRMED);
             }
 
+            String correctNumber = creditCard.getNumber();
+            creditCard.setNumber("stalin");
             cancel(itineraryId, creditCard);
+            creditCard.setNumber(correctNumber);
 
         } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            Itinerary itinerary = show(itineraryId);
 
+            List<Booking> bookings = (List<Booking>) itinerary.getBookings();
+
+            assertEquals(bookings.get(0).getBookingStatus(), BookingStatus.CANCELLED);
+            assertEquals(bookings.get(1).getBookingStatus(), BookingStatus.CONFIRMED);
+            assertEquals(bookings.get(2).getBookingStatus(), BookingStatus.CANCELLED);
         }
     }
 
