@@ -1,17 +1,15 @@
 package services;
 
-import models.CreditCardInfoType;
 import models.CustomDate;
 import models.Itinerary;
+import models.ItineraryChangeRequest;
 import services.exceptions.BookingFaultException;
 import services.exceptions.CancleBookingException;
 import services.exceptions.ItineraryDoesNotExistException;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import javax.xml.bind.annotation.XmlElement;
 
 @Path("/")
 public class ItineraryRESTService {
@@ -21,26 +19,19 @@ public class ItineraryRESTService {
     @GET
     @Path("/flights")
     @Produces(MediaType.APPLICATION_XML)
-    public models.FlightReservation[] flights(@QueryParam("from") String from,
+    public flight.FlightReservation[] flights(@QueryParam("from") String from,
                                               @QueryParam("destination") String destination,
                                               @QueryParam("day") int day,
                                               @QueryParam("month") int month,
                                               @QueryParam("year") int year) {
 
-        flight.FlightReservation[] flightReservations = travelAgencyService.getFlights(from, destination, new CustomDate(year, month, day));
-
-        List<models.FlightReservation> flightReservationList = new ArrayList<>();
-        Arrays.stream(flightReservations).forEach(flightReservation -> {
-            flightReservationList.add(new models.FlightReservation(flightReservation));
-        });
-
-        return flightReservationList.toArray(new models.FlightReservation[flightReservationList.size()]);
+        return travelAgencyService.getFlights(from, destination, new CustomDate(year, month, day));
     }
 
     @GET
     @Path("/hotels")
     @Produces(MediaType.APPLICATION_XML)
-    public models.Hotel[] hotels(@QueryParam("city") String city,
+    public hotel.Hotel[] hotels(@QueryParam("city") String city,
                                  @QueryParam("arrivalDateYear") int arrivalDateYear,
                                  @QueryParam("arrivalDateMonth") int arrivalDateMonth,
                                  @QueryParam("arrivalDateDay") int arrivalDateDay,
@@ -48,18 +39,18 @@ public class ItineraryRESTService {
                                  @QueryParam("departureDateMonth") int departureDateMonth,
                                  @QueryParam("departureDateDay") int departureDateDay) {
 
-        hotel.Hotel[] hotelServiceHotels = travelAgencyService.getHotels(
+        return travelAgencyService.getHotels(
                 city,
                 new CustomDate(arrivalDateYear, arrivalDateMonth, arrivalDateDay),
                 new CustomDate(departureDateYear, departureDateMonth, departureDateDay)
         );
+    }
 
-        List<models.Hotel> hotels = new ArrayList<>();
-        Arrays.stream(hotelServiceHotels).forEach(hotel -> {
-            hotels.add(new models.Hotel(hotel));
-        });
-
-        return hotels.toArray(new models.Hotel[hotels.size()]);
+    @POST
+    @Path("/itinerary")
+    @Produces(MediaType.TEXT_PLAIN)
+    public Integer create() {
+        return travelAgencyService.createItinerary();
     }
 
     @GET
@@ -69,24 +60,15 @@ public class ItineraryRESTService {
         return travelAgencyService.getItinerary(id);
     }
 
-    @POST
-    @Path("/itinerary")
-    @Consumes({MediaType.APPLICATION_XML})
-    @Produces(MediaType.APPLICATION_XML)
-    public int create() {
-        return travelAgencyService.createItinerary();
-    }
-
     @PUT
     @Path("/itinerary/{id}/cancel")
     @Consumes({MediaType.APPLICATION_XML})
-    @Produces(MediaType.APPLICATION_XML)
-    public boolean cancel(Itinerary itinerary,
-                          CreditCardInfoType cardInformation) {
+    @Produces(MediaType.TEXT_PLAIN)
+    public Boolean cancel(@XmlElement ItineraryChangeRequest changeRequest) {
         try {
             return travelAgencyService.cancelItinerarie(
-                    itinerary.getId(),
-                    cardInformation.getBankCreditCardInfoType()
+                    changeRequest.getItinerary().getId(),
+                    changeRequest.getCardInformation().getBankCreditCardInfoType()
             );
         } catch (CancleBookingException e) {
             e.printStackTrace();
@@ -98,12 +80,11 @@ public class ItineraryRESTService {
     @Path("/itinerary/{id}/book")
     @Consumes({MediaType.APPLICATION_XML})
     @Produces(MediaType.APPLICATION_XML)
-    public boolean book(Itinerary itinerary,
-                        CreditCardInfoType cardInformation) {
+    public boolean book(@XmlElement ItineraryChangeRequest changeRequest) {
         try {
             return travelAgencyService.bookItinerarie(
-                    itinerary.getId(),
-                    cardInformation.getBankCreditCardInfoType()
+                    changeRequest.getItinerary().getId(),
+                    changeRequest.getCardInformation().getBankCreditCardInfoType()
             );
         } catch (BookingFaultException e) {
             e.printStackTrace();

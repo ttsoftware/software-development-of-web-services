@@ -6,9 +6,7 @@ import models.dao.FlightDaoImpl;
 
 import javax.xml.bind.annotation.*;
 
-/**
- * Created by troels thomsen on stalin.
- */
+
 @XmlType(name = "Flight")
 @XmlRootElement(name = "Flight")
 @XmlAccessorType(XmlAccessType.FIELD)

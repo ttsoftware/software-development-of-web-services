@@ -54,7 +54,7 @@ public class TravelAgencyService {
     }
 
     public Itinerary getItinerary(int id) throws ItineraryDoesNotExistException {
-        ItineraryService itineraryService  = new ItineraryService();
+        ItineraryService itineraryService = new ItineraryService();
         Itinerary itinerary = itineraryService.getItinerary(id);
         if (itinerary == null) throw new ItineraryDoesNotExistException("Initirary with id " + id + " does not exist");
         return itinerary;
@@ -68,7 +68,7 @@ public class TravelAgencyService {
     }
 
     public Itinerary[] getItineraries() {
-        ItineraryService itineraryService  = new ItineraryService();
+        ItineraryService itineraryService = new ItineraryService();
         List<Itinerary> itineraries = itineraryService.getItineraries();
         Itinerary[] itinerariesArray = new Itinerary[itineraries.size()];
         for (int i = 0; i < itineraries.size(); i++) {
@@ -88,7 +88,7 @@ public class TravelAgencyService {
 
         Iterator<Booking> iteratorForDate = bookings.iterator();
         Date now = new Date();
-        while(iteratorForDate.hasNext()) {
+        while (iteratorForDate.hasNext()) {
             Booking b = iteratorForDate.next();
             if (b.getDate().getTime() >= now.getTime()) {
                 throw new CancleBookingException("First booking started");
@@ -100,24 +100,24 @@ public class TravelAgencyService {
             Booking booking = iterator.next();
 
             if (booking.getBookingType().equals(BookingType.FLIGHT)) {
-                try{
+                try {
                     cancelFlight(booking, cardInformation);
-                }catch (CancleBookingException e){
+                } catch (CancleBookingException e) {
                     faultHappend = true;
                 }
             }
 
             if (booking.getBookingType().equals(BookingType.HOTEL)) {
-                try{
+                try {
                     cancelHotel(booking, cardInformation);
-                }catch (CancleBookingException e){
+                } catch (CancleBookingException e) {
                     faultHappend = true;
                 }
             }
             itineraryService.updateBooking(id, booking);
         }
 
-        if(faultHappend) throw new CancleBookingException("One or more bookings failed");
+        if (faultHappend) throw new CancleBookingException("One or more bookings failed");
         return true;
     }
 
@@ -153,7 +153,7 @@ public class TravelAgencyService {
             }
 
             if (booking.getBookingType().equals(BookingType.HOTEL)) {
-                try{
+                try {
                     bookHotel(booking, cardInformation);
                 } catch (BookingFaultException e) {
                     faultHappen = true;
@@ -161,7 +161,7 @@ public class TravelAgencyService {
             }
             itineraryService.updateBooking(id, booking);
         }
-        if(faultHappen) throw new BookingFaultException("Booking failed");
+        if (faultHappen) throw new BookingFaultException("Booking failed");
         return true;
     }
 
@@ -185,7 +185,7 @@ public class TravelAgencyService {
             boolean success = flightPort.cancelFlight(booking.getBookingNumber(), booking.getPrice(), ccit);
             if (success) {
                 booking.setBookingStatus(BookingStatus.CANCELLED);
-            }else {
+            } else {
                 throw new CancleBookingException("");
             }
         } catch (BookingNumberException_Exception e) {
@@ -201,9 +201,9 @@ public class TravelAgencyService {
         flight.CreditCardInfoType ccit = mapCreditCardFlight(cardInformation);
         try {
             boolean success = flightPort.bookFlight(booking.getBookingNumber(), ccit);
-            if(success){
+            if (success) {
                 booking.setBookingStatus(BookingStatus.CONFIRMED);
-            }else{
+            } else {
                 booking.setBookingStatus(BookingStatus.CANCELLED);
                 throw new BookingFaultException("Booking failed");
             }
@@ -227,9 +227,9 @@ public class TravelAgencyService {
         boolean success = false;
         try {
             success = hotelPort.bookHotel(request);
-            if(success){
+            if (success) {
                 booking.setBookingStatus(BookingStatus.CONFIRMED);
-            }else {
+            } else {
                 booking.setBookingStatus(BookingStatus.CANCELLED);
                 throw new BookingFaultException("Booking failed");
             }
@@ -241,7 +241,7 @@ public class TravelAgencyService {
 
 
     //-----------------------------------------PORT FUNC---------------------------------------------------
-    public hotel.HotelInterface getHotelServicePort(){
+    public hotel.HotelInterface getHotelServicePort() {
         URL hotelServiceUrl = null;
         try {
             hotelServiceUrl = new URL("http://localhost:8080/webservices/HotelService?wsdl");
@@ -253,7 +253,7 @@ public class TravelAgencyService {
         return bs.getHotelServicePort();
     }
 
-    public flight.AirlineInterface getFlightServicePort(){
+    public flight.AirlineInterface getFlightServicePort() {
         URL FlightServiceUrl = null;
         try {
             FlightServiceUrl = new URL("http://localhost:8080/webservices/AirlineService?wsdl");
@@ -266,7 +266,7 @@ public class TravelAgencyService {
     }
 
     //-----------------------------------------MAPPING FUNC---------------------------------------------------
-    public flight.CreditCardInfoType mapCreditCardFlight(bank.CreditCardInfoType credit){
+    public flight.CreditCardInfoType mapCreditCardFlight(bank.CreditCardInfoType credit) {
         flight.CreditCardInfoType ccit = new flight.CreditCardInfoType();
         flight.CreditCardInfoType.ExpirationDate date = new flight.CreditCardInfoType.ExpirationDate();
         date.setYear(credit.getExpirationDate().getYear());
@@ -277,7 +277,7 @@ public class TravelAgencyService {
         return ccit;
     }
 
-    public hotel.CreditCardInfoType mapCreditCardHotel(bank.CreditCardInfoType credit){
+    public hotel.CreditCardInfoType mapCreditCardHotel(bank.CreditCardInfoType credit) {
         hotel.CreditCardInfoType ccit = new hotel.CreditCardInfoType();
         ccit.setExpirationYear(credit.getExpirationDate().getYear());
         ccit.setExpirationMonth(credit.getExpirationDate().getMonth());

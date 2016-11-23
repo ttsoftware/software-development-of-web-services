@@ -196,11 +196,9 @@ public class TravelAgencySoapServiceTest {
                 Assert.assertEquals(b.getBookingStatus(), BookingStatus.CANCELLED);
             }
 
-
         } catch (Exception e) {
             e.printStackTrace();
         }
-
     }
 
 
