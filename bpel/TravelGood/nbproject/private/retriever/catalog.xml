@@ -7,4 +7,6 @@
     <system systemId="http://sterling:8080/webservices/AirlineService?xsd=1" uri="sterling_8080/webservices/AirlineService.xsd_1.xsd"/>
     <system systemId="http://sterling:8080/webservices/AirlineService?xsd=2" uri="sterling_8080/webservices/AirlineService.xsd_2.xsd"/>
     <system systemId="http://sterling:8080/webservices/AirlineService?xsd=3" uri="sterling_8080/webservices/AirlineService.xsd_3.xsd"/>
+    <system systemId="http://sterling:8282/webservices/TravelAgencySoapService?xsd=1" uri="sterling_8282/webservices/TravelAgencySoapService.xsd_1.xsd"/>
+    <system systemId="http://sterling:8282/webservices/TravelAgencySoapService?xsd=2" uri="sterling_8282/webservices/TravelAgencySoapService.xsd_2.xsd"/>
 </catalog>
