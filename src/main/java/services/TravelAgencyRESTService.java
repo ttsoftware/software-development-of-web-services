@@ -13,7 +13,7 @@ import javax.ws.rs.core.MediaType;
 import javax.xml.bind.annotation.XmlElement;
 
 @Path("/")
-public class ItineraryRESTService {
+public class TravelAgencyRESTService {
 
     private TravelAgencyService travelAgencyService = new TravelAgencyService();
 
