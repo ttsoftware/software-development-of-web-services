@@ -22,6 +22,7 @@
         <partnerLink name="TravelGood" xmlns:tns="http://enterprise.netbeans.org/bpel/TravelGoodWrapper" partnerLinkType="tns:TravelAgencySoapInterfaceLinkType" myRole="TravelAgencySoapInterfaceRole"/>
     </partnerLinks>
     <variables>
+        <variable name="Itinerary" messageType="ns0:getItineraryResponse"/>
         <variable name="createItineraryOut" messageType="ns0:createItineraryResponse"/>
         <variable name="getHotelsOut" messageType="ns0:getHotelsResponseTravelGood"/>
         <variable name="getHotelsIn" messageType="ns0:getHotelsTravelGood"/>
@@ -38,6 +39,12 @@
             <assign name="Assign1">
                 <copy>
                     <from>number(sxxf:getBPId())</from>
+                    <to>$Itinerary.itinerary/id</to>
+                </copy>
+            </assign>
+            <assign name="Assign6">
+                <copy>
+                    <from>$Itinerary.itinerary/id</from>
                     <to variable="createItineraryOut" part="return"/>
                 </copy>
             </assign>
