@@ -88,7 +88,6 @@ public class ItineraryRESTServiceTest {
                 .get(Itinerary.class);
 
         assertEquals(itinerary.getId(), 1);
-        assertEquals(itinerary.getBookings().iterator().next().getBookingStatus(), BookingStatus.CONFIRMED);
     }
 
     @Test(expected = UniformInterfaceException.class)
