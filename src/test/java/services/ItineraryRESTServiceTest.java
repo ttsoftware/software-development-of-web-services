@@ -8,7 +8,9 @@ import org.junit.Before;
 import org.junit.Test;
 
 import javax.ws.rs.core.MediaType;
+import java.util.Collection;
 import java.util.Date;
+import java.util.Iterator;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
@@ -233,7 +235,6 @@ public class ItineraryRESTServiceTest {
                 .put(Itinerary.class);
     }
 
-    /*
     @Test
     public void P1() {
         try {
@@ -268,19 +269,28 @@ public class ItineraryRESTServiceTest {
             changeRequest.setCardInformation(creditCard);
             changeRequest.setItinerary(itinerary);
 
-            resource = client.resource("http://localhost:8080/webservices/travelagency/itinerary/" + itineraryId + "/book");
+            resource = client.resource("http://localhost:8080/webservices/travelagency/itinerary/" + itineraryId + "/booking");
             boolean success = Boolean.valueOf(
                     resource
+                            .entity(flightBooking1)
                             .accept(MediaType.TEXT_PLAIN)
-                            .entity(changeRequest, MediaType.APPLICATION_XML)
                             .put(String.class)
             );
 
             assertTrue(success);
 
-            travelAgencyInterface.createBooking(itineraryId, flightBooking1);
+            resource = client.resource("http://localhost:8080/webservices/travelagency/hotels");
+            hotel.Hotel[] hotels = resource
+                    .queryParam("city", "Berlin")
+                    .queryParam("arrivalDateYear", "2016")
+                    .queryParam("arrivalDateMonth", "11")
+                    .queryParam("arrivalDateDay", "7")
+                    .queryParam("departureDateYear", "2016")
+                    .queryParam("departureDateMonth", "11")
+                    .queryParam("departureDateDay", "12")
+                    .accept(MediaType.APPLICATION_XML)
+                    .get(hotel.Hotel[].class);
 
-            hotel.Hotel[] hotels = travelAgencyInterface.getHotels("Berlin", new CustomDate(2016, 11, 7), new CustomDate(2016, 11, 12));
             hotel.Hotel hotel1 = hotels[0];
             Booking hotelBooking = new Booking();
             hotelBooking.setBookingNumber(hotel1.getBookingNumber());
@@ -289,9 +299,27 @@ public class ItineraryRESTServiceTest {
             hotelBooking.setPrice(hotel1.getPrice());
             hotelBooking.setDate(new Date(hotel1.getOpens()));
             hotelBooking.setItinerary(itinerary);
-            travelAgencyInterface.createBooking(itineraryId, hotelBooking);
 
-            flights = travelAgencyInterface.getFlights("Berlin", "London", new CustomDate(2016, 11, 12));
+            resource = client.resource("http://localhost:8080/webservices/travelagency/itinerary/" + itineraryId + "/booking");
+            success = Boolean.valueOf(
+                    resource
+                            .entity(hotelBooking)
+                            .accept(MediaType.TEXT_PLAIN)
+                            .put(String.class)
+            );
+
+            assertTrue(success);
+
+            resource = client.resource("http://localhost:8080/webservices/travelagency/flights");
+            flights = resource
+                    .queryParam("destination", "Berlin")
+                    .queryParam("from", "London")
+                    .queryParam("day", "12")
+                    .queryParam("month", "11")
+                    .queryParam("year", "2016")
+                    .accept(MediaType.APPLICATION_XML)
+                    .get(flight.FlightReservation[].class);
+
             flight = flights[0];
             Booking flightBooking2 = new Booking();
 
@@ -301,9 +329,26 @@ public class ItineraryRESTServiceTest {
             flightBooking2.setDate(new Date(flight.getFlight().getStart()));
             flightBooking2.setPrice(flight.getPrice());
             flightBooking2.setItinerary(itinerary);
-            travelAgencyInterface.createBooking(itineraryId, flightBooking2);
 
-            flights = travelAgencyInterface.getFlights("London", "Amsterdam", new CustomDate(2016, 11, 20));
+            resource = client.resource("http://localhost:8080/webservices/travelagency/itinerary/" + itineraryId + "/booking");
+            success = Boolean.valueOf(
+                    resource
+                            .entity(flightBooking2)
+                            .accept(MediaType.TEXT_PLAIN)
+                            .put(String.class)
+            );
+
+            assertTrue(success);
+
+            resource = client.resource("http://localhost:8080/webservices/travelagency/flights");
+            flights = resource
+                    .queryParam("destination", "London")
+                    .queryParam("from", "Amsterdam")
+                    .queryParam("day", "20")
+                    .queryParam("month", "11")
+                    .queryParam("year", "2016")
+                    .accept(MediaType.APPLICATION_XML)
+                    .get(flight.FlightReservation[].class);
             flight = flights[0];
             Booking flightBooking3 = new Booking();
 
@@ -313,42 +358,68 @@ public class ItineraryRESTServiceTest {
             flightBooking3.setDate(new Date(flight.getFlight().getStart()));
             flightBooking3.setPrice(flight.getPrice());
             flightBooking3.setItinerary(itinerary);
-            travelAgencyInterface.createBooking(itineraryId, flightBooking3);
 
-            Itinerary itineraryWithBookings = travelAgencyInterface.getItinerary(itineraryId);
+            resource = client.resource("http://localhost:8080/webservices/travelagency/itinerary/" + itineraryId + "/booking");
+            success = Boolean.valueOf(
+                    resource
+                            .entity(flightBooking3)
+                            .accept(MediaType.TEXT_PLAIN)
+                            .put(String.class)
+            );
+
+            assertTrue(success);
+
+            resource = client.resource("http://localhost:8080/webservices/travelagency/itinerary/" + itineraryId);
+            Itinerary itineraryWithBookings = resource
+                    .accept(MediaType.APPLICATION_XML)
+                    .get(Itinerary.class);
+
             Collection<Booking> bookings = itineraryWithBookings.getBookings();
 
             Iterator<Booking> iterator = bookings.iterator();
 
-            Assert.assertTrue(bookings.contains(flightBooking1));
-            Assert.assertTrue(bookings.contains(flightBooking2));
-            Assert.assertTrue(bookings.contains(flightBooking3));
-            Assert.assertTrue(bookings.contains(hotelBooking));
+            assertTrue(bookings.contains(flightBooking1));
+            assertTrue(bookings.contains(flightBooking2));
+            assertTrue(bookings.contains(flightBooking3));
+            assertTrue(bookings.contains(hotelBooking));
 
             while (iterator.hasNext()) {
                 Booking b = iterator.next();
-                Assert.assertEquals(b.getBookingStatus(), BookingStatus.UNCONFIRMMED);
+                assertEquals(b.getBookingStatus(), BookingStatus.UNCONFIRMMED);
             }
 
-            travelAgencyInterface.bookItinerarie(itineraryId, creditCard);
+            changeRequest = new ItineraryChangeRequest();
+            changeRequest.setCardInformation(creditCard);
+            changeRequest.setItinerary(itinerary);
 
+            resource = client.resource("http://localhost:8080/webservices/travelagency/itinerary/" + itineraryId + "/book");
+            success = Boolean.valueOf(
+                    resource
+                            .accept(MediaType.TEXT_PLAIN)
+                            .entity(changeRequest, MediaType.APPLICATION_XML)
+                            .put(String.class)
+            );
 
-            Itinerary itineraryWithBookingsConfirmed = travelAgencyInterface.getItinerary(itineraryId);
+            assertTrue(success);
+
+            resource = client.resource("http://localhost:8080/webservices/travelagency/itinerary/" + itineraryId);
+            Itinerary itineraryWithBookingsConfirmed = resource
+                    .accept(MediaType.APPLICATION_XML)
+                    .get(Itinerary.class);
+
             Collection<Booking> bookingsConfirmed = itineraryWithBookingsConfirmed.getBookings();
-
             Iterator<Booking> iterator2 = bookingsConfirmed.iterator();
 
             while (iterator2.hasNext()) {
                 Booking b = iterator2.next();
-                Assert.assertEquals(b.getBookingStatus(), BookingStatus.CONFIRMED);
+                assertEquals(b.getBookingStatus(), BookingStatus.CONFIRMED);
             }
-
-
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
+    /*
     @Test
     public void P2() {
         int itineraryId = 0;
