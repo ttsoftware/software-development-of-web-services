@@ -73,7 +73,7 @@ public class TravelAgencySoapServiceTest {
         try {
             int itineraryId = travelAgencyInterface.createItinerary();
             Itinerary itinerary = travelAgencyInterface.getItinerary(itineraryId);
-            flight.FlightReservation[] flight = travelAgencyInterface.getFlights("Copenhagen", "Berlin", new CustomDate(2016, 11, 7));
+            flight.FlightReservation[] flight = travelAgencyInterface.getFlights(-1,"Copenhagen", "Berlin", new CustomDate(2016, 11, 7));
             flight.FlightReservation flight1 = flight[0];
             Booking flightBooking1 = new Booking();
 
@@ -85,7 +85,7 @@ public class TravelAgencySoapServiceTest {
             flightBooking1.setItinerary(itinerary);
             travelAgencyInterface.createBooking(itineraryId, flightBooking1);
 
-            hotel.Hotel[] hotels = travelAgencyInterface.getHotels("Berlin", new CustomDate(2016, 11, 7), new CustomDate(2016, 11, 12));
+            hotel.Hotel[] hotels = travelAgencyInterface.getHotels(-1,"Berlin", new CustomDate(2016, 11, 7), new CustomDate(2016, 11, 12));
             hotel.Hotel hotel1 = hotels[0];
             Booking hotelBooking = new Booking();
             hotelBooking.setBookingNumber(hotel1.getBookingNumber());
@@ -96,7 +96,7 @@ public class TravelAgencySoapServiceTest {
             hotelBooking.setItinerary(itinerary);
             travelAgencyInterface.createBooking(itineraryId, hotelBooking);
 
-            flight = travelAgencyInterface.getFlights("Berlin", "London", new CustomDate(2016, 11, 12));
+            flight = travelAgencyInterface.getFlights(-1,"Berlin", "London", new CustomDate(2016, 11, 12));
             flight1 = flight[0];
             Booking flightBooking2 = new Booking();
 
@@ -108,7 +108,7 @@ public class TravelAgencySoapServiceTest {
             flightBooking2.setItinerary(itinerary);
             travelAgencyInterface.createBooking(itineraryId, flightBooking2);
 
-            flight = travelAgencyInterface.getFlights("London", "Amsterdam", new CustomDate(2016, 11, 20));
+            flight = travelAgencyInterface.getFlights(-1,"London", "Amsterdam", new CustomDate(2016, 11, 20));
             flight1 = flight[0];
             Booking flightBooking3 = new Booking();
 
@@ -160,7 +160,7 @@ public class TravelAgencySoapServiceTest {
         try {
             itineraryId = travelAgencyInterface.createItinerary();
             Itinerary itinerary = travelAgencyInterface.getItinerary(itineraryId);
-            flight.FlightReservation[] flight = travelAgencyInterface.getFlights("Copenhagen", "Berlin", new CustomDate(2016, 11, 7));
+            flight.FlightReservation[] flight = travelAgencyInterface.getFlights(-1,"Copenhagen", "Berlin", new CustomDate(2016, 11, 7));
             flight.FlightReservation flight1 = flight[0];
             Booking flightBooking1 = new Booking();
 
@@ -209,7 +209,7 @@ public class TravelAgencySoapServiceTest {
         try {
             itineraryId = travelAgencyInterface.createItinerary();
             Itinerary itinerary = travelAgencyInterface.getItinerary(itineraryId);
-            hotel.Hotel[] hotel = travelAgencyInterface.getHotels("Copenhagen", new CustomDate(2016, 11, 7), new CustomDate(2016, 11, 7));
+            hotel.Hotel[] hotel = travelAgencyInterface.getHotels(-1,"Copenhagen", new CustomDate(2016, 11, 7), new CustomDate(2016, 11, 7));
             //To expensive
             hotel.Hotel hotel1 = hotel[0];
 
@@ -224,7 +224,7 @@ public class TravelAgencySoapServiceTest {
             travelAgencyInterface.createBooking(itineraryId, hotelBooking);
 
 
-            flight.FlightReservation[] flight = travelAgencyInterface.getFlights("Berlin", "London", new CustomDate(2016, 11, 12));
+            flight.FlightReservation[] flight = travelAgencyInterface.getFlights(-1,"Berlin", "London", new CustomDate(2016, 11, 12));
             FlightReservation flight1 = flight[0];
             Booking flightBooking2 = new Booking();
 
@@ -236,7 +236,7 @@ public class TravelAgencySoapServiceTest {
             flightBooking2.setItinerary(itinerary);
             travelAgencyInterface.createBooking(itineraryId, flightBooking2);
 
-            flight = travelAgencyInterface.getFlights("London", "Amsterdam", new CustomDate(2016, 11, 20));
+            flight = travelAgencyInterface.getFlights(-1,"London", "Amsterdam", new CustomDate(2016, 11, 20));
             flight1 = flight[0];
             Booking flightBooking3 = new Booking();
 
@@ -287,7 +287,7 @@ public class TravelAgencySoapServiceTest {
         try {
             int itineraryId = travelAgencyInterface.createItinerary();
             Itinerary itinerary = travelAgencyInterface.getItinerary(itineraryId);
-            flight.FlightReservation[] flight = travelAgencyInterface.getFlights("Copenhagen", "Berlin", new CustomDate(2016, 11, 7));
+            flight.FlightReservation[] flight = travelAgencyInterface.getFlights(-1,"Copenhagen", "Berlin", new CustomDate(2016, 11, 7));
             flight.FlightReservation flight1 = flight[0];
             Booking flightBooking1 = new Booking();
 
@@ -299,7 +299,7 @@ public class TravelAgencySoapServiceTest {
             flightBooking1.setItinerary(itinerary);
             travelAgencyInterface.createBooking(itineraryId, flightBooking1);
 
-            hotel.Hotel[] hotels = travelAgencyInterface.getHotels("Berlin", new CustomDate(2016, 11, 7), new CustomDate(2016, 11, 12));
+            hotel.Hotel[] hotels = travelAgencyInterface.getHotels(-1,"Berlin", new CustomDate(2016, 11, 7), new CustomDate(2016, 11, 12));
             hotel.Hotel hotel1 = hotels[0];
             Booking hotelBooking = new Booking();
             hotelBooking.setBookingNumber(hotel1.getBookingNumber());
@@ -310,7 +310,7 @@ public class TravelAgencySoapServiceTest {
             hotelBooking.setItinerary(itinerary);
             travelAgencyInterface.createBooking(itineraryId, hotelBooking);
 
-            flight = travelAgencyInterface.getFlights("Berlin", "London", new CustomDate(2016, 11, 12));
+            flight = travelAgencyInterface.getFlights(-1,"Berlin", "London", new CustomDate(2016, 11, 12));
             flight1 = flight[0];
             Booking flightBooking2 = new Booking();
 
@@ -322,7 +322,7 @@ public class TravelAgencySoapServiceTest {
             flightBooking2.setItinerary(itinerary);
             travelAgencyInterface.createBooking(itineraryId, flightBooking2);
 
-            flight = travelAgencyInterface.getFlights("London", "Amsterdam", new CustomDate(2016, 11, 20));
+            flight = travelAgencyInterface.getFlights(-1,"London", "Amsterdam", new CustomDate(2016, 11, 20));
             flight1 = flight[0];
             Booking flightBooking3 = new Booking();
 
@@ -385,7 +385,7 @@ public class TravelAgencySoapServiceTest {
             itineraryId = travelAgencyInterface.createItinerary();
             Itinerary itinerary = travelAgencyInterface.getItinerary(itineraryId);
 
-            hotel.Hotel[] hotels = travelAgencyInterface.getHotels("Berlin", new CustomDate(2016, 11, 7), new CustomDate(2016, 11, 12));
+            hotel.Hotel[] hotels = travelAgencyInterface.getHotels(-1,"Berlin", new CustomDate(2016, 11, 7), new CustomDate(2016, 11, 12));
             hotel.Hotel hotel1 = hotels[0];
             Booking hotelBooking1 = new Booking();
             hotelBooking1.setBookingNumber(hotel1.getBookingNumber());
@@ -396,7 +396,7 @@ public class TravelAgencySoapServiceTest {
             hotelBooking1.setItinerary(itinerary);
             travelAgencyInterface.createBooking(itineraryId, hotelBooking1);
 
-            flight.FlightReservation[] flights = travelAgencyInterface.getFlights("Berlin", "Copenhagen", new CustomDate(2016, 11, 12));
+            flight.FlightReservation[] flights = travelAgencyInterface.getFlights(-1,"Berlin", "Copenhagen", new CustomDate(2016, 11, 12));
             flight.FlightReservation flight1 = flights[0];
             Booking flightBooking1 = new Booking();
 
@@ -408,7 +408,7 @@ public class TravelAgencySoapServiceTest {
             flightBooking1.setItinerary(itinerary);
             travelAgencyInterface.createBooking(itineraryId, flightBooking1);
 
-            hotels = travelAgencyInterface.getHotels("Copenhagen", new CustomDate(2016, 11, 7), new CustomDate(2016, 11, 7));
+            hotels = travelAgencyInterface.getHotels(-1,"Copenhagen", new CustomDate(2016, 11, 7), new CustomDate(2016, 11, 7));
             hotel.Hotel hotel2 = hotels[1];
             Booking hotelBooking2 = new Booking();
             hotelBooking2.setBookingNumber(hotel2.getBookingNumber());

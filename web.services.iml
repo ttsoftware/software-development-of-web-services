@@ -31,6 +31,9 @@
     <orderEntry type="library" name="Maven: com.sun.jersey:jersey-client:1.19.3" level="project" />
     <orderEntry type="library" name="Maven: com.sun.jersey:jersey-core:1.19.3" level="project" />
     <orderEntry type="library" name="Maven: javax.ws.rs:jsr311-api:1.1.1" level="project" />
+    <orderEntry type="library" name="Maven: com.sun.jersey:jersey-client:1.19.3" level="project" />
+    <orderEntry type="library" name="Maven: com.sun.jersey:jersey-core:1.19.3" level="project" />
+    <orderEntry type="library" name="Maven: javax.ws.rs:jsr311-api:1.1.1" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Maven: org.glassfish.metro:webservices-rt:2.3" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Maven: org.glassfish.metro:webservices-api:2.3" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Maven: javax.annotation:javax.annotation-api:1.2-b03" level="project" />

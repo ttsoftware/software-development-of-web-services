@@ -21,12 +21,12 @@ public class TravelAgencySoapService implements TravelAgencySoapInterface {
     private TravelAgencyService travelAgencyService = new TravelAgencyService();
 
     @Override
-    public flight.FlightReservation[] getFlights(String from, String destination, CustomDate date) {
+    public flight.FlightReservation[] getFlights(int id, String from, String destination, CustomDate date) {
         return travelAgencyService.getFlights(from, destination, date);
     }
 
     @Override
-    public hotel.Hotel[] getHotels(String city, CustomDate arrivalDate, CustomDate departureDate) {
+    public hotel.Hotel[] getHotels(int id, String city, CustomDate arrivalDate, CustomDate departureDate) {
         return travelAgencyService.getHotels(city, arrivalDate, departureDate);
     }
 

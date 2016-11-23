@@ -22,13 +22,16 @@ import javax.jws.soap.SOAPBinding;
 public interface TravelAgencySoapInterface {
     @WebMethod(operationName = "getFlights")
     @WebResult(name="FlightReservation")
-    flight.FlightReservation[] getFlights(@WebParam(name = "from") String from,
+    flight.FlightReservation[] getFlights(
+                                    @WebParam(name = "id") int id,
+                                    @WebParam(name = "from") String from,
                                    @WebParam(name = "destination") String destination,
                                    @WebParam(name = "date") CustomDate date);
 
     @WebMethod(operationName = "getHotels")
     @WebResult(name="hotels")
-    hotel.Hotel[] getHotels(@WebParam(name = "city") String city,
+    hotel.Hotel[] getHotels(@WebParam(name = "id") int id,
+                        @WebParam(name = "city") String city,
                       @WebParam(name = "arrivalDate") CustomDate arrivalDate,
                       @WebParam(name = "departureDate") CustomDate departureDate);
     @WebMethod(operationName = "createItinerary")
