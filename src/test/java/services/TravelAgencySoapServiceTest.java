@@ -49,7 +49,17 @@ public class TravelAgencySoapServiceTest {
             int id = travelAgencyInterface.createItinerary();
             Itinerary itinerary = travelAgencyInterface.getItinerary(id);
             Assert.assertNotNull(itinerary);
-            Assert.assertEquals(1, itinerary.getId());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+    public void getFlightsTest() {
+        try {
+            FlightReservation[] flightReservations = travelAgencyInterface.getFlights("Copenhagen", "Berlin", new CustomDate(2016, 11, 7));
+
+            Assert.assertNotNull(flightReservations);
         } catch (Exception e) {
             e.printStackTrace();
         }

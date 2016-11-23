@@ -75,22 +75,24 @@
                 </correlations>
             </reply>
         </sequence>
-        <sequence name="Sequence9">
-            <receive name="Receive6" partnerLink="TravelGood" operation="getItinerary" portType="ns0:TravelAgencySoapInterface" createInstance="no" variable="getItinerary">
-                <correlations>
-                    <correlation set="wzrd_set_Reply1_Receive6" initiate="no"/>
-                </correlations>
-            </receive>
-            <assign name="Assign11">
-                <copy>
-                    <from variable="Itinerary" part="itinerary"/>
-                    <to variable="getItineraryResponse" part="itinerary"/>
-                </copy>
-            </assign>
-            <reply name="Reply5" partnerLink="TravelGood" operation="getItinerary" portType="ns0:TravelAgencySoapInterface" variable="getItineraryResponse"/>
-        </sequence>
+        <scope name="Scope2">
+            <sequence name="Sequence9">
+                <receive name="Receive6" partnerLink="TravelGood" operation="getItinerary" portType="ns0:TravelAgencySoapInterface" createInstance="no" variable="getItinerary">
+                        <correlations>
+                                <correlation set="wzrd_set_Reply1_Receive6" initiate="no"/>
+                            </correlations>
+                    </receive>
+                    <assign name="Assign11">
+                        <copy>
+                                <from variable="Itinerary" part="itinerary"/>
+                                    <to variable="getItineraryResponse" part="itinerary"/>
+                            </copy>
+                    </assign>
+                    <reply name="Reply5" partnerLink="TravelGood" operation="getItinerary" portType="ns0:TravelAgencySoapInterface" variable="getItineraryResponse"/>
+            </sequence>
+        </scope>
         <sequence name="Sequence2">
-            <receive name="Receive2" partnerLink="TravelGood" operation="getHotels" portType="ns0:TravelAgencySoapInterface" createInstance="no" variable="getHotelsIn"/>
+            <receive name="Receive2" partnerLink="TravelGood" operation="getHotels" portType="ns0:TravelAgencySoapInterface" createInstance="yes" variable="getHotelsIn"/>
             <assign name="Assign2">
                 <copy>
                     <from variable="getHotelsIn" part="city"/>
@@ -115,7 +117,7 @@
             <reply name="Reply2" partnerLink="TravelGood" operation="getHotels" portType="ns0:TravelAgencySoapInterface" variable="getHotelsOut"/>
         </sequence>
         <sequence name="Sequence3">
-            <receive name="Receive3" partnerLink="TravelGood" operation="getFlights" portType="ns0:TravelAgencySoapInterface" createInstance="no" variable="getFlightsIn"/>
+            <receive name="Receive3" partnerLink="TravelGood" operation="getFlights" portType="ns0:TravelAgencySoapInterface" createInstance="yes" variable="getFlightsIn"/>
             <assign name="Assign3">
                 <copy>
                     <from variable="getFlightsIn" part="from"/>
