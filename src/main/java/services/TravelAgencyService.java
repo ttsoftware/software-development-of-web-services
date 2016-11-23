@@ -19,7 +19,7 @@ public class TravelAgencyService {
 
     public flight.FlightReservation[] getFlights(String from, String destination, CustomDate date) {
         flight.AirlineInterface port = getFlightServicePort();
-        flight.PenisDate customDate = new flight.PenisDate();
+        flight.CustomDate customDate = new flight.CustomDate();
         customDate.setDay(date.getDay());
         customDate.setMonth(date.getMonth());
         customDate.setYear(date.getYear());

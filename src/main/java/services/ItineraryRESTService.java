@@ -1,5 +1,6 @@
 package services;
 
+import models.Booking;
 import models.CustomDate;
 import models.Itinerary;
 import models.ItineraryChangeRequest;
@@ -77,10 +78,19 @@ public class ItineraryRESTService {
     }
 
     @PUT
+    @Path("/itinerary/{id}/booking")
+    @Consumes(MediaType.APPLICATION_XML)
+    @Produces(MediaType.TEXT_PLAIN)
+    public Boolean create(@PathParam("id") int id,
+                          @XmlElement Booking booking) {
+        return travelAgencyService.createBooking(id, booking);
+    }
+
+    @PUT
     @Path("/itinerary/{id}/book")
     @Consumes({MediaType.APPLICATION_XML})
-    @Produces(MediaType.APPLICATION_XML)
-    public boolean book(@XmlElement ItineraryChangeRequest changeRequest) {
+    @Produces(MediaType.TEXT_PLAIN)
+    public Boolean book(@XmlElement ItineraryChangeRequest changeRequest) {
         try {
             return travelAgencyService.bookItinerarie(
                     changeRequest.getItinerary().getId(),

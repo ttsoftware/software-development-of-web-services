@@ -5,14 +5,12 @@ import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 import models.dao.BookingDaoImpl;
 
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlTransient;
-import javax.xml.bind.annotation.XmlType;
+import javax.xml.bind.annotation.*;
 import java.util.Date;
 
 @XmlType(name = "Booking")
 @XmlAccessorType(XmlAccessType.FIELD)
+@XmlRootElement(name = "Booking")
 @DatabaseTable(tableName = "Booking", daoClass = BookingDaoImpl.class)
 public class Booking {
 
