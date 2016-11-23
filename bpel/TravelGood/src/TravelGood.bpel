@@ -46,10 +46,11 @@
         <variable name="bookHotelServiceOut" messageType="ns0:bookHotelResponse"/>
         <variable name="bookFlightServiceIn" messageType="ns0:bookFlight"/>
         <variable name="bookFlightServiceOut" messageType="ns0:bookFlightResponse"/>
+        <variable name="createItneraryIn" messageType="ns0:createItinerary"/>
     </variables>
     <sequence>
         <sequence name="Sequence1">
-            <receive name="Receive1" createInstance="yes" partnerLink="TravelGood" operation="createItinerary" xmlns:tns="http://j2ee.netbeans.org/wsdl/TravelGood/src/travelGood" portType="ns0:TravelAgencySoapInterface"/>
+            <receive name="Receive1" createInstance="yes" partnerLink="TravelGood" operation="createItinerary" xmlns:tns="http://j2ee.netbeans.org/wsdl/TravelGood/src/travelGood" portType="ns0:TravelAgencySoapInterface" variable="createItneraryIn"/>
             <assign name="Assign1">
                 <copy>
                     <from>number(sxxf:getBPId())</from>

@@ -42,7 +42,7 @@ public interface AirlineInterface {
         @WebParam(name = "destination", partName = "destination")
         String destination,
         @WebParam(name = "date", partName = "date")
-        PenisDate date);
+        CustomDate date);
 
     /**
      * 

@@ -15,9 +15,7 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.Iterator;
 
-/**
- * Created by troels on 11/15/16.
- */
+
 public class TravelAgencySoapServiceTest {
 
     private TravelAgencySoapInterface travelAgencyInterface;
@@ -26,7 +24,7 @@ public class TravelAgencySoapServiceTest {
     @Before
     public void setup() {
         try {
-            URL url = new URL("http://localhost:8080/webservices/TravelAgencySoapService?wsdl");
+            URL url = new URL("http://sterling:8080/webservices/TravelAgencySoapService?wsdl");
             QName qname = new QName("http://services/", "TravelAgencySoapService");
             Service service = Service.create(url, qname);
             travelAgencyInterface = service.getPort(TravelAgencySoapInterface.class);
@@ -57,7 +55,7 @@ public class TravelAgencySoapServiceTest {
     }
 
     @Test
-    public  void getItinerariesTest(){
+    public void getItinerariesTest() {
         try {
             Itinerary[] itinerary = travelAgencyInterface.getItineraries();
             Assert.assertNotNull(itinerary);
@@ -66,9 +64,8 @@ public class TravelAgencySoapServiceTest {
         }
     }
 
-
     @Test
-    public void P1(){
+    public void P1() {
         try {
             int itineraryId = travelAgencyInterface.createItinerary();
             Itinerary itinerary = travelAgencyInterface.getItinerary(itineraryId);
@@ -129,9 +126,9 @@ public class TravelAgencySoapServiceTest {
             Assert.assertTrue(bookings.contains(flightBooking3));
             Assert.assertTrue(bookings.contains(hotelBooking));
 
-            while(iterator.hasNext()){
-               Booking b = iterator.next();
-               Assert.assertEquals(b.getBookingStatus(), BookingStatus.UNCONFIRMMED);
+            while (iterator.hasNext()) {
+                Booking b = iterator.next();
+                Assert.assertEquals(b.getBookingStatus(), BookingStatus.UNCONFIRMMED);
             }
 
             travelAgencyInterface.bookItinerarie(itineraryId, creditCard);
@@ -142,7 +139,7 @@ public class TravelAgencySoapServiceTest {
 
             Iterator<Booking> iterator2 = bookingsConfirmed.iterator();
 
-            while(iterator2.hasNext()){
+            while (iterator2.hasNext()) {
                 Booking b = iterator2.next();
                 Assert.assertEquals(b.getBookingStatus(), BookingStatus.CONFIRMED);
             }
@@ -154,7 +151,7 @@ public class TravelAgencySoapServiceTest {
     }
 
     @Test
-    public void P2(){
+    public void P2() {
         int itineraryId = 0;
         try {
             itineraryId = travelAgencyInterface.createItinerary();
@@ -179,7 +176,7 @@ public class TravelAgencySoapServiceTest {
 
             Assert.assertTrue(bookings.contains(flightBooking1));
 
-            while(iterator.hasNext()){
+            while (iterator.hasNext()) {
                 Booking b = iterator.next();
                 Assert.assertEquals(b.getBookingStatus(), BookingStatus.UNCONFIRMMED);
             }
@@ -191,21 +188,19 @@ public class TravelAgencySoapServiceTest {
 
             Iterator<Booking> iterator2 = bookingsConfirmed.iterator();
 
-            while(iterator2.hasNext()){
+            while (iterator2.hasNext()) {
                 Booking b = iterator2.next();
                 Assert.assertEquals(b.getBookingStatus(), BookingStatus.CANCELLED);
             }
 
-
         } catch (Exception e) {
             e.printStackTrace();
         }
-
     }
 
 
     @Test
-    public void B(){
+    public void B() {
         int itineraryId = 0;
         try {
             itineraryId = travelAgencyInterface.createItinerary();
@@ -254,16 +249,16 @@ public class TravelAgencySoapServiceTest {
 
             Iterator<Booking> iterator = bookings.iterator();
 
-            while(iterator.hasNext()){
+            while (iterator.hasNext()) {
                 Booking b = iterator.next();
                 Assert.assertEquals(b.getBookingStatus(), BookingStatus.UNCONFIRMMED);
             }
 
-            try{
+            try {
                 travelAgencyInterface.bookItinerarie(itineraryId, creditCard);
-            }catch (BookingFaultException e){
+            } catch (BookingFaultException e) {
                 System.out.println("Exception thrown");
-            }finally {
+            } finally {
                 Itinerary itineraryWithBookingsConfirmed = travelAgencyInterface.getItinerary(itineraryId);
                 Collection<Booking> bookingsConfirmed = itineraryWithBookingsConfirmed.getBookings();
 
@@ -278,16 +273,13 @@ public class TravelAgencySoapServiceTest {
                     }
                 }
             }
-
-
         } catch (Exception e) {
             e.printStackTrace();
         }
-
     }
 
     @Test
-    public void C1(){
+    public void C1() {
         try {
             int itineraryId = travelAgencyInterface.createItinerary();
             Itinerary itinerary = travelAgencyInterface.getItinerary(itineraryId);
@@ -348,34 +340,31 @@ public class TravelAgencySoapServiceTest {
             Assert.assertTrue(bookings.contains(flightBooking3));
             Assert.assertTrue(bookings.contains(hotelBooking));
 
-            while(iterator.hasNext()){
+            while (iterator.hasNext()) {
                 Booking b = iterator.next();
                 Assert.assertEquals(b.getBookingStatus(), BookingStatus.UNCONFIRMMED);
             }
 
             travelAgencyInterface.bookItinerarie(itineraryId, creditCard);
 
-
             Itinerary itineraryWithBookingsConfirmed = travelAgencyInterface.getItinerary(itineraryId);
             Collection<Booking> bookingsConfirmed = itineraryWithBookingsConfirmed.getBookings();
 
             Iterator<Booking> iterator2 = bookingsConfirmed.iterator();
 
-            while(iterator2.hasNext()){
+            while (iterator2.hasNext()) {
                 Booking b = iterator2.next();
                 Assert.assertEquals(b.getBookingStatus(), BookingStatus.CONFIRMED);
             }
 
-
             travelAgencyInterface.cancelItinerarie(itineraryId, creditCard);
-
 
             Itinerary itineraryWithBookingsCancelled = travelAgencyInterface.getItinerary(itineraryId);
             Collection<Booking> bookingsCancelled = itineraryWithBookingsCancelled.getBookings();
 
             Iterator<Booking> iterator3 = bookingsCancelled.iterator();
 
-            while(iterator3.hasNext()){
+            while (iterator3.hasNext()) {
                 Booking b = iterator3.next();
                 Assert.assertEquals(b.getBookingStatus(), BookingStatus.CANCELLED);
             }
@@ -386,8 +375,8 @@ public class TravelAgencySoapServiceTest {
     }
 
     @Test
-    public void C2(){
-        try{
+    public void C2() {
+        try {
             int itineraryId = travelAgencyInterface.createItinerary();
             Itinerary itinerary = travelAgencyInterface.getItinerary(itineraryId);
             flight.FlightReservation[] flight = travelAgencyInterface.getFlights("Copenhagen", "Berlin", new CustomDate(2016, 11, 7));
@@ -442,7 +431,7 @@ public class TravelAgencySoapServiceTest {
 
             Iterator<Booking> iterator = bookings.iterator();
 
-            while(iterator.hasNext()){
+            while (iterator.hasNext()) {
                 Booking b = iterator.next();
                 Assert.assertEquals(b.getBookingStatus(), BookingStatus.UNCONFIRMMED);
             }
@@ -454,18 +443,15 @@ public class TravelAgencySoapServiceTest {
 
             Iterator<Booking> iterator2 = bookingsBooked.iterator();
 
-            while(iterator2.hasNext()){
+            while (iterator2.hasNext()) {
                 Booking b = iterator.next();
                 Assert.assertEquals(b.getBookingStatus(), BookingStatus.CONFIRMED);
             }
 
             travelAgencyInterface.cancelItinerarie(itineraryId, creditCard);
 
-
-        }catch (Exception e){
+        } catch (Exception e) {
 
         }
     }
-
-
 }

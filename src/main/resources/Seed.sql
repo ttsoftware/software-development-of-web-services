@@ -8,11 +8,11 @@ DROP TABLE IF EXISTS Itinerary;
 
 CREATE TABLE Flight (
   id                 INTEGER PRIMARY KEY AUTOINCREMENT,
-  startAirport       VARCHAR(20)  NOT NULL,
-  destinationAirport VARCHAR(20)  NOT NULL,
-  carrier            VARCHAR(20)  NOT NULL,
-  start              BIGINT           NOT NULL,
-  end                BIGINT           NOT NULL
+  startAirport       VARCHAR(20) NOT NULL,
+  destinationAirport VARCHAR(20) NOT NULL,
+  carrier            VARCHAR(20) NOT NULL,
+  start              BIGINT      NOT NULL,
+  end                BIGINT      NOT NULL
 );
 
 CREATE TABLE FlightReservation (
@@ -29,7 +29,7 @@ CREATE TABLE Hotel (
   name                VARCHAR(100) UNIQUE NOT NULL,
   city                VARCHAR(100)        DEFAULT NULL,
   bookingNumber       VARCHAR(20) UNIQUE  NOT NULL,
-  creditCardGuarantee TINYINT             DEFAULT NULL,
+  creditCardGuarantee TINYINT             DEFAULT 0,
   price               BIGINT              DEFAULT NULL,
   opens               BIGINT              DEFAULT NULL,
   closes              BIGINT              DEFAULT NULL
@@ -37,10 +37,10 @@ CREATE TABLE Hotel (
 
 CREATE TABLE CreditCardInfoType (
   id              INTEGER PRIMARY KEY AUTOINCREMENT,
-  name            VARCHAR(20) NOT NULL,
+  name            VARCHAR(20)        NOT NULL,
   number          VARCHAR(50) UNIQUE NOT NULL,
-  expirationMonth INT         NOT NULL,
-  expirationYear  INT         NOT NULL
+  expirationMonth INT                NOT NULL,
+  expirationYear  INT                NOT NULL
 );
 
 CREATE TABLE HotelReservation (
@@ -69,8 +69,8 @@ CREATE TABLE Itinerary (
 
 INSERT INTO Itinerary (id) VALUES (1);
 
-INSERT INTO CreditCardInfoType (name, number, expirationMonth, expirationYear) VALUES ("Tobiasen Inge", "50408823", 9, 10);
-
+INSERT INTO CreditCardInfoType (name, number, expirationMonth, expirationYear)
+VALUES ("Tobiasen Inge", "50408823", 9, 10);
 
 --
 INSERT INTO Hotel (name, city, bookingNumber, price, opens, closes)

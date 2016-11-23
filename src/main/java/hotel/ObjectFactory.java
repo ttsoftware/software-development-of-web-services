@@ -37,14 +37,6 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link CreditCardFaultType }
-     * 
-     */
-    public CreditCardFaultType createCreditCardFaultType() {
-        return new CreditCardFaultType();
-    }
-
-    /**
      * Create an instance of {@link BookingNumberException }
      * 
      */
@@ -90,6 +82,14 @@ public class ObjectFactory {
      */
     public HotelBookingRequest createHotelBookingRequest() {
         return new HotelBookingRequest();
+    }
+
+    /**
+     * Create an instance of {@link CreditCardFaultType }
+     * 
+     */
+    public CreditCardFaultType createCreditCardFaultType() {
+        return new CreditCardFaultType();
     }
 
     /**

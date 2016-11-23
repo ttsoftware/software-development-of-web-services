@@ -25,8 +25,9 @@ import javax.xml.namespace.QName;
 public class ObjectFactory {
 
     private final static QName _BookingNumberException_QNAME = new QName("http://services/", "BookingNumberException");
-    private final static QName _PenisDate_QNAME = new QName("http://services/", "CustomDate");
+    private final static QName _CustomDate_QNAME = new QName("http://services/", "CustomDate");
     private final static QName _FlightReservation_QNAME = new QName("http://services/", "FlightReservation");
+    private final static QName _Flight_QNAME = new QName("http://services/", "Flight");
     private final static QName _CreditCardFault_QNAME = new QName("http://fastmoney.imm.dtu.dk", "CreditCardFault");
 
     /**
@@ -53,11 +54,11 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link PenisDate }
+     * Create an instance of {@link Flight }
      * 
      */
-    public PenisDate createPenisDate() {
-        return new PenisDate();
+    public Flight createFlight() {
+        return new Flight();
     }
 
     /**
@@ -69,11 +70,11 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link Flight }
+     * Create an instance of {@link CustomDate }
      * 
      */
-    public Flight createFlight() {
-        return new Flight();
+    public CustomDate createCustomDate() {
+        return new CustomDate();
     }
 
     /**
@@ -110,12 +111,12 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link PenisDate }{@code >}}
+     * Create an instance of {@link JAXBElement }{@code <}{@link CustomDate }{@code >}}
      * 
      */
     @XmlElementDecl(namespace = "http://services/", name = "CustomDate")
-    public JAXBElement<PenisDate> createPenisDate(PenisDate value) {
-        return new JAXBElement<PenisDate>(_PenisDate_QNAME, PenisDate.class, null, value);
+    public JAXBElement<CustomDate> createCustomDate(CustomDate value) {
+        return new JAXBElement<CustomDate>(_CustomDate_QNAME, CustomDate.class, null, value);
     }
 
     /**
@@ -125,6 +126,15 @@ public class ObjectFactory {
     @XmlElementDecl(namespace = "http://services/", name = "FlightReservation")
     public JAXBElement<FlightReservation> createFlightReservation(FlightReservation value) {
         return new JAXBElement<FlightReservation>(_FlightReservation_QNAME, FlightReservation.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link Flight }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://services/", name = "Flight")
+    public JAXBElement<Flight> createFlight(Flight value) {
+        return new JAXBElement<Flight>(_Flight_QNAME, Flight.class, null, value);
     }
 
     /**
