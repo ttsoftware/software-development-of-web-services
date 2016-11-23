@@ -596,7 +596,7 @@ public class TravelAgencyRESTServiceTest {
             createBooking(itineraryId, flightBooking1);
 
             hotels = hotels("Copenhagen", "2016", "11", "7", "2016", "11", "7");
-            hotel.Hotel hotel2 = hotels[0];
+            hotel.Hotel hotel2 = hotels[1];
             Booking hotelBooking2 = new Booking();
             hotelBooking2.setBookingNumber(hotel2.getBookingNumber());
             hotelBooking2.setBookingStatus(BookingStatus.UNCONFIRMMED);

@@ -77,8 +77,8 @@ INSERT INTO Hotel (name, city, bookingNumber, price, opens, closes)
 VALUES ("Slumpen", "Copenhagen", "2451", 50.00, 1482706800000, 1483138800000);
 
 -- Flights 2016-11-7 1478473200000
-INSERT INTO Hotel (name, city, bookingNumber, price, opens, closes)
-VALUES ("D'Angleterre", "Copenhagen", "2454", 1000.00, 1478473200000, 1478473200000);
+INSERT INTO Hotel (name, city, bookingNumber, price, opens, closes, creditCardGuarantee)
+VALUES ("D'Angleterre", "Copenhagen", "2454", 1000.00, 1478473200000, 1478473200000, 1);
 INSERT INTO Hotel (name, city, bookingNumber, price, opens, closes)
 VALUES ("Hotel Awesome", "Copenhagen", "2457", 500.00, 1478473200000, 1478473200000);
 

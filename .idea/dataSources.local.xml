@@ -2,8 +2,8 @@
 <project version="4">
   <component name="dataSourceStorageLocal">
     <data-source name="/var/www/db/travelagency.db" uuid="ac2cb5a7-05ae-4ee3-a55d-2d95f7e29c87">
-      <database-info product="" version="" jdbc-version="" driver-name="" driver-version="" />
-      <secret-storage>memory</secret-storage>
+      <secret-storage>master_key</secret-storage>
+      <auth-required>false</auth-required>
     </data-source>
   </component>
 </project>
