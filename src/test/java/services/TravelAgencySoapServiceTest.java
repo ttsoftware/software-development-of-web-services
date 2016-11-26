@@ -1,6 +1,7 @@
 package services;
 
 import flight.FlightReservation;
+import hotel.HotelArray;
 import models.*;
 import org.junit.Assert;
 import org.junit.Before;
@@ -51,6 +52,7 @@ public class TravelAgencySoapServiceTest {
     public void getItineraryTest() {
         try {
             int id = travelAgencyInterface.createItinerary();
+            System.out.print(id);
             Itinerary itinerary = travelAgencyInterface.getItinerary(id);
             Assert.assertNotNull(itinerary);
         } catch (Exception e) {
@@ -59,11 +61,43 @@ public class TravelAgencySoapServiceTest {
     }
 
     @Test
+    public void getHotelsWithItineraryTest() {
+        try {
+            int id = travelAgencyInterface.createItinerary();
+            hotel.Hotel[] hotels = travelAgencyInterface.getHotels(42,"Berlin", new CustomDate(2016, 11, 7), new CustomDate(2016, 11, 12));
+            Assert.assertNotNull(hotels);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+    public void getFlightsWithItineraryTest() {
+        try {
+            int id = travelAgencyInterface.createItinerary();
+            FlightReservation[] flightReservations = travelAgencyInterface.getFlights(id, "Copenhagen", "Berlin", new CustomDate(2016, 11, 7));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    @Test
     public void getFlightsTest() {
         try {
             FlightReservation[] flightReservations = travelAgencyInterface.getFlights(1, "Copenhagen", "Berlin", new CustomDate(2016, 11, 7));
-
             Assert.assertNotNull(flightReservations);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+    public void getHotelsTest() {
+        try {
+            hotel.Hotel[] hotels = travelAgencyInterface.getHotels(42,"Berlin", new CustomDate(2016, 11, 7), new CustomDate(2016, 11, 12));
+            System.out.print(hotels.length);
+            Assert.assertNotNull(hotels);
         } catch (Exception e) {
             e.printStackTrace();
         }
