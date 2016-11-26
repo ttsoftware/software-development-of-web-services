@@ -20,16 +20,16 @@ import javax.jws.soap.SOAPBinding;
 @WebService
 @SOAPBinding(style = SOAPBinding.Style.RPC, use = SOAPBinding.Use.LITERAL)
 public interface TravelAgencySoapInterface {
-    @WebMethod(operationName = "getFlights")
-    @WebResult(name="FlightReservation")
+    @WebMethod(operationName = "getFlightsTG")
+    @WebResult(name="flightsTG")
     flight.FlightReservation[] getFlights(
                                     @WebParam(name = "id") int id,
                                     @WebParam(name = "from") String from,
                                    @WebParam(name = "destination") String destination,
                                    @WebParam(name = "date") CustomDate date);
 
-    @WebMethod(operationName = "getHotels")
-    @WebResult(name="hotels")
+    @WebMethod(operationName = "getHotelsTG")
+    @WebResult(name="hotelsTG")
     hotel.Hotel[] getHotels(@WebParam(name = "id") int id,
                         @WebParam(name = "city") String city,
                       @WebParam(name = "arrivalDate") CustomDate arrivalDate,
