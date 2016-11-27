@@ -96,7 +96,7 @@ public class TravelAgencyRESTServiceTest {
     @Test
     public void showAllTest() {
 
-        resource = client.resource("http://localhost:8080/webservices/travelagency/itinerary");
+        resource = client.resource("http://localhost:8282/webservices/travelagency/itinerary");
         Itinerary[] itineraries = resource
                 .accept(MediaType.APPLICATION_XML)
                 .get(Itinerary[].class);

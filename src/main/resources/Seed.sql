@@ -68,6 +68,8 @@ CREATE TABLE Itinerary (
 );
 
 INSERT INTO Itinerary (id) VALUES (1);
+INSERT INTO Itinerary (id) VALUES (2);
+INSERT INTO Itinerary (id) VALUES (3);
 
 INSERT INTO CreditCardInfoType (name, number, expirationMonth, expirationYear)
 VALUES ("Tobiasen Inge", "50408823", 9, 10);
