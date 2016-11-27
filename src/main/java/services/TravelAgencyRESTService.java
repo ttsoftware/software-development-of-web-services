@@ -55,6 +55,13 @@ public class TravelAgencyRESTService {
     }
 
     @GET
+    @Path("/itinerary")
+    @Produces(MediaType.APPLICATION_XML)
+    public Itinerary[] showAll() {
+        return travelAgencyService.getItineraries();
+    }
+
+    @GET
     @Path("/itinerary/{id}")
     @Produces(MediaType.APPLICATION_XML)
     public Itinerary show(@PathParam("id") int id) throws ItineraryDoesNotExistException {
