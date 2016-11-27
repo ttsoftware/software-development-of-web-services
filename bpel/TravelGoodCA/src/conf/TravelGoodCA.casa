@@ -9,24 +9,24 @@
         <endpoint display-name="HotelService" endpoint-name="HotelInterfaceRole_partnerRole" file-path="TravelGood.bpel" interface-name="ns1:HotelInterface" name="endpoint6" process-name="TravelGood" service-name="ns2:HotelService"/>
     </endpoints>
     <service-units>
-        <service-engine-service-unit artifacts-zip="TravelGood.jar" component-name="sun-bpel-engine" defined="true" description="Represents this Service Unit" internal="true" name="TravelGoodCA-TravelGood" unit-name="TravelGood" unknown="false" x="148" y="97">
+        <service-engine-service-unit artifacts-zip="TravelGood.jar" component-name="sun-bpel-engine" defined="true" description="Represents this Service Unit" internal="true" name="TravelGoodCA-TravelGood" unit-name="TravelGood" unknown="false" x="236" y="271">
             <provides endpoint="endpoint4"/>
             <consumes endpoint="endpoint5"/>
             <consumes endpoint="endpoint6"/>
         </service-engine-service-unit>
         <binding-component-service-unit artifacts-zip="sun-http-binding.jar" component-name="sun-http-binding" description="Represents this Service Unit" name="TravelGoodCA-sun-http-binding" unit-name="sun-http-binding">
             <ports>
-                <port x="67" y="197">
+                <port state="deleted" x="67" y="197">
                     <link xlink:href="../jbiServiceUnits/TravelGood/AirlineService.wsdl#xpointer(/definitions/service[@name='AirlineService']/port[@name='AirlineServicePort'])" xlink:type="simple"/>
                     <consumes endpoint="endpoint1"/>
                     <provides endpoint="endpoint1"/>
                 </port>
-                <port x="67" y="117">
+                <port state="deleted" x="67" y="117">
                     <link xlink:href="../jbiServiceUnits/TravelGood/TravelAgencySoapService.wsdl#xpointer(/definitions/service[@name='TravelAgencySoapService']/port[@name='TravelAgencySoapServicePort'])" xlink:type="simple"/>
                     <consumes endpoint="endpoint3"/>
                     <provides endpoint="endpoint3"/>
                 </port>
-                <port x="67" y="37">
+                <port state="deleted" x="67" y="37">
                     <link xlink:href="../jbiServiceUnits/TravelGood/HotelService.wsdl#xpointer(/definitions/service[@name='HotelService']/port[@name='HotelServicePort'])" xlink:type="simple"/>
                     <consumes endpoint="endpoint2"/>
                     <provides endpoint="endpoint2"/>

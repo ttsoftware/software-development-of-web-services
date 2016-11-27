@@ -52,7 +52,6 @@ public class TravelAgencySoapServiceTest {
     public void getItineraryTest() {
         try {
             int id = travelAgencyInterface.createItinerary();
-            System.out.print(id);
             Itinerary itinerary = travelAgencyInterface.getItinerary(id);
             Assert.assertNotNull(itinerary);
         } catch (Exception e) {
@@ -64,7 +63,7 @@ public class TravelAgencySoapServiceTest {
     public void getHotelsWithItineraryTest() {
         try {
             int id = travelAgencyInterface.createItinerary();
-            hotel.Hotel[] hotels = travelAgencyInterface.getHotels(42,"Berlin", new CustomDate(2016, 11, 7), new CustomDate(2016, 11, 12));
+            hotel.Hotel[] hotels = travelAgencyInterface.getHotels(id,"Berlin", new CustomDate(2016, 11, 7), new CustomDate(2016, 11, 12));
             Assert.assertNotNull(hotels);
         } catch (Exception e) {
             e.printStackTrace();
@@ -76,12 +75,70 @@ public class TravelAgencySoapServiceTest {
         try {
             int id = travelAgencyInterface.createItinerary();
             FlightReservation[] flightReservations = travelAgencyInterface.getFlights(id, "Copenhagen", "Berlin", new CustomDate(2016, 11, 7));
+            System.out.println(flightReservations[0]);
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
+    @Test
+    public void createBookingWithItineraryTest() {
+        try {
+            int itineraryId = travelAgencyInterface.createItinerary();
 
+            hotel.Hotel[] hotels = travelAgencyInterface.getHotels(1,"Berlin", new CustomDate(2016, 11, 7), new CustomDate(2016, 11, 12));
+            hotel.Hotel hotel1 = hotels[0];
+            Booking hotelBooking = new Booking();
+            hotelBooking.setBookingNumber(hotel1.getBookingNumber());
+            hotelBooking.setBookingStatus(BookingStatus.UNCONFIRMMED);
+            hotelBooking.setBookingType(BookingType.HOTEL);
+            hotelBooking.setPrice(hotel1.getPrice());
+            hotelBooking.setDate(new Date(hotel1.getOpens()));
+
+            flight.FlightReservation[] flight = travelAgencyInterface.getFlights(itineraryId,"Copenhagen", "Berlin", new CustomDate(2016, 11, 7));
+            flight.FlightReservation flight1 = flight[0];
+            Booking flightBooking1 = new Booking();
+            flightBooking1.setBookingNumber(flight1.getBookingNumber());
+            flightBooking1.setBookingStatus(BookingStatus.UNCONFIRMMED);
+            flightBooking1.setBookingType(BookingType.FLIGHT);
+            flightBooking1.setDate(new Date(flight1.getFlight().getStart()));
+            flightBooking1.setPrice(flight1.getPrice());
+
+            // Create Flight Booking
+            travelAgencyInterface.createBooking(itineraryId, flightBooking1);//            Assert.assertTrue(createBooking2);
+
+            // Create Hotel Booking
+            //travelAgencyInterface.createBooking(itineraryId, hotelBooking);
+
+//            Itinerary itin3 = travelAgencyInterface.getItinerary(itineraryId);
+//            System.out.println(itin3.getBookings().size());
+
+            Itinerary itin = travelAgencyInterface.getItinerary(itineraryId);
+            System.out.println(itin.getBookings().size());
+            System.out.println(itin.getBookings().toArray()[0]);
+            Iterator<Booking> iterator = itin.getBookings().iterator();
+            System.out.println(itin.getBookings().size());
+            while (iterator.hasNext()) {
+                Booking b = iterator.next();
+                System.out.println(b.getBookingNumber());
+                System.out.println(b.getBookingStatus());
+                //     Assert.assertEquals(b.getBookingStatus(), BookingStatus.UNCONFIRMMED);
+            }
+            travelAgencyInterface.bookItinerarie(itineraryId, creditCard);
+            itin = travelAgencyInterface.getItinerary(itineraryId);
+            iterator = itin.getBookings().iterator();
+            System.out.println(itin.getBookings().size());
+            while (iterator.hasNext()) {
+                Booking b = iterator.next();
+                System.out.println(b.getBookingNumber());
+                System.out.println(b.getBookingStatus());
+                //     Assert.assertEquals(b.getBookingStatus(), BookingStatus.UNCONFIRMMED);
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
     @Test
     public void getFlightsTest() {
         try {

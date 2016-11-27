@@ -2,10 +2,12 @@ package models;
 
 import javax.xml.bind.annotation.XmlEnum;
 import javax.xml.bind.annotation.XmlEnumValue;
+import javax.xml.bind.annotation.XmlType;
 
 /**
  * Created by troels on 11/14/16.
  */
+
 @XmlEnum
 public enum BookingType {
     @XmlEnumValue("FLIGHT")

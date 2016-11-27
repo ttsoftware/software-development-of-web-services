@@ -10,4 +10,7 @@
     <vprop:propertyAlias propertyName="tns:wzrd_prop_int_int" messageType="ns:createItineraryResponse" part="return"/>
     <vprop:propertyAlias propertyName="tns:wzrd_prop_int_int" messageType="ns:getHotelsTG" part="id"/>
     <vprop:propertyAlias propertyName="tns:wzrd_prop_int_int" messageType="ns:getFlightsTG" part="id"/>
+    <vprop:propertyAlias propertyName="tns:wzrd_prop_int_int" messageType="ns:createBooking" part="itinerarieId"/>
+    <vprop:propertyAlias propertyName="tns:wzrd_prop_int_int" messageType="ns:getItinerary" part="id"/>
+    <vprop:propertyAlias propertyName="tns:wzrd_prop_int_int" messageType="ns:bookItinerarie" part="id"/>
 </definitions>
