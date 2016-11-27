@@ -93,6 +93,17 @@ public class TravelAgencyRESTServiceTest {
         assertEquals(itinerary.getId(), 1);
     }
 
+    @Test
+    public void showAllTest() {
+
+        resource = client.resource("http://localhost:8080/webservices/travelagency/itinerary");
+        Itinerary[] itineraries = resource
+                .accept(MediaType.APPLICATION_XML)
+                .get(Itinerary[].class);
+
+        assertTrue(itineraries.length > 2);
+    }
+
     @Test(expected = UniformInterfaceException.class)
     public void showTestException() {
 
