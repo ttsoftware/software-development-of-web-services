@@ -28,7 +28,7 @@ public class TravelAgencySoapServiceTest {
     @Before
     public void setup() {
         try {
-            URL url = new URL("http://localhost:8080/webservices/TravelAgencySoapService?wsdl");
+            URL url = new URL("http://localhost:8282/webservices/TravelAgencySoapService?wsdl");
             QName qname = new QName("http://services/", "TravelAgencySoapService");
             Service service = Service.create(url, qname);
             travelAgencyInterface = service.getPort(TravelAgencySoapInterface.class);

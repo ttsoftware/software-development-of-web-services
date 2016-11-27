@@ -38,7 +38,7 @@ public class TravelAgencyRESTServiceTest {
     @Test
     public void flightsTest() {
 
-        resource = client.resource("http://localhost:8080/webservices/travelagency/flights");
+        resource = client.resource("http://localhost:8282/webservices/travelagency/flights");
         flight.FlightReservation[] flights = resource
                 .queryParam("destination", "Berlin")
                 .queryParam("from", "Copenhagen")
@@ -54,7 +54,7 @@ public class TravelAgencyRESTServiceTest {
     @Test
     public void hotelsTest() {
 
-        resource = client.resource("http://localhost:8080/webservices/travelagency/hotels");
+        resource = client.resource("http://localhost:8282/webservices/travelagency/hotels");
         hotel.Hotel[] hotels = resource
                 .queryParam("city", "Copenhagen")
                 .queryParam("arrivalDateYear", "2016")
@@ -72,7 +72,7 @@ public class TravelAgencyRESTServiceTest {
     @Test
     public void createTest() {
 
-        resource = client.resource("http://localhost:8080/webservices/travelagency/itinerary");
+        resource = client.resource("http://localhost:8282/webservices/travelagency/itinerary");
         int id = Integer.valueOf(
                 resource
                         .accept(MediaType.TEXT_PLAIN)
@@ -85,7 +85,7 @@ public class TravelAgencyRESTServiceTest {
     @Test
     public void showTest() {
 
-        resource = client.resource("http://localhost:8080/webservices/travelagency/itinerary/1");
+        resource = client.resource("http://localhost:8282/webservices/travelagency/itinerary/1");
         Itinerary itinerary = resource
                 .accept(MediaType.APPLICATION_XML)
                 .get(Itinerary.class);
@@ -96,7 +96,7 @@ public class TravelAgencyRESTServiceTest {
     @Test(expected = UniformInterfaceException.class)
     public void showTestException() {
 
-        resource = client.resource("http://localhost:8080/webservices/travelagency/itinerary/-1");
+        resource = client.resource("http://localhost:8282/webservices/travelagency/itinerary/-1");
         Itinerary itinerary = resource
                 .accept(MediaType.APPLICATION_XML)
                 .get(Itinerary.class);
@@ -105,12 +105,12 @@ public class TravelAgencyRESTServiceTest {
     @Test
     public void cancelTest() {
 
-        resource = client.resource("http://localhost:8080/webservices/travelagency/itinerary");
+        resource = client.resource("http://localhost:8282/webservices/travelagency/itinerary");
         String id = resource
                 .accept(MediaType.TEXT_PLAIN)
                 .post(String.class);
 
-        resource = client.resource("http://localhost:8080/webservices/travelagency/itinerary/" + id);
+        resource = client.resource("http://localhost:8282/webservices/travelagency/itinerary/" + id);
         Itinerary itinerary = resource
                 .accept(MediaType.APPLICATION_XML)
                 .get(Itinerary.class);
@@ -126,7 +126,7 @@ public class TravelAgencyRESTServiceTest {
         changeRequest.setCardInformation(creditCard);
         changeRequest.setItinerary(itinerary);
 
-        resource = client.resource("http://localhost:8080/webservices/travelagency/itinerary/" + id + "/cancel");
+        resource = client.resource("http://localhost:8282/webservices/travelagency/itinerary/" + id + "/cancel");
         boolean success = Boolean.valueOf(
                 resource
                         .accept(MediaType.TEXT_PLAIN)
@@ -140,7 +140,7 @@ public class TravelAgencyRESTServiceTest {
     @Test(expected = UniformInterfaceException.class)
     public void cancelTestException() {
 
-        resource = client.resource("http://localhost:8080/webservices/travelagency/itinerary/-1/cancel");
+        resource = client.resource("http://localhost:8282/webservices/travelagency/itinerary/-1/cancel");
         Itinerary itinerary = resource
                 .accept(MediaType.TEXT_PLAIN)
                 .entity(null, MediaType.APPLICATION_XML)
@@ -150,17 +150,17 @@ public class TravelAgencyRESTServiceTest {
     @Test
     public void createBookingTest() {
 
-        resource = client.resource("http://localhost:8080/webservices/travelagency/itinerary");
+        resource = client.resource("http://localhost:8282/webservices/travelagency/itinerary");
         int id = Integer.valueOf(
                 resource
                         .accept(MediaType.TEXT_PLAIN)
                         .post(String.class)
         );
 
-        resource = client.resource("http://localhost:8080/webservices/travelagency/itinerary/" + id);
+        resource = client.resource("http://localhost:8282/webservices/travelagency/itinerary/" + id);
         Itinerary itinerary = resource.accept(MediaType.APPLICATION_XML).get(Itinerary.class);
 
-        resource = client.resource("http://localhost:8080/webservices/travelagency/flights");
+        resource = client.resource("http://localhost:8282/webservices/travelagency/flights");
         flight.FlightReservation[] flights = resource
                 .queryParam("destination", "Berlin")
                 .queryParam("from", "Copenhagen")
@@ -180,7 +180,7 @@ public class TravelAgencyRESTServiceTest {
         flightBooking.setPrice(flight.getPrice());
         flightBooking.setItinerary(itinerary);
 
-        resource = client.resource("http://localhost:8080/webservices/travelagency/itinerary/" + id + "/booking");
+        resource = client.resource("http://localhost:8282/webservices/travelagency/itinerary/" + id + "/booking");
         boolean success = Boolean.valueOf(
                 resource
                         .entity(flightBooking)
@@ -194,12 +194,12 @@ public class TravelAgencyRESTServiceTest {
     @Test
     public void bookTest() {
 
-        resource = client.resource("http://localhost:8080/webservices/travelagency/itinerary");
+        resource = client.resource("http://localhost:8282/webservices/travelagency/itinerary");
         String id = resource
                 .accept(MediaType.TEXT_PLAIN)
                 .post(String.class);
 
-        resource = client.resource("http://localhost:8080/webservices/travelagency/itinerary/" + id);
+        resource = client.resource("http://localhost:8282/webservices/travelagency/itinerary/" + id);
         Itinerary itinerary = resource
                 .accept(MediaType.APPLICATION_XML)
                 .get(Itinerary.class);
@@ -215,7 +215,7 @@ public class TravelAgencyRESTServiceTest {
         changeRequest.setCardInformation(creditCard);
         changeRequest.setItinerary(itinerary);
 
-        resource = client.resource("http://localhost:8080/webservices/travelagency/itinerary/" + id + "/book");
+        resource = client.resource("http://localhost:8282/webservices/travelagency/itinerary/" + id + "/book");
         boolean success = Boolean.valueOf(
                 resource
                         .accept(MediaType.TEXT_PLAIN)
@@ -229,7 +229,7 @@ public class TravelAgencyRESTServiceTest {
     @Test(expected = UniformInterfaceException.class)
     public void bookTestException() {
 
-        resource = client.resource("http://localhost:8080/webservices/travelagency/itinerary/-1/book");
+        resource = client.resource("http://localhost:8282/webservices/travelagency/itinerary/-1/book");
         Itinerary itinerary = resource
                 .accept(MediaType.TEXT_PLAIN)
                 .entity(null, MediaType.APPLICATION_XML)
@@ -647,12 +647,12 @@ public class TravelAgencyRESTServiceTest {
     }
 
     private Itinerary show(int id) {
-        resource = client.resource("http://localhost:8080/webservices/travelagency/itinerary/" + id);
+        resource = client.resource("http://localhost:8282/webservices/travelagency/itinerary/" + id);
         return resource.accept(MediaType.APPLICATION_XML).get(Itinerary.class);
     }
 
     private int create() {
-        resource = client.resource("http://localhost:8080/webservices/travelagency/itinerary/");
+        resource = client.resource("http://localhost:8282/webservices/travelagency/itinerary/");
         int itineraryId = Integer.valueOf(resource.accept(MediaType.TEXT_PLAIN).post(String.class));
         return itineraryId;
     }
@@ -663,7 +663,7 @@ public class TravelAgencyRESTServiceTest {
         changeRequest.setCardInformation(creditCard);
         changeRequest.setItinerary(itinerary);
 
-        resource = client.resource("http://localhost:8080/webservices/travelagency/itinerary/" + id + "/cancel");
+        resource = client.resource("http://localhost:8282/webservices/travelagency/itinerary/" + id + "/cancel");
         return Boolean.valueOf(
                 resource
                         .accept(MediaType.TEXT_PLAIN)
@@ -678,7 +678,7 @@ public class TravelAgencyRESTServiceTest {
         changeRequest.setCardInformation(creditCard);
         changeRequest.setItinerary(itinerary);
 
-        resource = client.resource("http://localhost:8080/webservices/travelagency/itinerary/" + id + "/book");
+        resource = client.resource("http://localhost:8282/webservices/travelagency/itinerary/" + id + "/book");
         return Boolean.valueOf(
                 resource
                         .accept(MediaType.TEXT_PLAIN)
@@ -688,7 +688,7 @@ public class TravelAgencyRESTServiceTest {
     }
 
     private boolean createBooking(int id, Booking booking) {
-        resource = client.resource("http://localhost:8080/webservices/travelagency/itinerary/" + id + "/booking");
+        resource = client.resource("http://localhost:8282/webservices/travelagency/itinerary/" + id + "/booking");
         return Boolean.valueOf(
                 resource
                         .entity(booking)
@@ -702,7 +702,7 @@ public class TravelAgencyRESTServiceTest {
                                                String day,
                                                String month,
                                                String year) {
-        resource = client.resource("http://localhost:8080/webservices/travelagency/flights");
+        resource = client.resource("http://localhost:8282/webservices/travelagency/flights");
         return resource
                 .queryParam("destination", destination)
                 .queryParam("from", from)
@@ -721,7 +721,7 @@ public class TravelAgencyRESTServiceTest {
                                  String departureDateMonth,
                                  String departureDateDay) {
 
-        resource = client.resource("http://localhost:8080/webservices/travelagency/hotels");
+        resource = client.resource("http://localhost:8282/webservices/travelagency/hotels");
         return resource
                 .queryParam("city", city)
                 .queryParam("arrivalDateYear", arrivalDateYear)

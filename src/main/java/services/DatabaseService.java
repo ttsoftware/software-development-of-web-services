@@ -17,7 +17,8 @@ public class DatabaseService {
         if (connectionSource == null) {
             try {
                 if (getDatabaseUrl() == null) {
-                    setDatabaseUrl("jdbc:sqlite:/var/www/db/travelagency.db");
+                    String path = System.getProperty("com.sun.aas.instanceRoot")+"/db/travelagency.db";
+                    setDatabaseUrl("jdbc:sqlite:"+ path);
                 }
                 connectionSource = new JdbcPooledConnectionSource(getDatabaseUrl());
             } catch (SQLException e) {

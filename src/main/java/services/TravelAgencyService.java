@@ -243,7 +243,7 @@ public class TravelAgencyService {
     public hotel.HotelInterface getHotelServicePort() {
         URL hotelServiceUrl = null;
         try {
-            hotelServiceUrl = new URL("http://localhost:8080/webservices/HotelService?wsdl");
+            hotelServiceUrl = new URL("http://localhost:8282/webservices/HotelService?wsdl");
         } catch (MalformedURLException e) {
             e.printStackTrace();
         }
@@ -255,7 +255,7 @@ public class TravelAgencyService {
     public flight.AirlineInterface getFlightServicePort() {
         URL FlightServiceUrl = null;
         try {
-            FlightServiceUrl = new URL("http://localhost:8080/webservices/AirlineService?wsdl");
+            FlightServiceUrl = new URL("http://localhost:8282/webservices/AirlineService?wsdl");
         } catch (MalformedURLException e) {
             e.printStackTrace();
         }
