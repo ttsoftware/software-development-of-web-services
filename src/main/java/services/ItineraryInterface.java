@@ -5,9 +5,7 @@ import models.Itinerary;
 
 import java.util.List;
 
-/**
- * Created by troels on 11/18/16.
- */
+
 public interface ItineraryInterface {
 
     Itinerary getItinerary(int id);

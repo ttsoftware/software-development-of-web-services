@@ -10,6 +10,8 @@ import java.util.Iterator;
 import java.util.List;
 
 public class ItineraryService implements ItineraryInterface {
+
+    //Allan Nielsen - s162874
     @Override
     public Itinerary getItinerary(int id) {
         List<Itinerary> itinerary = null;
@@ -22,6 +24,7 @@ public class ItineraryService implements ItineraryInterface {
         return itinerary.get(0);
     }
 
+    //Dennis Olesen - s155996
     @Override
     public int createItinerary() {
         try {
@@ -34,6 +37,7 @@ public class ItineraryService implements ItineraryInterface {
         return -1;
     }
 
+    //Troels Thomsen - s152165
     @Override
     public List<Itinerary> getItineraries() {
         try {
@@ -44,6 +48,7 @@ public class ItineraryService implements ItineraryInterface {
         return new ArrayList<Itinerary>();
     }
 
+    //Troels Hessner Hansen - s123136
     @Override
     public boolean addBookingToItinerary(int itineraryId, Booking booking) {
         Itinerary itinerary = getItinerary(itineraryId);
@@ -59,6 +64,7 @@ public class ItineraryService implements ItineraryInterface {
         return false;
     }
 
+    // Allan Nielsen - s162874
     @Override
     public boolean updateBooking(int itineraryId, Booking booking) {
         Itinerary itinerary = getItinerary(itineraryId);

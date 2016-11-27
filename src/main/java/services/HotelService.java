@@ -24,6 +24,7 @@ import java.util.List;
 )
 public class HotelService implements HotelInterface {
 
+    //Allan Nielsen - s162874
     @Override
     public Hotel[] getHotels(String city,
                              CustomDate arrivalDate,
@@ -51,6 +52,7 @@ public class HotelService implements HotelInterface {
 
     }
 
+    //Troels Hessner Hansen - s123136
     @Override
     public boolean bookHotel(HotelBookingRequest hotelBookingRequest) throws CreditCardFaultMessage {
 
@@ -111,6 +113,7 @@ public class HotelService implements HotelInterface {
         return true;
     }
 
+    //Dennis Olesen - s155996
     @Override
     public void cancelHotel(String bookingNumber) throws CreditCardFaultMessage, BookingNumberException {
         HotelReservation hotelRes = null;

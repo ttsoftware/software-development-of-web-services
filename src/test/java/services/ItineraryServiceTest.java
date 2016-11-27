@@ -13,9 +13,6 @@ import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
-/**
- * Created by troels on 11/19/16.
- */
 public class ItineraryServiceTest {
     private ItineraryService is;
     @Before

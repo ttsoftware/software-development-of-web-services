@@ -26,6 +26,7 @@ public class AirlineService implements AirlineInterface {
 
     private List<FlightReservation> availableFlights;
 
+    //Allan Nielsen - s162874
     @Override
     public FlightReservation[] getFlights(String from, String destination, CustomDate customDate) {
         try {
@@ -63,7 +64,7 @@ public class AirlineService implements AirlineInterface {
 
         return new FlightReservation[0];
     }
-
+    // Troels Hessner Hansen - s123136
     @Override
     public boolean bookFlight(String bookingNumber, CreditCardInfoType cardInformation) throws CreditCardFaultMessage, BookingNumberException {
         FlightReservation flightReservation = null;
@@ -95,6 +96,7 @@ public class AirlineService implements AirlineInterface {
         return true;
     }
 
+    //Troels Thomsen - s152165
     @Override
     public boolean cancelFlight(String bookingNumber, float price, CreditCardInfoType cardInformation) throws CreditCardFaultMessage, BookingNumberException {
         FlightReservation flightReservation = null;

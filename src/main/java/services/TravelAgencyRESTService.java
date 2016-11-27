@@ -17,6 +17,7 @@ public class TravelAgencyRESTService {
 
     private TravelAgencyService travelAgencyService = new TravelAgencyService();
 
+    // Dennis Olesen - s155996
     @GET
     @Path("/flights")
     @Produces(MediaType.APPLICATION_XML)
@@ -29,6 +30,7 @@ public class TravelAgencyRESTService {
         return travelAgencyService.getFlights(from, destination, new CustomDate(year, month, day));
     }
 
+    //Troels Hessner Hansen - s123136
     @GET
     @Path("/hotels")
     @Produces(MediaType.APPLICATION_XML)
@@ -47,6 +49,7 @@ public class TravelAgencyRESTService {
         );
     }
 
+    //Dennis Olesen - s155996
     @POST
     @Path("/itinerary")
     @Produces(MediaType.TEXT_PLAIN)
@@ -54,6 +57,7 @@ public class TravelAgencyRESTService {
         return travelAgencyService.createItinerary();
     }
 
+    // Allan Nielsen - s162874
     @GET
     @Path("/itinerary")
     @Produces(MediaType.APPLICATION_XML)
@@ -61,6 +65,7 @@ public class TravelAgencyRESTService {
         return travelAgencyService.getItineraries();
     }
 
+    // Troels Thomsen - s152165
     @GET
     @Path("/itinerary/{id}")
     @Produces(MediaType.APPLICATION_XML)
@@ -68,6 +73,7 @@ public class TravelAgencyRESTService {
         return travelAgencyService.getItinerary(id);
     }
 
+    // Troels Thomsen - s152165
     @PUT
     @Path("/itinerary/{id}/cancel")
     @Consumes({MediaType.APPLICATION_XML})
@@ -84,6 +90,7 @@ public class TravelAgencyRESTService {
         return false;
     }
 
+    // Troels Hessner Hansen - s123136
     @PUT
     @Path("/itinerary/{id}/booking")
     @Consumes(MediaType.APPLICATION_XML)
@@ -93,6 +100,7 @@ public class TravelAgencyRESTService {
         return travelAgencyService.createBooking(id, booking);
     }
 
+    // Allan Nielsen - s162874
     @PUT
     @Path("/itinerary/{id}/book")
     @Consumes({MediaType.APPLICATION_XML})

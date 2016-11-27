@@ -8,9 +8,6 @@ import models.dao.ItineraryDaoImpl;
 import javax.xml.bind.annotation.*;
 import java.util.Collection;
 
-/**
- * Created by troels on 11/14/16.
- */
 @XmlType(name = "Itinerary")
 @XmlRootElement(name = "Itinerary")
 @XmlAccessorType(XmlAccessType.FIELD)

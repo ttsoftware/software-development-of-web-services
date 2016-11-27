@@ -17,6 +17,7 @@ import java.util.List;
 
 public class TravelAgencyService {
 
+    // Dennis Olesen - s155996
     public flight.FlightReservation[] getFlights(String from, String destination, CustomDate date) {
         flight.AirlineInterface port = getFlightServicePort();
         flight.CustomDate customDate = new flight.CustomDate();
@@ -33,6 +34,7 @@ public class TravelAgencyService {
         return flightsArray;
     }
 
+    // Troels Thomsen - s152165
     public hotel.Hotel[] getHotels(String city, CustomDate arrivalDate, CustomDate departureDate) {
         hotel.HotelInterface port = getHotelServicePort();
         hotel.CustomDate customArrivalDate = new hotel.CustomDate();
@@ -53,6 +55,7 @@ public class TravelAgencyService {
         return hotelArray;
     }
 
+    // Troels Hessner Hansen - s123136
     public Itinerary getItinerary(int id) throws ItineraryDoesNotExistException {
         ItineraryService itineraryService = new ItineraryService();
         Itinerary itinerary = itineraryService.getItinerary(id);
@@ -60,6 +63,7 @@ public class TravelAgencyService {
         return itinerary;
     }
 
+    // Allan Nielsen - s162874
     public int createItinerary() {
         ItineraryService itineraryService = new ItineraryService();
         int id = itineraryService.createItinerary();
@@ -67,6 +71,7 @@ public class TravelAgencyService {
         return id;
     }
 
+    // Dennis Olesen - s155996
     public Itinerary[] getItineraries() {
         ItineraryService itineraryService = new ItineraryService();
         List<Itinerary> itineraries = itineraryService.getItineraries();
@@ -78,6 +83,7 @@ public class TravelAgencyService {
         return itinerariesArray;
     }
 
+    // Troels Thomsen - s152165
     public boolean cancelItinerarie(int id, CreditCardInfoType cardInformation) throws CancleBookingException {
         ItineraryService itineraryService = new ItineraryService();
         Itinerary itinerary = itineraryService.getItinerary(id);
@@ -120,6 +126,7 @@ public class TravelAgencyService {
         return true;
     }
 
+    // Troels Hessner Hansen - s123136
     public boolean createBooking(int itinerarieId, Booking booking) {
         ItineraryService itineraryService = new ItineraryService();
         Itinerary itinerary = itineraryService.getItinerary(itinerarieId);
@@ -129,6 +136,7 @@ public class TravelAgencyService {
         return true;
     }
 
+    // Allan Nielsen - s162874
     public boolean bookItinerarie(int id, CreditCardInfoType cardInformation) throws BookingFaultException {
         ItineraryService itineraryService = new ItineraryService();
         Itinerary itinerary = itineraryService.getItinerary(id);
@@ -163,7 +171,7 @@ public class TravelAgencyService {
         if (faultHappen) throw new BookingFaultException("Booking failed");
         return true;
     }
-
+    // Dennis Olesen - s155996
     public void cancelHotel(Booking booking, CreditCardInfoType cardInformation) throws CancleBookingException {
         hotel.HotelInterface hotelPort = getHotelServicePort();
         hotel.CreditCardInfoType ccit = mapCreditCardHotel(cardInformation);
@@ -177,6 +185,7 @@ public class TravelAgencyService {
         }
     }
 
+    // Troels Thomsen - s152165
     public void cancelFlight(Booking booking, CreditCardInfoType cardInformation) throws CancleBookingException {
         flight.AirlineInterface flightPort = getFlightServicePort();
         flight.CreditCardInfoType ccit = mapCreditCardFlight(cardInformation);
@@ -194,6 +203,7 @@ public class TravelAgencyService {
         }
     }
 
+    // Troels Hessner Hansen - s123136
     public void bookflight(Booking booking, CreditCardInfoType cardInformation) throws BookingFaultException {
         flight.AirlineInterface flightPort = getFlightServicePort();
 
@@ -214,7 +224,7 @@ public class TravelAgencyService {
             throw new BookingFaultException("Booking failed");
         }
     }
-
+    // Allan Nielsen - s162874
     public void bookHotel(Booking booking, CreditCardInfoType cardInformation) throws BookingFaultException {
         hotel.HotelInterface hotelPort = getHotelServicePort();
 
@@ -239,6 +249,7 @@ public class TravelAgencyService {
     }
 
 
+    // Dennis Olesen - s155996
     //-----------------------------------------PORT FUNC---------------------------------------------------
     public hotel.HotelInterface getHotelServicePort() {
         URL hotelServiceUrl = null;
@@ -252,6 +263,7 @@ public class TravelAgencyService {
         return bs.getHotelServicePort();
     }
 
+    // Troels Thomsen - s152165
     public flight.AirlineInterface getFlightServicePort() {
         URL FlightServiceUrl = null;
         try {
@@ -264,6 +276,7 @@ public class TravelAgencyService {
         return bs.getAirlineServicePort();
     }
 
+    // Troels Hessner Hansen - s123136
     //-----------------------------------------MAPPING FUNC---------------------------------------------------
     public flight.CreditCardInfoType mapCreditCardFlight(bank.CreditCardInfoType credit) {
         flight.CreditCardInfoType ccit = new flight.CreditCardInfoType();
@@ -276,6 +289,7 @@ public class TravelAgencyService {
         return ccit;
     }
 
+    // Allan Nielsen - s162874
     public hotel.CreditCardInfoType mapCreditCardHotel(bank.CreditCardInfoType credit) {
         hotel.CreditCardInfoType ccit = new hotel.CreditCardInfoType();
         ccit.setExpirationYear(credit.getExpirationDate().getYear());

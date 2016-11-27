@@ -14,9 +14,6 @@ import javax.jws.WebResult;
 import javax.jws.WebService;
 import javax.jws.soap.SOAPBinding;
 
-/**
- * Created by troels on 11/20/16.
- */
 @WebService
 @SOAPBinding(style = SOAPBinding.Style.RPC, use = SOAPBinding.Use.LITERAL)
 public interface TravelAgencySoapInterface {

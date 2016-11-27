@@ -8,6 +8,7 @@ import java.util.Set;
 @ApplicationPath("/travelagency")
 public class TravelGood extends Application {
 
+    // Troels Thomsen - s152165
     @Override
     public Set<Class<?>> getClasses() {
         Set<Class<?>> s = new HashSet<>();
