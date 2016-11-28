@@ -104,30 +104,13 @@ public class TravelAgencySoapServiceTest {
             flightBooking1.setDate(new Date(flight1.getFlight().getStart()));
             flightBooking1.setPrice(flight1.getPrice());
 
-            // Create Flight Booking
-            travelAgencyInterface.createBooking(itineraryId, flightBooking1);//            Assert.assertTrue(createBooking2);
+            travelAgencyInterface.createBooking(itineraryId, hotelBooking);
+            travelAgencyInterface.createBooking(itineraryId, flightBooking1);//
 
-            // Create Hotel Booking
-            //travelAgencyInterface.createBooking(itineraryId, hotelBooking);
-
-//            Itinerary itin3 = travelAgencyInterface.getItinerary(itineraryId);
-//            System.out.println(itin3.getBookings().size());
+            travelAgencyInterface.bookItinerarie(itineraryId, creditCard);
 
             Itinerary itin = travelAgencyInterface.getItinerary(itineraryId);
-            System.out.println(itin.getBookings().size());
-            System.out.println(itin.getBookings().toArray()[0]);
             Iterator<Booking> iterator = itin.getBookings().iterator();
-            System.out.println(itin.getBookings().size());
-            while (iterator.hasNext()) {
-                Booking b = iterator.next();
-                System.out.println(b.getBookingNumber());
-                System.out.println(b.getBookingStatus());
-                //     Assert.assertEquals(b.getBookingStatus(), BookingStatus.UNCONFIRMMED);
-            }
-            travelAgencyInterface.bookItinerarie(itineraryId, creditCard);
-            itin = travelAgencyInterface.getItinerary(itineraryId);
-            iterator = itin.getBookings().iterator();
-            System.out.println(itin.getBookings().size());
             while (iterator.hasNext()) {
                 Booking b = iterator.next();
                 System.out.println(b.getBookingNumber());
