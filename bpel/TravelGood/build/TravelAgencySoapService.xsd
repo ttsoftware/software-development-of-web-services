@@ -1,0 +1,128 @@
+<xs:schema xmlns:tns="http://services/" xmlns:xs="http://www.w3.org/2001/XMLSchema" version="1.0" targetNamespace="http://services/">
+<xs:element name="Booking" type="tns:Booking"/>
+<xs:element name="BookingNumberException" type="tns:BookingFaultException"/>
+<xs:element name="CancleBookingException" type="tns:CancleBookingException"/>
+<xs:element name="CustomDate" type="tns:CustomDate"/>
+<xs:element name="Exception" type="tns:Exception"/>
+<xs:element name="Flight" type="tns:Flight"/>
+<xs:element name="FlightReservation" type="tns:FlightReservation"/>
+<xs:element name="Hotel" type="tns:Hotel"/>
+<xs:element name="Itinerary" type="tns:Itinerary"/>
+<xs:element name="ItineraryDoesNotExistException" type="tns:ItineraryDoesNotExistException"/>
+<xs:complexType name="CancleBookingException">
+<xs:sequence>
+<xs:element name="message" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="CustomDate">
+<xs:sequence>
+<xs:element name="year" type="xs:int"/>
+<xs:element name="month" type="xs:int"/>
+<xs:element name="day" type="xs:int"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="Hotel">
+<xs:sequence>
+<xs:element name="id" type="xs:int"/>
+<xs:element name="name" type="xs:string" minOccurs="0"/>
+<xs:element name="city" type="xs:string" minOccurs="0"/>
+<xs:element name="bookingNumber" type="xs:string" minOccurs="0"/>
+<xs:element name="creditCardGuarantee" type="xs:boolean"/>
+<xs:element name="price" type="xs:float"/>
+<xs:element name="opens" type="xs:long"/>
+<xs:element name="closes" type="xs:long"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="Itinerary">
+<xs:sequence>
+<xs:element name="id" type="xs:int"/>
+<xs:element name="bookings" type="tns:Booking" minOccurs="0" maxOccurs="unbounded"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="Booking">
+<xs:sequence>
+<xs:element name="id" type="xs:int"/>
+<xs:element name="bookingStatus" type="tns:BookingStatus" minOccurs="0"/>
+<xs:element name="bookingType" type="tns:bookingType" minOccurs="0"/>
+<xs:element name="bookingNumber" type="xs:string" minOccurs="0"/>
+<xs:element name="price" type="xs:float"/>
+<xs:element name="date" type="xs:dateTime" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="Exception">
+<xs:sequence>
+<xs:element name="message" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="FlightReservation">
+<xs:sequence>
+<xs:element name="id" type="xs:int"/>
+<xs:element name="bookingNumber" type="xs:string" minOccurs="0"/>
+<xs:element name="airlineName" type="xs:string" minOccurs="0"/>
+<xs:element name="price" type="xs:int"/>
+<xs:element name="flight" type="tns:Flight" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="Flight">
+<xs:sequence>
+<xs:element name="id" type="xs:int"/>
+<xs:element name="startAirport" type="xs:string"/>
+<xs:element name="destinationAirport" type="xs:string"/>
+<xs:element name="carrier" type="xs:string"/>
+<xs:element name="start" type="xs:long"/>
+<xs:element name="end" type="xs:long"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="BookingFaultException">
+<xs:sequence>
+<xs:element name="message" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="ItineraryDoesNotExistException">
+<xs:sequence>
+<xs:element name="message" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+<xs:simpleType name="BookingStatus">
+<xs:restriction base="xs:string">
+<xs:enumeration value="CONFIRMED"/>
+<xs:enumeration value="UNCONFIRMED"/>
+<xs:enumeration value="CANCELLED"/>
+</xs:restriction>
+</xs:simpleType>
+<xs:simpleType name="bookingType">
+<xs:restriction base="xs:int">
+<xs:enumeration value="0"/>
+<xs:enumeration value="1"/>
+</xs:restriction>
+</xs:simpleType>
+<xs:complexType name="HotelArray" final="#all">
+<xs:sequence>
+<xs:element name="item" type="tns:Hotel" minOccurs="0" maxOccurs="unbounded" nillable="true"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="ItineraryArray" final="#all">
+<xs:sequence>
+<xs:element name="item" type="tns:Itinerary" minOccurs="0" maxOccurs="unbounded" nillable="true"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="FlightReservationArray" final="#all">
+<xs:sequence>
+<xs:element name="item" type="tns:FlightReservation" minOccurs="0" maxOccurs="unbounded" nillable="true"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="creditCardInfoType">
+<xs:sequence>
+<xs:element name="expirationDate">
+<xs:complexType>
+<xs:sequence>
+<xs:element name="month" type="xs:int"/>
+<xs:element name="year" type="xs:int"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element name="name" type="xs:string"/>
+<xs:element name="number" type="xs:string"/>
+</xs:sequence>
+</xs:complexType>
+</xs:schema>

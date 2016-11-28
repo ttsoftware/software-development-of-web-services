@@ -1,0 +1,373 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<process
+    name="TravelGood"
+    targetNamespace="http://enterprise.netbeans.org/bpel/TravelGood/TravelGood"
+    xmlns:tns="http://enterprise.netbeans.org/bpel/TravelGood/TravelGood"
+    xmlns:xs="http://www.w3.org/2001/XMLSchema"
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+    xmlns="http://docs.oasis-open.org/wsbpel/2.0/process/executable"
+    xmlns:sxt="http://www.sun.com/wsbpel/2.0/process/executable/SUNExtension/Trace" 
+    xmlns:sxed="http://www.sun.com/wsbpel/2.0/process/executable/SUNExtension/Editor2"
+    xmlns:sxat="http://www.sun.com/wsbpel/2.0/process/executable/SUNExtension/Attachment"
+    xmlns:sxeh="http://www.sun.com/wsbpel/2.0/process/executable/SUNExtension/ErrorHandling" xmlns:ns0="http://services/" xmlns:sxxf="http://www.sun.com/wsbpel/2.0/process/executable/SUNExtension/XPathFunctions" xmlns:ns1="http://enterprise.netbeans.org/bpel/WizardCorrelationProperties" xmlns:ns2="http://docs.oasis-open.org/wsbpel/2.0/process/executable">
+    <import namespace="http://enterprise.netbeans.org/bpel/HotelServiceWrapper" location="HotelServiceWrapper.wsdl" importType="http://schemas.xmlsoap.org/wsdl/"/>
+    <import namespace="http://services/" location="HotelService.wsdl" importType="http://schemas.xmlsoap.org/wsdl/"/>
+    <import namespace="http://enterprise.netbeans.org/bpel/AirlineServiceWrapper" location="AirlineServiceWrapper.wsdl" importType="http://schemas.xmlsoap.org/wsdl/"/>
+    <import namespace="http://services/" location="AirlineService.wsdl" importType="http://schemas.xmlsoap.org/wsdl/"/>
+    <import namespace="http://enterprise.netbeans.org/bpel/TravelAgencySoapServiceWrapper" location="TravelAgencySoapServiceWrapper.wsdl" importType="http://schemas.xmlsoap.org/wsdl/"/>
+    <import namespace="http://services/" location="TravelAgencySoapService.wsdl" importType="http://schemas.xmlsoap.org/wsdl/"/>
+    <import namespace="http://services/" location="TravelAgencySoapService.xsd" importType="http://www.w3.org/2001/XMLSchema"/>
+    <import namespace="http://enterprise.netbeans.org/bpel/WizardCorrelationProperties" location="WizardCorrelationProperties.wsdl" importType="http://schemas.xmlsoap.org/wsdl/"/>
+    <partnerLinks>
+        <partnerLink name="TravelGoodClient" xmlns:tns="http://enterprise.netbeans.org/bpel/TravelAgencySoapServiceWrapper" partnerLinkType="tns:TravelAgencySoapInterfaceLinkType" myRole="TravelAgencySoapInterfaceRole"/>
+        <partnerLink name="AirlineServiceLink" xmlns:tns="http://enterprise.netbeans.org/bpel/AirlineServiceWrapper" partnerLinkType="tns:AirlineInterfaceLinkType" partnerRole="AirlineInterfaceRole"/>
+        <partnerLink name="HotelService" xmlns:tns="http://enterprise.netbeans.org/bpel/HotelServiceWrapper" partnerLinkType="tns:HotelInterfaceLinkType" partnerRole="HotelInterfaceRole"/>
+    </partnerLinks>
+    <variables>
+        <variable name="BookItinerarieIn" messageType="ns0:bookItinerarie"/>
+        <variable name="BookItinerarieOut" messageType="ns0:bookItinerarieResponse"/>
+        <variable name="GetItineraryOut" messageType="ns0:getItineraryResponse"/>
+        <variable name="GetItineraryIn" messageType="ns0:getItinerary"/>
+        <variable name="openForBookings" type="xs:boolean"/>
+        <variable name="incrementorForBookings" type="xs:int"/>
+        <variable name="CreateBookingOut" messageType="ns0:createBookingResponse"/>
+        <variable name="CreateBookingIn" messageType="ns0:createBooking"/>
+        <variable name="CreateItineraryOut" messageType="ns0:createItineraryResponse"/>
+        <variable name="Itinerary" type="ns0:Itinerary">
+            <sxed:editor>
+                <sxed:predicate path="$Itinerary/bookings[$iteratorForBookings]" source="to"/>
+                <sxed:predicate path="$Itinerary/bookings[$incrementorForBookings]" source="to"/>
+                <sxed:predicate path="$Itinerary/bookings[$ForEach1Counter]" source="from"/>
+                <sxed:predicate path="$Itinerary/bookings[$ForEach1Counter]" source="to"/>
+            </sxed:editor>
+        </variable>
+        <variable name="GetFlightsTGOut" messageType="ns0:getFlightsTGResponse"/>
+        <variable name="GetFlightsTGIn" messageType="ns0:getFlightsTG"/>
+        <variable name="GetFlightsOutInvoke" messageType="ns0:getFlightsResponse"/>
+        <variable name="GetFlightsInInvoke" messageType="ns0:getFlights"/>
+        <variable name="GetHotelsOutInvoke" messageType="ns0:getHotelsResponse"/>
+        <variable name="GetHotelsInInvoke" messageType="ns0:getHotels"/>
+        <variable name="GetHotelsTGOut" messageType="ns0:getHotelsTGResponse"/>
+        <variable name="GetHotelsTGIn" messageType="ns0:getHotelsTG"/>
+        <variable name="CreateItineraryIn" messageType="ns0:createItinerary"/>
+
+        <variable name="createItineraryOut" messageType="ns0:createItineraryResponse"/>
+    </variables>
+    <correlationSets>
+        <correlationSet name="wzrd_set_ReplyCreateItinerary_OnMessage_Pick1_getHotelsTG" properties="ns1:wzrd_prop_int_int"/>
+        <correlationSet name="wzrd_set_ReplyCreateItinerary_OnMessage_Pick1_getFlightsTG" properties="ns1:wzrd_prop_int_int"/>
+        <correlationSet name="wzrd_set_ReplyCreateItinerary_OnMessage_Pick1_createBooking" properties="ns1:wzrd_prop_int_int"/>
+        <correlationSet name="wzrd_set_ReplyCreateItinerary_Receive1" properties="ns1:wzrd_prop_int_int"/>
+        <correlationSet name="wzrd_set_ReplyCreateItinerary_OnMessage_Pick1_createBooking_1" properties="ns1:wzrd_prop_int_int"/>
+        <correlationSet name="wzrd_set_ReplyCreateItinerary_OnMessage_Pick1_getItinerary" properties="ns1:wzrd_prop_int_int"/>
+        <correlationSet name="wzrd_set_ReplyCreateItinerary_OnMessage_Pick1_bookItinerarie" properties="ns1:wzrd_prop_int_int"/>
+    </correlationSets>
+    <sequence>
+        <receive name="RecieveCreateItinerary" createInstance="yes" partnerLink="TravelGoodClient" operation="createItinerary" portType="ns0:TravelAgencySoapInterface" variable="CreateItineraryIn"/>
+        <assign name="Assign21">
+            <copy>
+                <from>true()</from>
+                <to variable="openForBookings"/>
+            </copy>
+            <copy>
+                <from>1</from>
+                <to variable="incrementorForBookings"/>
+            </copy>
+            <copy>
+                <from>1</from>
+                <to>$Itinerary/id</to>
+            </copy>
+        </assign>
+        <assign name="AssignItinerarayIDToResponse">
+            <copy>
+                    <from>$Itinerary/id</from>
+                        <to variable="CreateItineraryOut" part="return"/>
+                </copy>
+        </assign>
+        <reply name="ReplyCreateItinerary" partnerLink="TravelGoodClient" operation="createItinerary" portType="ns0:TravelAgencySoapInterface" variable="CreateItineraryOut">
+            <correlations>
+                    <correlation set="wzrd_set_ReplyCreateItinerary_OnMessage_Pick1_getHotelsTG" initiate="yes"/>
+                        <correlation set="wzrd_set_ReplyCreateItinerary_OnMessage_Pick1_getFlightsTG" initiate="yes"/>
+                <correlation set="wzrd_set_ReplyCreateItinerary_OnMessage_Pick1_createBooking" initiate="yes"/>
+                <correlation set="wzrd_set_ReplyCreateItinerary_Receive1" initiate="yes"/>
+                <correlation set="wzrd_set_ReplyCreateItinerary_OnMessage_Pick1_createBooking_1" initiate="yes"/>
+                <correlation set="wzrd_set_ReplyCreateItinerary_OnMessage_Pick1_getItinerary" initiate="yes"/>
+                <correlation set="wzrd_set_ReplyCreateItinerary_OnMessage_Pick1_bookItinerarie" initiate="yes"/>
+            </correlations>
+        </reply>
+        <while name="While1">
+            <condition>$openForBookings</condition>
+            <pick name="Pick1">
+                <onMessage partnerLink="TravelGoodClient" operation="getFlightsTG" portType="ns0:TravelAgencySoapInterface" variable="GetFlightsTGIn">
+                        <correlations>
+                                <correlation set="wzrd_set_ReplyCreateItinerary_OnMessage_Pick1_getFlightsTG" initiate="no"/>
+                            </correlations>
+                            <sequence name="Sequence2">
+                                <assign name="Assign9">
+                                        <copy>
+                                                <from variable="GetFlightsTGIn" part="from"/>
+                                                    <to variable="GetFlightsInInvoke" part="from"/>
+                                            </copy>
+                                            <copy>
+                                                <from variable="GetFlightsTGIn" part="destination"/>
+                                                    <to variable="GetFlightsInInvoke" part="destination"/>
+                                            </copy>
+                                            <copy>
+                                                <from variable="GetFlightsTGIn" part="date"/>
+                                                    <to variable="GetFlightsInInvoke" part="date"/>
+                                            </copy>
+                                    </assign>
+                                    <invoke name="InvokeGetFlights" partnerLink="AirlineServiceLink" operation="getFlights" portType="ns0:AirlineInterface" inputVariable="GetFlightsInInvoke" outputVariable="GetFlightsOutInvoke"/>
+                                    <assign name="Assign10">
+                                        <copy>
+                                                <from variable="GetFlightsOutInvoke" part="flightRevervations"/>
+                                                    <to variable="GetFlightsTGOut" part="flightsTG"/>
+                                            </copy>
+                                    </assign>
+                                    <reply name="ReplyGetFlights" partnerLink="TravelGoodClient" operation="getFlightsTG" portType="ns0:TravelAgencySoapInterface" variable="GetFlightsTGOut"/>
+                            </sequence>
+                    </onMessage>
+                    <onMessage partnerLink="TravelGoodClient" operation="getHotelsTG" portType="ns0:TravelAgencySoapInterface" variable="GetHotelsTGIn">
+                        <correlations>
+                                <correlation set="wzrd_set_ReplyCreateItinerary_OnMessage_Pick1_getHotelsTG" initiate="no"/>
+                            </correlations>
+                            <sequence name="Sequence1">
+                                <assign name="Assign8">
+                                        <copy>
+                                                <from variable="GetHotelsTGIn" part="city"/>
+                                                    <to variable="GetHotelsInInvoke" part="city"/>
+                                            </copy>
+                                            <copy>
+                                                <from variable="GetHotelsTGIn" part="arrivalDate"/>
+                                                    <to variable="GetHotelsInInvoke" part="arrivalDate"/>
+                                            </copy>
+                                            <copy>
+                                                <from variable="GetHotelsTGIn" part="departureDate"/>
+                                                    <to variable="GetHotelsInInvoke" part="departureDate"/>
+                                            </copy>
+                                    </assign>
+                                    <invoke name="InvokeGetHotles" partnerLink="HotelService" operation="getHotels" portType="ns0:HotelInterface" inputVariable="GetHotelsInInvoke" outputVariable="GetHotelsOutInvoke"/>
+                                    <assign name="Assign7">
+                                        <copy>
+                                                <from variable="GetHotelsOutInvoke" part="hotels"/>
+                                                    <to variable="GetHotelsTGOut" part="hotelsTG"/>
+                                            </copy>
+                                    </assign>
+                                    <reply name="Reply1" partnerLink="TravelGoodClient" operation="getHotelsTG" portType="ns0:TravelAgencySoapInterface" variable="GetHotelsTGOut"/>
+                            </sequence>
+                    </onMessage>
+                <onMessage partnerLink="TravelGoodClient" operation="createBooking" portType="ns0:TravelAgencySoapInterface" variable="CreateBookingIn">
+                    <correlations>
+                        <correlation set="wzrd_set_ReplyCreateItinerary_OnMessage_Pick1_createBooking_1" initiate="no"/>
+                    </correlations>
+                    <sequence name="Sequence3">
+                            <assign name="Assign11">
+                                <copy>
+                                        <from>$CreateBookingIn.booking/bookingType</from>
+                                            <to>$Itinerary/bookings[$incrementorForBookings]/bookingType
+                                                    <sxed:editor>
+                                                        <sxed:predicate path="$Itinerary/bookings[$incrementorForBookings]" source="to"/>
+                                                    </sxed:editor>
+                                            </to>
+                                    </copy>
+                                    <copy>
+                                        <from>$CreateBookingIn.booking/bookingNumber</from>
+                                            <to>$Itinerary/bookings[$incrementorForBookings]/bookingNumber
+                                                    <sxed:editor>
+                                                        <sxed:predicate path="$Itinerary/bookings[$incrementorForBookings]" source="to"/>
+                                                    </sxed:editor>
+                                            </to>
+                                    </copy>
+                                    <copy>
+                                        <from>$CreateBookingIn.booking/price</from>
+                                            <to>$Itinerary/bookings[$incrementorForBookings]/price
+                                                    <sxed:editor>
+                                                        <sxed:predicate path="$Itinerary/bookings[$incrementorForBookings]" source="to"/>
+                                                    </sxed:editor>
+                                            </to>
+                                    </copy>
+                                    <copy>
+                                        <from>$CreateBookingIn.booking/date</from>
+                                            <to>$Itinerary/bookings[$incrementorForBookings]/date
+                                                    <sxed:editor>
+                                                        <sxed:predicate path="$Itinerary/bookings[$incrementorForBookings]" source="to"/>
+                                                    </sxed:editor>
+                                            </to>
+                                    </copy>
+                                    <copy>
+                                        <from>$CreateBookingIn.booking/id</from>
+                                            <to>$Itinerary/bookings[$incrementorForBookings]/id
+                                                    <sxed:editor>
+                                                        <sxed:predicate path="$Itinerary/bookings[$incrementorForBookings]" source="to"/>
+                                                    </sxed:editor>
+                                            </to>
+                                    </copy>
+                                <copy>
+                                    <from>'UNCONFIRMED'</from>
+                                    <to>$Itinerary/bookings[$incrementorForBookings]/bookingStatus
+                                        <sxed:editor>
+                                            <sxed:predicate path="$Itinerary/bookings[$incrementorForBookings]" source="to"/>
+                                        </sxed:editor>
+                                    </to>
+                                </copy>
+                            </assign>
+                            <assign name="Assign12">
+                                <copy>
+                                        <from>1 + $incrementorForBookings</from>
+                                            <to variable="incrementorForBookings"/>
+                                    </copy>
+                                    <copy>
+                                        <from>true()</from>
+                                            <to variable="CreateBookingOut" part="return"/>
+                                    </copy>
+                            </assign>
+                            <reply name="Reply2" partnerLink="TravelGoodClient" operation="createBooking" portType="ns0:TravelAgencySoapInterface" variable="CreateBookingOut"/>
+                    </sequence>
+                </onMessage>
+                <onMessage partnerLink="TravelGoodClient" operation="getItinerary" portType="ns0:TravelAgencySoapInterface" variable="GetItineraryIn">
+                    <correlations>
+                        <correlation set="wzrd_set_ReplyCreateItinerary_OnMessage_Pick1_getItinerary" initiate="no"/>
+                    </correlations>
+                    <sequence name="Sequence4">
+                        <assign name="Assign13">
+                            <copy>
+                                <from variable="Itinerary"/>
+                                <to variable="GetItineraryOut" part="itinerary"/>
+                            </copy>
+                        </assign>
+                        <reply name="Reply3" partnerLink="TravelGoodClient" operation="getItinerary" portType="ns0:TravelAgencySoapInterface" variable="GetItineraryOut"/>
+                    </sequence>
+                </onMessage>
+                <onMessage partnerLink="TravelGoodClient" operation="bookItinerarie" portType="ns0:TravelAgencySoapInterface" variable="BookItinerarieIn">
+                    <correlations>
+                        <correlation set="wzrd_set_ReplyCreateItinerary_OnMessage_Pick1_bookItinerarie" initiate="no"/>
+                    </correlations>
+                    <sequence name="Sequence5">
+                        <scope name="Scope2">
+                            <variables>
+                                <variable name="bookSuccessful" type="xs:boolean"/>
+                            </variables>
+                            <sequence name="Sequence9">
+                                <assign name="Assign19">
+                                    <copy>
+                                        <from>true()</from>
+                                        <to variable="bookSuccessful"/>
+                                    </copy>
+                                </assign>
+                                <forEach name="ForEach1" parallel="no" counterName="ForEach1Counter">
+                                    <startCounterValue>1</startCounterValue>
+                                        <finalCounterValue>$incrementorForBookings</finalCounterValue>
+                                        <scope name="Scope1">
+                                        <variables>
+                                                <variable name="BookFlightOutInvoke" messageType="ns0:bookFlightResponse"/>
+                                                    <variable name="BookFlightInInvoke" messageType="ns0:bookFlight"/>
+                                                    <variable name="BookHotelOutInvoke" messageType="ns0:bookHotelResponse"/>
+                                                    <variable name="BookHotelInInvoke" messageType="ns0:bookHotel"/>
+                                            </variables>
+                                            <sequence name="Sequence6">
+                                                <if name="If1">
+                                                    <condition>string-length('FLIGHT') = string-length($Itinerary/bookings[$ForEach1Counter]/bookingStatus)
+                                                        <sxed:editor>
+                                                            <sxed:predicate path="$Itinerary/bookings[$ForEach1Counter]" source="from"/>
+                                                        </sxed:editor>
+                                                    </condition>
+                                                    <sequence name="Sequence8">
+                                                        <assign name="Assign22">
+                                                                <copy>
+                                                                        <from>$Itinerary/bookings[$ForEach1Counter]/bookingNumber
+                                                                <sxed:editor>
+                                                                                        <sxed:predicate path="$Itinerary/bookings[$ForEach1Counter]" source="from"/>
+                                                                                    </sxed:editor>
+                                                                            </from>
+                                                                            <to variable="BookFlightInInvoke" part="bookingNumber"/>
+                                                                    </copy>
+                                                                    <copy>
+                                                                        <from>$BookItinerarieIn.cardInformation/expirationDate</from>
+                                                                            <to>$BookFlightInInvoke.cardInformation/expirationDate</to>
+                                                                    </copy>
+                                                                    <copy>
+                                                                        <from>$BookItinerarieIn.cardInformation/name</from>
+                                                                            <to>$BookFlightInInvoke.cardInformation/name</to>
+                                                                    </copy>
+                                                                    <copy>
+                                                                        <from>$BookItinerarieIn.cardInformation/number</from>
+                                                                            <to>$BookFlightInInvoke.cardInformation/number</to>
+                                                                    </copy>
+                                                            </assign>
+                                                            <invoke name="Invoke2" partnerLink="AirlineServiceLink" operation="bookFlight" portType="ns0:AirlineInterface" inputVariable="BookFlightInInvoke" outputVariable="BookFlightOutInvoke"/>
+                                                            <assign name="Assign17">
+                                                            <copy>
+                                                                    <from>$bookSuccessful and $BookFlightOutInvoke.return</from>
+                                                                        <to variable="bookSuccessful"/>
+                                                                </copy>
+                                                        </assign>
+                                                    </sequence>
+                                                    <else>
+                                                        <sequence name="Sequence7">
+                                                            <assign name="Assign14">
+                                                                    <copy>
+                                                                            <from>$BookItinerarieIn.cardInformation/expirationDate/month</from>
+                                                                                <to>$BookHotelInInvoke.hotelBookingRequest/creditCardInformation/expirationMonth</to>
+                                                                        </copy>
+                                                                        <copy>
+                                                                            <from>$BookItinerarieIn.cardInformation/expirationDate/year</from>
+                                                                                <to>$BookHotelInInvoke.hotelBookingRequest/creditCardInformation/expirationYear</to>
+                                                                        </copy>
+                                                                        <copy>
+                                                                            <from>$BookItinerarieIn.cardInformation/name</from>
+                                                                                <to>$BookHotelInInvoke.hotelBookingRequest/creditCardInformation/name</to>
+                                                                        </copy>
+                                                                        <copy>
+                                                                            <from>$BookItinerarieIn.cardInformation/number</from>
+                                                                                <to>$BookHotelInInvoke.hotelBookingRequest/creditCardInformation/number</to>
+                                                                        </copy>
+                                                                        <copy>
+                                                                            <from>$Itinerary/bookings[$ForEach1Counter]/bookingNumber
+                                                                            <sxed:editor>
+                                                                                            <sxed:predicate path="$Itinerary/bookings[$ForEach1Counter]" source="from"/>
+                                                                                        </sxed:editor>
+                                                                                </from>
+                                                                                <to>$BookHotelInInvoke.hotelBookingRequest/bookingNumber</to>
+                                                                        </copy>
+                                                                </assign>
+                                                                <invoke name="Invoke1" partnerLink="HotelService" operation="bookHotel" portType="ns0:HotelInterface" inputVariable="BookHotelInInvoke" outputVariable="BookHotelOutInvoke"/>
+                                                                <assign name="Assign16">
+                                                                    <copy>
+                                                                            <from>$bookSuccessful and $BookHotelOutInvoke.return</from>
+                                                                                <to variable="bookSuccessful"/>
+                                                                        </copy>
+                                                                </assign>
+                                                        </sequence>
+                                                    </else>
+                                                </if>
+                                                <if name="If2">
+                                                    <condition>$bookSuccessful</condition>
+                                                        <assign name="Assign20">
+                                                            <copy>
+                                                                <from>'CONFIRMED'</from>
+                                                                <to>$Itinerary/bookings[$ForEach1Counter]/bookingStatus
+                                                                    <sxed:editor>
+                                                                        <sxed:predicate path="$Itinerary/bookings[$ForEach1Counter]" source="to"/>
+                                                                    </sxed:editor>
+                                                                </to>
+                                                            </copy>
+                                                        </assign>
+                                                </if>
+                                            </sequence>
+                                    </scope>
+                                </forEach>
+                                <assign name="Assign18">
+                                    <copy>
+                                        <from variable="bookSuccessful"/>
+                                        <to variable="BookItinerarieOut" part="return"/>
+                                    </copy>
+                                </assign>
+                                <reply name="Reply4" partnerLink="TravelGoodClient" operation="bookItinerarie" portType="ns0:TravelAgencySoapInterface" variable="BookItinerarieOut"/>
+                            </sequence>
+                        </scope>
+                    </sequence>
+                </onMessage>
+            </pick>
+        </while>
+    </sequence>
+</process>
