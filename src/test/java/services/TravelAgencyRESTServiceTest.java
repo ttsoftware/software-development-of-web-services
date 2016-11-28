@@ -413,17 +413,7 @@ public class TravelAgencyRESTServiceTest {
                     "11",
                     "7"
             );
-            //To expensive
-            hotel.Hotel hotel1 = hotel[0];
 
-            Booking hotelBooking = new Booking();
-            hotelBooking.setBookingNumber(hotel1.getBookingNumber());
-            hotelBooking.setBookingStatus(BookingStatus.UNCONFIRMMED);
-            hotelBooking.setBookingType(BookingType.HOTEL);
-            hotelBooking.setPrice(hotel1.getPrice());
-            hotelBooking.setDate(new Date(hotel1.getOpens()));
-            hotelBooking.setItinerary(itinerary);
-            createBooking(itineraryId, hotelBooking);
 
             flight.FlightReservation[] flights = flights("Berlin", "London", "12", "11", "2016");
             flight.FlightReservation flight1 = flights[0];
@@ -436,6 +426,20 @@ public class TravelAgencyRESTServiceTest {
             flightBooking2.setPrice(flight1.getPrice());
             flightBooking2.setItinerary(itinerary);
             createBooking(itineraryId, flightBooking2);
+
+
+            //To expensive
+            hotel.Hotel hotel1 = hotel[0];
+
+            Booking hotelBooking = new Booking();
+            hotelBooking.setBookingNumber(hotel1.getBookingNumber());
+            hotelBooking.setBookingStatus(BookingStatus.UNCONFIRMMED);
+            hotelBooking.setBookingType(BookingType.HOTEL);
+            hotelBooking.setPrice(hotel1.getPrice());
+            hotelBooking.setDate(new Date(hotel1.getOpens()));
+            hotelBooking.setItinerary(itinerary);
+            createBooking(itineraryId, hotelBooking);
+
 
             flights = flights("London", "Amsterdam", "20", "11", "2016");
             flight1 = flights[0];
@@ -469,10 +473,10 @@ public class TravelAgencyRESTServiceTest {
 
                 while (iterator2.hasNext()) {
                     Booking b = iterator2.next();
-                    if (b.getBookingNumber().equals(hotelBooking.getBookingNumber())) {
+                    if (b.getBookingNumber().equals(flightBooking2.getBookingNumber())) {
                         assertEquals(BookingStatus.CANCELLED, b.getBookingStatus());
                     } else {
-                        assertEquals(BookingStatus.CONFIRMED, b.getBookingStatus());
+                        assertEquals(BookingStatus.UNCONFIRMMED, b.getBookingStatus());
                     }
                 }
             }

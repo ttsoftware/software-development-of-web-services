@@ -147,28 +147,53 @@ public class TravelAgencyService {
 
         Collection<Booking> bookings = itinerary.getBookings();
         Iterator<Booking> iterator = bookings.iterator();
+        try {
+            while (iterator.hasNext()) {
+                Booking booking = iterator.next();
 
-        while (iterator.hasNext()) {
-            Booking booking = iterator.next();
-
-            if (booking.getBookingType().equals(BookingType.FLIGHT)) {
-                try {
+                if (booking.getBookingType().equals(BookingType.FLIGHT)) {
                     bookflight(booking, cardInformation);
-                } catch (BookingFaultException e) {
-                    faultHappen = true;
                 }
-            }
 
-            if (booking.getBookingType().equals(BookingType.HOTEL)) {
-                try {
+                if (booking.getBookingType().equals(BookingType.HOTEL)) {
                     bookHotel(booking, cardInformation);
-                } catch (BookingFaultException e) {
-                    faultHappen = true;
+
                 }
+                itineraryService.updateBooking(id, booking);
             }
-            itineraryService.updateBooking(id, booking);
+        } catch (BookingFaultException e) {
+            faultHappen = true;
+        }finally {
+            if (faultHappen) {
+                Itinerary itineraryFailed = itineraryService.getItinerary(id);
+                Iterator<Booking> ite = bookings.iterator();
+                while (ite.hasNext()) {
+                    Booking booking = ite.next();
+                    System.out.println(booking.getBookingNumber());
+                    System.out.println(booking.getBookingStatus());
+                    if (booking.getBookingStatus().equals(BookingStatus.CONFIRMED)) {
+                        if (booking.getBookingType().equals(BookingType.FLIGHT)) {
+                            try {
+                                cancelFlight(booking, cardInformation);
+                            } catch (CancleBookingException e) {
+
+                            }
+                        }
+
+                        if (booking.getBookingType().equals(BookingType.HOTEL)) {
+                            try {
+                                cancelHotel(booking, cardInformation);
+                            } catch (CancleBookingException e) {
+
+                            }
+                        }
+                        itineraryService.updateBooking(id, booking);
+                    }
+
+                }
+                throw new BookingFaultException("Booking failed");
+            }
         }
-        if (faultHappen) throw new BookingFaultException("Booking failed");
         return true;
     }
     // Dennis Olesen - s155996
@@ -213,14 +238,14 @@ public class TravelAgencyService {
             if (success) {
                 booking.setBookingStatus(BookingStatus.CONFIRMED);
             } else {
-                booking.setBookingStatus(BookingStatus.CANCELLED);
+                booking.setBookingStatus(BookingStatus.UNCONFIRMMED);
                 throw new BookingFaultException("Booking failed");
             }
         } catch (BookingNumberException_Exception e) {
-            booking.setBookingStatus(BookingStatus.CANCELLED);
+            booking.setBookingStatus(BookingStatus.UNCONFIRMMED);
             throw new BookingFaultException("Booking failed");
         } catch (CreditCardFaultMessage creditCardFaultMessage) {
-            booking.setBookingStatus(BookingStatus.CANCELLED);
+            booking.setBookingStatus(BookingStatus.UNCONFIRMMED);
             throw new BookingFaultException("Booking failed");
         }
     }
@@ -239,11 +264,11 @@ public class TravelAgencyService {
             if (success) {
                 booking.setBookingStatus(BookingStatus.CONFIRMED);
             } else {
-                booking.setBookingStatus(BookingStatus.CANCELLED);
+                booking.setBookingStatus(BookingStatus.UNCONFIRMMED);
                 throw new BookingFaultException("Booking failed");
             }
         } catch (hotel.CreditCardFaultMessage creditCardFaultMessage) {
-            booking.setBookingStatus(BookingStatus.CANCELLED);
+            booking.setBookingStatus(BookingStatus.UNCONFIRMMED);
             throw new BookingFaultException("Booking failed");
         }
     }
