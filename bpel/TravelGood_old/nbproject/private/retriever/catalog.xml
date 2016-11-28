@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<catalog xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog" prefer="system">
+    <system systemId="http://schemas.xmlsoap.org/wsdl/soap/" uri="schemas.xmlsoap.org/wsdl/soap/index.xsd"/>
+    <system systemId="http://www.sun.com/wsbpel/2.0/process/executable/SUNExtension/XPathFunctions" uri="www.oracle.com/sun/index.html"/>
+    <system systemId="http://www.sun.com/wsbpel/2.0/process/executable/SUNExtension/Attachment" uri="www.oracle.com/sun/index.html"/>
+    <system systemId="http://sterling:8080/webservices/TravelAgencySoapService?xsd=2" uri="sterling_8080/webservices/TravelAgencySoapService.xsd_2.xsd"/>
+    <system systemId="http://sterling:8080/webservices/AirlineService?xsd=1" uri="sterling_8080/webservices/AirlineService.xsd_1.xsd"/>
+    <system systemId="http://sterling:8080/webservices/AirlineService?xsd=2" uri="sterling_8080/webservices/AirlineService.xsd_2.xsd"/>
+    <system systemId="http://sterling:8080/webservices/AirlineService?xsd=3" uri="sterling_8080/webservices/AirlineService.xsd_3.xsd"/>
+    <system systemId="http://localhost:8080/webservices/AirlineService?wsdl" uri="localhost_8080/webservices/AirlineService.wsdl"/>
+    <system systemId="http://localhost:8080/webservices/AirlineService?xsd=1" uri="localhost_8080/webservices/AirlineService.xsd_1.xsd"/>
+    <system systemId="http://localhost:8080/webservices/AirlineService?xsd=2" uri="localhost_8080/webservices/AirlineService.xsd_2.xsd"/>
+    <system systemId="http://localhost:8080/webservices/AirlineService?xsd=3" uri="localhost_8080/webservices/AirlineService.xsd_3.xsd"/>
+    <system systemId="http://sterling:8080/webservices/HotelService?xsd=1" uri="sterling_8080/webservices/HotelService.xsd_1.xsd"/>
+    <system systemId="http://sterling:8080/webservices/HotelService?xsd=2" uri="sterling_8080/webservices/HotelService.xsd_2.xsd"/>
+    <system systemId="http://localhost:8080/webservices/HotelService?wsdl" uri="localhost_8080/webservices/HotelService.wsdl"/>
+    <system systemId="http://localhost:8080/webservices/HotelService?xsd=1" uri="localhost_8080/webservices/HotelService.xsd_1.xsd"/>
+    <system systemId="http://localhost:8080/webservices/HotelService?xsd=2" uri="localhost_8080/webservices/HotelService.xsd_2.xsd"/>
+    <system systemId="http://sterling:8080/webservices/TravelAgencySoapService?xsd=1" uri="sterling_8080/webservices/TravelAgencySoapService.xsd_1.xsd"/>
+</catalog>

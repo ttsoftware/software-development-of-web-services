@@ -59,6 +59,90 @@ public class TravelAgencySoapServiceTest {
     }
 
     @Test
+    public void getHotelsWithItineraryTest() {
+        try {
+            int id = travelAgencyInterface.createItinerary();
+            hotel.Hotel[] hotels = travelAgencyInterface.getHotels(id,"Berlin", new CustomDate(2016, 11, 7), new CustomDate(2016, 11, 12));
+            Assert.assertNotNull(hotels);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+    public void getFlightsWithItineraryTest() {
+        try {
+            int id = travelAgencyInterface.createItinerary();
+            FlightReservation[] flightReservations = travelAgencyInterface.getFlights(id, "Copenhagen", "Berlin", new CustomDate(2016, 11, 7));
+            System.out.println(flightReservations[0]);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+    public void createBookingWithItineraryTest() {
+        try {
+            int itineraryId = travelAgencyInterface.createItinerary();
+
+            hotel.Hotel[] hotels = travelAgencyInterface.getHotels(1,"Berlin", new CustomDate(2016, 11, 7), new CustomDate(2016, 11, 12));
+            hotel.Hotel hotel1 = hotels[0];
+            Booking hotelBooking = new Booking();
+            hotelBooking.setBookingNumber(hotel1.getBookingNumber());
+            hotelBooking.setBookingStatus(BookingStatus.UNCONFIRMMED);
+            hotelBooking.setBookingType(BookingType.HOTEL);
+            hotelBooking.setPrice(hotel1.getPrice());
+            hotelBooking.setDate(new Date(hotel1.getOpens()));
+
+            flight.FlightReservation[] flight = travelAgencyInterface.getFlights(itineraryId,"Copenhagen", "Berlin", new CustomDate(2016, 11, 7));
+            flight.FlightReservation flight1 = flight[0];
+            Booking flightBooking1 = new Booking();
+            flightBooking1.setBookingNumber(flight1.getBookingNumber());
+            flightBooking1.setBookingStatus(BookingStatus.UNCONFIRMMED);
+            flightBooking1.setBookingType(BookingType.FLIGHT);
+            flightBooking1.setDate(new Date(flight1.getFlight().getStart()));
+            flightBooking1.setPrice(flight1.getPrice());
+
+            travelAgencyInterface.createBooking(itineraryId, hotelBooking);
+            travelAgencyInterface.createBooking(itineraryId, flightBooking1);//
+
+            travelAgencyInterface.bookItinerarie(itineraryId, creditCard);
+
+            Itinerary itin = travelAgencyInterface.getItinerary(itineraryId);
+            Iterator<Booking> iterator = itin.getBookings().iterator();
+            while (iterator.hasNext()) {
+                Booking b = iterator.next();
+                System.out.println(b.getBookingNumber());
+                System.out.println(b.getBookingStatus());
+                //     Assert.assertEquals(b.getBookingStatus(), BookingStatus.UNCONFIRMMED);
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    @Test
+    public void getFlightsTest() {
+        try {
+            FlightReservation[] flightReservations = travelAgencyInterface.getFlights(1, "Copenhagen", "Berlin", new CustomDate(2016, 11, 7));
+            Assert.assertNotNull(flightReservations);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+    public void getHotelsTest() {
+        try {
+            hotel.Hotel[] hotels = travelAgencyInterface.getHotels(42,"Berlin", new CustomDate(2016, 11, 7), new CustomDate(2016, 11, 12));
+            System.out.print(hotels.length);
+            Assert.assertNotNull(hotels);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Test
     public void getItinerariesTest() {
         try {
             Itinerary[] itinerary = travelAgencyInterface.getItineraries();

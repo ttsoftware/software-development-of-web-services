@@ -8,3 +8,17 @@ target
 out
 .class
 *.db
+/bpel/TravelGoodCA/test/results/
+/bpel/TravelGood/build/
+/bpel/TravelGood/nbproject/private/
+/bpel/TravelGoodCA/nbproject/private/
+/bpel/TravelGoodCA/build/
+/bpel/TravelGoodCA/dist/
+/bpel/TravelGoodCA/src/jbiServiceUnits/
+/bpel/TravelGood_old/nbproject/private/
+/bpel/TravelGood_oldold/nbproject/private/
+/bpel/TravelGoodWebApp/nbproject/private/
+/bpel/TravelGoodCa/nbproject/private/
+/bpel/TravelGoodCa/src/jbiServiceUnits/
+/bpel/TravelGoodCa/build/
+/bpel/TravelGoodCa/dist/
